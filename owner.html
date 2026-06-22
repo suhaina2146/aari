@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Owner Dashboard – Aari Elegance</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --rose:#D4507A;--rose-dark:#B03463;--rose-light:#F7D6E4;--gold:#C9A84C;
+  --cream:#FDF6F0;--deep:#1A0A12;--plum:#6B2D4E;--white:#FFFFFF;
+  --text:#2D1B24;--text-muted:#8B6B7A;--border:#EDD5E3;
+  --success:#2ECC71;--warning:#F39C12;--danger:#E74C3C;--info:#3498DB;
+  --sidebar:280px;--radius:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#F5EDF5;color:var(--text);display:flex;min-height:100vh}
+
+/* ── SIDEBAR ── */
+#sidebar{
+  width:var(--sidebar);background:linear-gradient(180deg,var(--deep) 0%,var(--plum) 100%);
+  position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;
+  display:flex;flex-direction:column;transition:.35s cubic-bezier(.4,0,.2,1);
+}
+.sidebar-head{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sidebar-logo{display:flex;align-items:center;gap:10px}
+.logo-gem{width:38px;height:38px;border-radius:10px;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff}
+.sidebar-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff}
+.sidebar-role{font-size:11px;color:rgba(255,255,255,.5);margin-top:1px}
+.sidebar-user{display:flex;align-items:center;gap:10px;padding:16px 20px;margin-bottom:4px}
+.sidebar-ava{width:40px;height:40px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:18px}
+.sidebar-uname{color:#fff;font-size:13px;font-weight:600}
+.sidebar-uemail{color:rgba(255,255,255,.5);font-size:11px}
+.nav-group{padding:8px 12px}
+.nav-group-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;margin-bottom:2px}
+.nav-item{
+  display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;
+  cursor:pointer;color:rgba(255,255,255,.65);font-size:14px;font-weight:500;
+  transition:.2s;margin-bottom:2px;position:relative;
+}
+.nav-item:hover,.nav-item.active{background:rgba(255,255,255,.12);color:#fff}
+.nav-item i{width:18px;text-align:center;font-size:15px}
+.nav-badge{margin-left:auto;background:var(--rose);color:#fff;font-size:10px;font-weight:700;
+  padding:2px 7px;border-radius:10px}
+
+/* ── MAIN ── */
+#main{margin-left:var(--sidebar);flex:1;min-height:100vh}
+#topbar{
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+}
+#topbar h1{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--deep)}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.tbar-btn{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;transition:.2s;cursor:pointer}
+.tbar-btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text-muted)}
+.tbar-btn-outline:hover{border-color:var(--rose);color:var(--rose)}
+.tbar-logout{background:var(--rose-light);color:var(--rose);border:none;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600}
+
+#content{padding:28px;display:none}
+#content.active{display:block}
+
+/* ── CARDS ── */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:28px}
+.stat-card{
+  background:var(--white);border-radius:var(--radius);padding:22px;
+  display:flex;align-items:center;gap:16px;
+  box-shadow:0 2px 12px rgba(180,60,100,.06);
+}
+.stat-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.stat-icon.rose{background:var(--rose-light);color:var(--rose)}
+.stat-icon.gold{background:#FFF8E6;color:var(--gold)}
+.stat-icon.green{background:#EAFAF1;color:#2ECC71}
+.stat-icon.blue{background:#EAF4FB;color:#3498DB}
+.stat-num{font-size:28px;font-weight:700;color:var(--deep);line-height:1}
+.stat-lbl{font-size:13px;color:var(--text-muted);margin-top:3px}
+.stat-change{font-size:12px;font-weight:600;margin-top:4px}
+.stat-change.up{color:var(--success)}.stat-change.down{color:var(--danger)}
+
+.card{background:var(--white);border-radius:var(--radius);padding:24px;margin-bottom:24px;
+  box-shadow:0 2px 12px rgba(180,60,100,.06)}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--deep)}
+.btn-sm{padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.btn-rose{background:var(--rose);color:#fff;border:none;box-shadow:0 3px 10px rgba(212,80,122,.3)}
+.btn-rose:hover{background:var(--rose-dark)}
+.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--text-muted)}
+.btn-ghost:hover{border-color:var(--rose);color:var(--rose)}
+.btn-danger{background:var(--danger);color:#fff;border:none}
+.btn-success{background:var(--success);color:#fff;border:none}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:.07em;border-bottom:2px solid var(--border)}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--rose-light);background:rgba(212,80,122,.03)}
+.status-pill{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.st-pending{background:#FEF9E7;color:#F39C12}
+.st-confirmed{background:#EAFAF1;color:#2ECC71}
+.st-shipped{background:#EAF4FB;color:#3498DB}
+.st-delivered{background:#EAFAF1;color:#27AE60}
+.st-cancelled{background:#FDEDEC;color:#E74C3C}
+
+/* ── FORM ── */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.form-input{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border);
+  background:var(--cream);font-size:14px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif}
+.form-input:focus{border-color:var(--rose);background:var(--white)}
+.form-select{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border);
+  background:var(--cream);font-size:14px;color:var(--text);font-family:'DM Sans',sans-serif}
+.form-textarea{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border);
+  background:var(--cream);font-size:14px;color:var(--text);resize:vertical;min-height:80px;font-family:'DM Sans',sans-serif}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn-full{width:100%;padding:12px;border-radius:10px;
+  background:linear-gradient(135deg,var(--rose),var(--plum));
+  color:#fff;font-size:15px;font-weight:600;cursor:pointer;border:none;transition:.2s}
+.btn-full:hover{opacity:.9}
+
+/* ── UPLOAD AREA ── */
+.upload-area{
+  border:2px dashed var(--border);border-radius:14px;padding:32px;text-align:center;
+  cursor:pointer;transition:.2s;background:var(--cream);
+}
+.upload-area:hover{border-color:var(--rose);background:var(--rose-light)}
+.upload-area i{font-size:36px;color:var(--rose);margin-bottom:8px}
+.upload-area p{font-size:14px;color:var(--text-muted)}
+.upload-preview{
+  width:100%;border-radius:12px;overflow:hidden;max-height:200px;
+  background:var(--rose-light);display:flex;align-items:center;justify-content:center;
+  margin-top:12px;
+}
+.upload-preview img{width:100%;max-height:200px;object-fit:cover}
+
+/* ── CHAT ── */
+.chat-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.chat-list-item{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;
+  background:var(--cream);cursor:pointer;transition:.2s;border:1.5px solid transparent;
+}
+.chat-list-item:hover,.chat-list-item.active{background:var(--rose-light);border-color:var(--rose)}
+.chat-ava{width:42px;height:42px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0}
+.chat-info{flex:1}
+.chat-user{font-weight:600;font-size:14px}
+.chat-preview{font-size:12px;color:var(--text-muted)}
+.chat-panel{height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:12px;background:var(--cream);border-radius:12px;margin-bottom:10px}
+.msg{max-width:80%;padding:8px 12px;border-radius:12px;font-size:13px;line-height:1.5}
+.msg.user{background:var(--rose-light);color:var(--text);align-self:flex-start}
+.msg.owner{background:var(--rose);color:#fff;align-self:flex-end}
+
+/* ── OFFER FORM ── */
+.offer-toggle{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.toggle{width:50px;height:26px;border-radius:13px;background:var(--border);cursor:pointer;position:relative;transition:.2s}
+.toggle.on{background:var(--rose)}
+.toggle-knob{width:22px;height:22px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:.2s;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.toggle.on .toggle-knob{transform:translateX(24px)}
+
+/* ── NOTIFICATION DOT ── */
+.dot{width:8px;height:8px;border-radius:50%;background:var(--rose);display:inline-block;margin-left:auto}
+
+/* ── GRID TWO ── */
+.grid-two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* ── PRODUCT THUMB IN TABLE ── */
+.prod-thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:var(--rose-light);display:flex;align-items:center;justify-content:center;font-size:20px}
+
+/* ── LOADING ── */
+.loading{text-align:center;padding:40px;color:var(--text-muted)}
+.spinner{display:inline-block;width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--rose);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── AUTH GATE ── */
+#auth-gate{
+  position:fixed;inset:0;background:linear-gradient(135deg,var(--deep),var(--plum));
+  display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;
+}
+.auth-box{
+  background:var(--white);border-radius:24px;padding:40px;width:100%;max-width:400px;
+  text-align:center;
+}
+.auth-box .logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;
+  background:linear-gradient(135deg,var(--rose),var(--plum));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.auth-box .subtitle{font-size:14px;color:var(--text-muted);margin-bottom:24px}
+.auth-error{background:#FDEDEC;color:var(--danger);padding:10px 16px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  #sidebar{left:-var(--sidebar);width:260px}
+  #sidebar.open{left:0}
+  #main{margin-left:0}
+  #topbar{padding:0 16px}
+  #content{padding:16px}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .grid-two{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(26,10,18,.5);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;padding:16px;z-index:300}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--white);border-radius:20px;max-height:90vh;overflow-y:auto;
+  width:100%;max-width:500px;padding:28px;position:relative;animation:popIn .35s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes popIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:20px;color:var(--deep)}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;
+  background:var(--rose-light);color:var(--rose);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--deep);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;
+  opacity:0;transition:.3s;z-index:500;pointer-events:none;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- AUTH GATE -->
+<div id="auth-gate">
+  <div class="auth-box">
+    <div class="logo">✦ Aari Elegance</div>
+    <div class="subtitle">Owner Dashboard Login</div>
+    <div class="auth-error" id="auth-err"></div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input class="form-input" type="email" id="owner-email" placeholder="owner@aarielegance.com"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input class="form-input" type="password" id="owner-pass" placeholder="••••••••" onkeypress="if(event.key==='Enter')doOwnerLogin()"/>
+    </div>
+    <button class="btn-full" onclick="doOwnerLogin()"><i class="fas fa-sign-in-alt"></i> Login as Owner</button>
+    <p style="margin-top:12px;font-size:12px;color:var(--text-muted)">Admin? <a href="admin.html" style="color:var(--rose);font-weight:600">Admin Login →</a></p>
+    <p style="margin-top:6px;font-size:12px;color:var(--text-muted)">Customer? <a href="index.html" style="color:var(--rose);font-weight:600">Visit Store →</a></p>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-logo">
+      <div class="logo-gem">✦</div>
+      <div>
+        <div class="sidebar-title">Aari Elegance</div>
+        <div class="sidebar-role">Owner Dashboard</div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-user">
+    <div class="sidebar-ava">👑</div>
+    <div>
+      <div class="sidebar-uname" id="owner-name">Owner</div>
+      <div class="sidebar-uemail" id="owner-email-disp">owner@store.com</div>
+    </div>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Overview</div>
+    <div class="nav-item active" onclick="showSection('dashboard')"><i class="fas fa-th-large"></i> Dashboard</div>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Products</div>
+    <div class="nav-item" onclick="showSection('add-product')"><i class="fas fa-plus-circle"></i> Add Product</div>
+    <div class="nav-item" onclick="showSection('products')"><i class="fas fa-boxes"></i> Manage Products</div>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Tutorials</div>
+    <div class="nav-item" onclick="showSection('add-tutorial')"><i class="fas fa-video"></i> Add Tutorial</div>
+    <div class="nav-item" onclick="showSection('tutorials')"><i class="fas fa-play-circle"></i> Manage Tutorials</div>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Business</div>
+    <div class="nav-item" onclick="showSection('orders')"><i class="fas fa-shopping-bag"></i> Orders <span class="nav-badge" id="pending-badge">0</span></div>
+    <div class="nav-item" onclick="showSection('chat')"><i class="fas fa-comments"></i> Live Chat <span class="dot"></span></div>
+    <div class="nav-item" onclick="showSection('enquiries')"><i class="fas fa-envelope"></i> Enquiries</div>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Settings</div>
+    <div class="nav-item" onclick="showSection('payment-settings')"><i class="fas fa-rupee-sign"></i> Payment & UPI</div>
+    <div class="nav-item" onclick="showSection('offers')"><i class="fas fa-tag"></i> Offers & Popups</div>
+    <div class="nav-item" onclick="handleOwnerLogout()"><i class="fas fa-sign-out-alt"></i> Logout</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h1 id="page-title">Dashboard</h1>
+    <div class="topbar-actions">
+      <a href="index.html" target="_blank" class="tbar-btn tbar-btn-outline"><i class="fas fa-store"></i> View Store</a>
+      <button class="tbar-logout" onclick="handleOwnerLogout()"><i class="fas fa-power-off"></i> Logout</button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="content-dashboard" class="content active" style="display:block;padding:28px">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-icon rose"><i class="fas fa-shopping-bag"></i></div><div><div class="stat-num" id="total-orders">0</div><div class="stat-lbl">Total Orders</div><div class="stat-change up" id="pending-count">0 pending</div></div></div>
+      <div class="stat-card"><div class="stat-icon gold"><i class="fas fa-rupee-sign"></i></div><div><div class="stat-num" id="total-revenue">₹0</div><div class="stat-lbl">Revenue</div></div></div>
+      <div class="stat-card"><div class="stat-icon green"><i class="fas fa-boxes"></i></div><div><div class="stat-num" id="total-products">0</div><div class="stat-lbl">Products</div></div></div>
+      <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-video"></i></div><div><div class="stat-num" id="total-tutorials">0</div><div class="stat-lbl">Tutorials</div></div></div>
+    </div>
+
+    <div class="grid-two">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Recent Orders</div><button class="btn-sm btn-ghost" onclick="showSection('orders')">View All</button></div>
+        <div id="recent-orders"><div class="loading"><div class="spinner"></div><br>Loading...</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Quick Actions</div></div>
+        <div style="display:grid;gap:10px">
+          <button class="btn-full" onclick="showSection('add-product')"><i class="fas fa-plus"></i> Add New Product</button>
+          <button class="btn-full" style="background:linear-gradient(135deg,var(--gold),#B8860B)" onclick="showSection('add-tutorial')"><i class="fas fa-video"></i> Upload Tutorial</button>
+          <button class="btn-full" style="background:linear-gradient(135deg,var(--plum),var(--deep))" onclick="showSection('offers')"><i class="fas fa-tag"></i> Create Offer</button>
+          <button class="btn-full" style="background:linear-gradient(135deg,#27AE60,#1E8449)" onclick="showSection('payment-settings')"><i class="fas fa-rupee-sign"></i> Update Payment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD PRODUCT -->
+  <div id="content-add-product" class="content" style="display:none;padding:28px">
+    <div class="card" style="max-width:700px">
+      <div class="card-head"><div class="card-title">Add New Product</div></div>
+      
+      <div class="form-group">
+        <label class="form-label">Product Photo</label>
+        <div style="display:flex;gap:10px;margin-bottom:10px">
+          <button class="btn-sm btn-rose" onclick="setImgMode('local')">📁 From Device</button>
+          <button class="btn-sm btn-ghost" onclick="setImgMode('url')">🔗 Image URL</button>
+        </div>
+        <div id="img-local">
+          <div class="upload-area" onclick="document.getElementById('prod-img-file').click()">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Click to upload product photo<br><small>JPG, PNG, WEBP up to 10MB</small></p>
+          </div>
+          <input type="file" id="prod-img-file" accept="image/*" style="display:none" onchange="previewImage(this)"/>
+          <div class="upload-preview" id="img-preview" style="display:none"></div>
+        </div>
+        <div id="img-url" style="display:none">
+          <input class="form-input" id="prod-img-url" placeholder="https://example.com/image.jpg" oninput="previewURL(this.value)"/>
+          <div class="upload-preview" id="url-preview" style="display:none"></div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Product Name *</label><input class="form-input" id="prod-name" placeholder="e.g. Golden Zari Blouse"/></div>
+        <div class="form-group"><label class="form-label">Category *</label>
+          <select class="form-select" id="prod-cat">
+            <option value="">Select category</option>
+            <option value="blouse">Blouse</option><option value="jacket">Jacket</option>
+            <option value="saree">Saree Work</option><option value="dupatta">Dupatta</option>
+            <option value="lehenga">Lehenga</option><option value="kurti">Kurti</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Price (₹) *</label><input class="form-input" type="number" id="prod-price" placeholder="999"/></div>
+        <div class="form-group"><label class="form-label">Original Price (₹)</label><input class="form-input" type="number" id="prod-oldprice" placeholder="1299 (optional)"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="prod-desc" placeholder="Describe the product, materials, craftsmanship..."></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Available Sizes</label>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px" id="sizes-check">
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="checkbox" value="XS" checked> XS</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="checkbox" value="S" checked> S</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="checkbox" value="M" checked> M</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="checkbox" value="L" checked> L</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="checkbox" value="XL" checked> XL</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="checkbox" value="XXL" checked> XXL</label>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">Badge</label>
+          <select class="form-select" id="prod-badge">
+            <option value="">None</option><option value="new">New</option>
+            <option value="hot">Hot</option><option value="sale">Sale</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Stock Quantity</label><input class="form-input" type="number" id="prod-stock" placeholder="10"/></div>
+      <button class="btn-full" onclick="saveProduct()"><i class="fas fa-save"></i> Save Product</button>
+    </div>
+  </div>
+
+  <!-- MANAGE PRODUCTS -->
+  <div id="content-products" class="content" style="display:none;padding:28px">
+    <div class="card">
+      <div class="card-head"><div class="card-title">All Products</div><button class="btn-sm btn-rose" onclick="showSection('add-product')"><i class="fas fa-plus"></i> Add New</button></div>
+      <div style="overflow-x:auto"><table class="tbl" id="products-table">
+        <thead><tr><th>Photo</th><th>Product</th><th>Category</th><th>Price</th><th>Badge</th><th>Actions</th></tr></thead>
+        <tbody id="products-tbody"><tr><td colspan="6" class="loading"><div class="spinner"></div> Loading...</td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- ADD TUTORIAL -->
+  <div id="content-add-tutorial" class="content" style="display:none;padding:28px">
+    <div class="card" style="max-width:700px">
+      <div class="card-head"><div class="card-title">Add Tutorial Video</div></div>
+      
+      <div class="form-group">
+        <label class="form-label">Video Source</label>
+        <div style="display:flex;gap:10px;margin-bottom:12px">
+          <button class="btn-sm btn-rose" onclick="setVidMode('url')">🔗 YouTube / URL</button>
+          <button class="btn-sm btn-ghost" onclick="setVidMode('upload')">📁 Upload Video</button>
+        </div>
+        <div id="vid-url-mode">
+          <input class="form-input" id="tut-video-url" placeholder="https://www.youtube.com/watch?v=..." oninput="previewVideo(this.value)"/>
+          <div id="vid-preview" style="margin-top:10px;border-radius:12px;overflow:hidden;display:none"></div>
+        </div>
+        <div id="vid-upload-mode" style="display:none">
+          <div class="upload-area" onclick="document.getElementById('tut-vid-file').click()">
+            <i class="fas fa-video"></i><p>Click to upload video<br><small>MP4 up to 500MB</small></p>
+          </div>
+          <input type="file" id="tut-vid-file" accept="video/*" style="display:none" onchange="handleVideoUpload(this)"/>
+          <div id="vid-upload-name" style="margin-top:8px;font-size:13px;color:var(--text-muted)"></div>
+        </div>
+      </div>
+
+      <div class="form-group"><label class="form-label">Tutorial Title *</label><input class="form-input" id="tut-title" placeholder="e.g. Beginner's Guide to Aari Embroidery"/></div>
+      <div class="form-group"><label class="form-label">Description *</label><textarea class="form-textarea" id="tut-desc" placeholder="What will viewers learn? Who is this for?"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Tag / Level</label>
+          <select class="form-select" id="tut-tag">
+            <option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option><option value="Bridal">Bridal</option>
+            <option value="Tips & Tricks">Tips & Tricks</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Duration</label><input class="form-input" id="tut-duration" placeholder="e.g. 24 min"/></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Thumbnail (optional URL)</label>
+        <input class="form-input" id="tut-thumb" placeholder="https://...thumbnail.jpg"/>
+      </div>
+      <button class="btn-full" onclick="saveTutorial()"><i class="fas fa-save"></i> Publish Tutorial</button>
+    </div>
+  </div>
+
+  <!-- MANAGE TUTORIALS -->
+  <div id="content-tutorials" class="content" style="display:none;padding:28px">
+    <div class="card">
+      <div class="card-head"><div class="card-title">All Tutorials</div><button class="btn-sm btn-rose" onclick="showSection('add-tutorial')"><i class="fas fa-plus"></i> Add Tutorial</button></div>
+      <div id="tutorials-list"><div class="loading"><div class="spinner"></div> Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- ORDERS -->
+  <div id="content-orders" class="content" style="display:none;padding:28px">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Orders</div>
+        <select class="form-select" style="width:auto" id="order-filter" onchange="filterOrders()">
+          <option value="all">All Orders</option><option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option><option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option><option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div style="overflow-x:auto"><table class="tbl">
+        <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody id="orders-tbody"><tr><td colspan="7" class="loading"><div class="spinner"></div> Loading...</td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div id="content-chat" class="content" style="display:none;padding:28px">
+    <div class="grid-two">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Conversations</div></div>
+        <div class="chat-list" id="chat-list"><div class="loading">Loading chats...</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Messages</div><span id="chat-with-label" style="font-size:13px;color:var(--text-muted)">Select a conversation</span></div>
+        <div class="chat-panel" id="owner-chat-panel"></div>
+        <div style="display:flex;gap:8px">
+          <input class="form-input" id="owner-chat-input" placeholder="Type reply..." onkeypress="if(event.key==='Enter')sendOwnerMsg()"/>
+          <button class="btn-sm btn-rose" onclick="sendOwnerMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENQUIRIES -->
+  <div id="content-enquiries" class="content" style="display:none;padding:28px">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Customer Enquiries</div></div>
+      <div id="enquiries-list"><div class="loading"><div class="spinner"></div> Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- PAYMENT SETTINGS -->
+  <div id="content-payment-settings" class="content" style="display:none;padding:28px">
+    <div class="card" style="max-width:600px">
+      <div class="card-head"><div class="card-title">Payment Settings</div></div>
+      <div class="form-group"><label class="form-label">UPI ID</label><input class="form-input" id="set-upi" placeholder="yourname@upi"/></div>
+      <div class="form-group"><label class="form-label">GPay / WhatsApp Mobile Number (without +91)</label><input class="form-input" type="tel" id="set-phone" placeholder="9876543210"/></div>
+      <div class="form-group"><label class="form-label">WhatsApp Number (for customer chat)</label><input class="form-input" type="tel" id="set-wa" placeholder="9876543210"/></div>
+      <div class="form-group"><label class="form-label">Instagram Handle (optional)</label><input class="form-input" id="set-insta" placeholder="@aarielegance"/></div>
+      <div class="form-group"><label class="form-label">Store Display Name</label><input class="form-input" id="set-storename" placeholder="Aari Elegance"/></div>
+      <button class="btn-full" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+    </div>
+  </div>
+
+  <!-- OFFERS -->
+  <div id="content-offers" class="content" style="display:none;padding:28px">
+    <div class="card" style="max-width:600px">
+      <div class="card-head"><div class="card-title">Offer Popup</div></div>
+      <div class="offer-toggle">
+        <div class="toggle" id="offer-toggle" onclick="toggleOfferActive()"><div class="toggle-knob"></div></div>
+        <span id="offer-active-label" style="font-size:14px;font-weight:600">Offer is OFF</span>
+      </div>
+      <div class="form-group"><label class="form-label">Emoji</label><input class="form-input" id="off-emoji" placeholder="🌸" maxlength="4"/></div>
+      <div class="form-group"><label class="form-label">Offer Title</label><input class="form-input" id="off-title" placeholder="Grand Festive Sale!"/></div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="off-desc" placeholder="Get 20% off on all Aari designs this festive season!"></textarea></div>
+      <div class="form-group"><label class="form-label">Promo Code (shown to users)</label><input class="form-input" id="off-code" placeholder="AARI20"/></div>
+      <button class="btn-full" onclick="saveOffer()"><i class="fas fa-tag"></i> Save Offer</button>
+
+      <div style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border)">
+        <div class="card-title" style="margin-bottom:16px">Preview</div>
+        <div style="background:linear-gradient(135deg,var(--plum),var(--rose-dark));border-radius:18px;padding:28px;text-align:center;color:#fff">
+          <div id="prev-emoji" style="font-size:48px;margin-bottom:12px">🌸</div>
+          <div id="prev-title" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:6px">Grand Sale!</div>
+          <div id="prev-desc" style="font-size:14px;opacity:.85;margin-bottom:12px">Special festive discount for you!</div>
+          <div id="prev-code" style="background:rgba(255,255,255,.15);border:2px dashed rgba(255,255,255,.4);border-radius:10px;padding:10px;font-size:20px;font-weight:700;letter-spacing:.1em">AARI20</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-overlay" id="order-modal">
+  <div class="modal-box" style="max-width:600px">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-title" id="omd-title">Order Details</div>
+    <div id="order-detail-body"></div>
+  </div>
+</div>
+
+<div id="toast"></div><script type="module">
+// ── ALL Firebase access goes through firebase.js ONLY ──────────────
+import {
+  loginUser, logoutUser, onAuth,
+  addProduct, updateProduct, deleteProduct, getProducts,
+  addTutorial, getTutorials, deleteTutorial,
+  getOrders, updateOrderStatus, listenOrders,
+  getSettings, updateSettings,
+  getOffer, setOffer,
+  sendMessage, listenMessages, getChats,
+  getEnquiries,
+  uploadFile
+} from './firebase.js';
+
+/* STATE */
+let ownerUser = null;
+let allOrders = [];
+let allProducts = [];
+let activeChatId = null;
+let chatUnsub = null;
+let offerActive = false;
+let imgMode = 'local';
+let vidMode = 'url';
+let uploadedImg = null;
+let uploadedVid = null;
+
+/* ── AUTH GATE ── */
+window.doOwnerLogin = async () => {
+  const email = document.getElementById('owner-email').value.trim();
+  const pass  = document.getElementById('owner-pass').value;
+  const err   = document.getElementById('auth-err');
+  err.style.display = 'none';
+  try {
+    const { user, role, name } = await loginUser(email, pass);
+    if (role !== 'owner' && role !== 'admin') {
+      await logoutUser();
+      err.textContent = 'Access denied. Not an owner account.';
+      err.style.display = 'block'; return;
+    }
+    ownerUser = user;
+    document.getElementById('auth-gate').style.display = 'none';
+    document.getElementById('owner-name').textContent  = name || email;
+    document.getElementById('owner-email-disp').textContent = email;
+    loadDashboard();
+  } catch(e) {
+    err.textContent = 'Login failed: ' + e.message;
+    err.style.display = 'block';
+  }
+};
+
+onAuth(async (fbUser, data) => {
+  if (!fbUser || !data) return;
+  if (data.role !== 'owner' && data.role !== 'admin') return;
+  ownerUser = fbUser;
+  document.getElementById('auth-gate').style.display = 'none';
+  document.getElementById('owner-name').textContent  = data.name || fbUser.email;
+  document.getElementById('owner-email-disp').textContent = fbUser.email;
+  loadDashboard();
+});
+
+window.handleOwnerLogout = async () => { await logoutUser(); location.reload(); };
+
+/* ── SECTION ROUTER ── */
+window.showSection = sec => {
+  document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
+  const el = document.getElementById('content-' + sec);
+  if (el) el.style.display = 'block';
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const nav = document.querySelector(`.nav-item[onclick*="${sec}"]`);
+  if (nav) nav.classList.add('active');
+  const titles = {
+    dashboard:'Dashboard', orders:'Orders', 'add-product':'Add Product',
+    products:'Manage Products', 'add-tutorial':'Add Tutorial',
+    tutorials:'Manage Tutorials', chat:'Live Chat', enquiries:'Enquiries',
+    'payment-settings':'Payment Settings', offers:'Offer Popup'
+  };
+  document.getElementById('page-title').textContent = titles[sec] || sec;
+  const loaders = {
+    orders: loadOrders, products: loadProductsTable,
+    tutorials: loadTutorialsList, chat: loadChats,
+    enquiries: loadEnquiries, 'payment-settings': loadSettingsForm,
+    offers: loadOfferForm
+  };
+  if (loaders[sec]) loaders[sec]();
+};
+
+/* ── DASHBOARD ── */
+async function loadDashboard() {
+  try {
+    const [orders, products, tutorials] = await Promise.all([
+      getOrders(), getProducts(), getTutorials()
+    ]);
+    allOrders   = orders;
+    allProducts = products;
+    const pending = orders.filter(o => o.status === 'pending').length;
+    const revenue = orders.filter(o => o.status !== 'cancelled').reduce((a, o) => a + (o.total || 0), 0);
+    document.getElementById('total-orders').textContent   = orders.length;
+    document.getElementById('total-revenue').textContent  = 'Rs.' + revenue.toLocaleString();
+    document.getElementById('pending-count').textContent  = pending + ' pending';
+    document.getElementById('pending-badge').textContent  = pending;
+    document.getElementById('total-products').textContent = products.length;
+    document.getElementById('total-tutorials').textContent= tutorials.length;
+    // recent orders table
+    document.getElementById('recent-orders').innerHTML = orders.length
+      ? `<table class="tbl"><thead><tr><th>ID</th><th>Customer</th><th>Total</th><th>Status</th></tr></thead><tbody>
+          ${orders.slice(0,5).map(o=>`<tr><td style="font-family:monospace">#${o.id.slice(0,6).toUpperCase()}</td><td>${o.address?.name||o.userEmail||'—'}</td><td>Rs.${o.total||0}</td><td><span class="status-pill st-${o.status}">${o.status}</span></td></tr>`).join('')}
+        </tbody></table>`
+      : '<p style="color:var(--text-muted);text-align:center;padding:20px">No orders yet</p>';
+  } catch(e) { console.error(e); }
+}
+
+/* ── PRODUCT IMAGE MODE ── */
+window.setImgMode = m => {
+  imgMode = m;
+  document.getElementById('img-local').style.display = m === 'local' ? 'block' : 'none';
+  document.getElementById('img-url').style.display   = m === 'url'   ? 'block' : 'none';
+};
+window.previewImage = input => {
+  uploadedImg = input.files[0];
+  if (!uploadedImg) return;
+  const prev = document.getElementById('img-preview');
+  prev.innerHTML = `<img src="${URL.createObjectURL(uploadedImg)}" alt="preview"/>`;
+  prev.style.display = 'flex';
+};
+window.previewURL = url => {
+  const prev = document.getElementById('url-preview');
+  if (url) { prev.innerHTML = `<img src="${url}" alt="preview"/>`; prev.style.display = 'flex'; }
+};
+
+/* ── ADD PRODUCT — uses firebase.js addProduct + uploadFile ── */
+window.saveProduct = async () => {
+  const name  = document.getElementById('prod-name').value.trim();
+  const cat   = document.getElementById('prod-cat').value;
+  const price = parseInt(document.getElementById('prod-price').value);
+  if (!name || !cat || !price) { showToast('Fill required fields'); return; }
+  const sizes = [...document.querySelectorAll('#sizes-check input:checked')].map(c => c.value);
+  let imageUrl = '';
+  if (imgMode === 'url') {
+    imageUrl = document.getElementById('prod-img-url').value;
+  } else if (uploadedImg) {
+    try {
+      showToast('Uploading image...');
+      imageUrl = await uploadFile(uploadedImg, 'products/' + Date.now() + '_' + uploadedImg.name);
+    } catch(e) { showToast('Image upload failed. Saving without image.'); }
+  }
+  try {
+    await addProduct({
+      name, category: cat, price,
+      oldPrice: parseInt(document.getElementById('prod-oldprice').value) || null,
+      description: document.getElementById('prod-desc').value,
+      sizes, badge: document.getElementById('prod-badge').value,
+      stock: parseInt(document.getElementById('prod-stock').value) || 0,
+      imageUrl
+    });
+    showToast('Product added!');
+    ['prod-name','prod-price','prod-oldprice','prod-desc','prod-stock'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('img-preview').style.display = 'none';
+    uploadedImg = null;
+    loadDashboard();
+  } catch(e) { showToast('Error: ' + e.message); }
+};
+
+/* ── MANAGE PRODUCTS — uses firebase.js getProducts + deleteProduct ── */
+async function loadProductsTable() {
+  const prods = await getProducts();
+  document.getElementById('products-tbody').innerHTML = prods.length
+    ? prods.map(p => `<tr>
+        <td>${p.imageUrl ? `<img src="${p.imageUrl}" class="prod-thumb" style="width:44px;height:44px;border-radius:8px;object-fit:cover">` : '<div class="prod-thumb" style="width:44px;height:44px;border-radius:8px;background:var(--rose-light);display:flex;align-items:center;justify-content:center;font-size:20px">🪡</div>'}</td>
+        <td><strong>${p.name}</strong></td>
+        <td>${(p.category||'').charAt(0).toUpperCase()+(p.category||'').slice(1)}</td>
+        <td>Rs.${p.price}${p.oldPrice?` <span style="text-decoration:line-through;color:var(--text-muted);font-size:12px">Rs.${p.oldPrice}</span>`:''}</td>
+        <td>${p.badge?`<span class="status-pill st-confirmed">${p.badge}</span>`:'-'}</td>
+        <td><button class="btn-sm btn-danger" onclick="delProduct('${p.id}')"><i class="fas fa-trash"></i></button></td>
+      </tr>`).join('')
+    : '<tr><td colspan="6" style="text-align:center;color:var(--text-muted)">No products yet</td></tr>';
+}
+window.delProduct = async id => {
+  if (!confirm('Delete this product?')) return;
+  await deleteProduct(id); showToast('Deleted'); loadProductsTable();
+};
+
+/* ── VIDEO MODE ── */
+window.setVidMode = m => {
+  vidMode = m;
+  document.getElementById('vid-url-mode').style.display   = m === 'url'    ? 'block' : 'none';
+  document.getElementById('vid-upload-mode').style.display = m === 'upload' ? 'block' : 'none';
+};
+window.previewVideo = url => {
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([^&?]+)/);
+  const prev = document.getElementById('vid-preview');
+  if (m) { prev.innerHTML = `<iframe width="100%" height="200" src="https://www.youtube.com/embed/${m[1]}" frameborder="0" allowfullscreen></iframe>`; prev.style.display = 'block'; }
+  else prev.style.display = 'none';
+};
+window.handleVideoUpload = input => {
+  uploadedVid = input.files[0];
+  document.getElementById('vid-upload-name').textContent = 'Selected: ' + uploadedVid.name;
+};
+
+/* ── ADD TUTORIAL — uses firebase.js addTutorial + uploadFile ── */
+window.saveTutorial = async () => {
+  const title = document.getElementById('tut-title').value.trim();
+  const desc  = document.getElementById('tut-desc').value.trim();
+  if (!title || !desc) { showToast('Fill required fields'); return; }
+  let videoUrl = document.getElementById('tut-video-url').value;
+  if (vidMode === 'upload' && uploadedVid) {
+    try {
+      showToast('Uploading video...');
+      videoUrl = await uploadFile(uploadedVid, 'tutorials/' + Date.now() + '_' + uploadedVid.name);
+    } catch(e) { showToast('Video upload failed'); }
+  }
+  try {
+    await addTutorial({
+      title, description: desc, videoUrl,
+      tag:      document.getElementById('tut-tag').value,
+      duration: document.getElementById('tut-duration').value,
+      thumbnail:document.getElementById('tut-thumb').value
+    });
+    showToast('Tutorial published!');
+    ['tut-title','tut-desc','tut-video-url','tut-duration','tut-thumb'].forEach(id => document.getElementById(id).value = '');
+  } catch(e) { showToast('Error: ' + e.message); }
+};
+
+/* ── MANAGE TUTORIALS — uses firebase.js getTutorials + deleteTutorial ── */
+async function loadTutorialsList() {
+  const tuts = await getTutorials();
+  document.getElementById('tutorials-list').innerHTML = tuts.length
+    ? tuts.map(t => `<div style="display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:var(--cream);margin-bottom:10px">
+        <div style="width:80px;height:56px;border-radius:10px;background:var(--plum);display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;flex-shrink:0">🎬</div>
+        <div style="flex:1"><strong style="font-size:14px">${t.title}</strong><br><span style="font-size:12px;color:var(--text-muted)">${t.tag||''} · ${t.duration||'—'}</span></div>
+        <button class="btn-sm btn-danger" onclick="delTutorial('${t.id}')"><i class="fas fa-trash"></i></button>
+      </div>`).join('')
+    : '<p style="color:var(--text-muted);text-align:center;padding:20px">No tutorials yet</p>';
+}
+window.delTutorial = async id => {
+  if (!confirm('Delete tutorial?')) return;
+  await deleteTutorial(id); showToast('Deleted'); loadTutorialsList();
+};
+
+/* ── ORDERS — uses firebase.js getOrders + updateOrderStatus ── */
+async function loadOrders() {
+  allOrders = await getOrders();
+  renderOrders(allOrders);
+}
+window.filterOrders = () => {
+  const f = document.getElementById('order-filter').value;
+  renderOrders(f === 'all' ? allOrders : allOrders.filter(o => o.status === f));
+};
+function renderOrders(list) {
+  document.getElementById('orders-tbody').innerHTML = list.length
+    ? list.map(o => `<tr>
+        <td style="font-family:monospace">#${o.id.slice(0,6).toUpperCase()}</td>
+        <td>${o.address?.name||o.userEmail||'—'}<br><span style="font-size:11px;color:var(--text-muted)">${o.address?.phone||''}</span></td>
+        <td>${(o.items||[]).length} item(s)</td>
+        <td>Rs.${o.total||0}</td>
+        <td><span class="status-pill st-${o.status}">${o.status}</span></td>
+        <td style="font-size:12px;color:var(--text-muted)">${o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():'—'}</td>
+        <td style="display:flex;gap:4px;flex-wrap:wrap">
+          <button class="btn-sm btn-ghost" onclick="viewOrder('${o.id}')"><i class="fas fa-eye"></i></button>
+          <select style="font-size:12px;border:1px solid var(--border);border-radius:6px;padding:4px" onchange="chgStatus('${o.id}',this.value)">
+            <option value="">Status</option>
+            <option value="confirmed">Confirm</option>
+            <option value="shipped">Ship</option>
+            <option value="delivered">Deliver</option>
+            <option value="cancelled">Cancel</option>
+          </select>
+        </td>
+      </tr>`).join('')
+    : '<tr><td colspan="7" style="text-align:center;color:var(--text-muted)">No orders found</td></tr>';
+}
+window.viewOrder = id => {
+  const o = allOrders.find(x => x.id === id); if (!o) return;
+  document.getElementById('omd-title').textContent = 'Order #' + id.slice(0,6).toUpperCase();
+  document.getElementById('order-detail-body').innerHTML = `
+    <div style="display:grid;gap:10px">
+      <div style="background:var(--cream);border-radius:12px;padding:14px">
+        <strong>📦 Delivery Address</strong>
+        <p style="margin-top:6px;font-size:14px;line-height:1.7">${o.address?.name}<br>${o.address?.line}, ${o.address?.city}, ${o.address?.state} - ${o.address?.pin}<br>📱 ${o.address?.phone}</p>
+      </div>
+      <div style="background:var(--cream);border-radius:12px;padding:14px">
+        <strong>🛒 Items</strong>
+        ${(o.items||[]).map(item=>`<div style="display:flex;justify-content:space-between;margin-top:6px;font-size:14px"><span>${item.name} ${item.size?`(${item.size})`:''} x${item.qty}</span><span>Rs.${item.price*item.qty}</span></div>`).join('')}
+        <div style="border-top:1px solid var(--border);margin-top:10px;padding-top:10px;font-weight:700;display:flex;justify-content:space-between"><span>Total</span><span>Rs.${o.total}</span></div>
+      </div>
+      ${o.suggestions?`<div style="background:#FEF9E7;border-radius:12px;padding:14px"><strong>💬 Customer Suggestions</strong><p style="margin-top:6px;font-size:14px">${o.suggestions}</p></div>`:''}
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn-sm btn-success" onclick="chgStatus('${o.id}','confirmed');closeModal()">✓ Confirm</button>
+        <button class="btn-sm btn-rose" onclick="chgStatus('${o.id}','shipped');closeModal()">🚚 Shipped</button>
+        <button class="btn-sm btn-success" onclick="chgStatus('${o.id}','delivered');closeModal()">✅ Delivered</button>
+        <button class="btn-sm btn-danger" onclick="chgStatus('${o.id}','cancelled');closeModal()">✕ Cancel</button>
+      </div>
+    </div>`;
+  document.getElementById('order-modal').classList.add('open');
+};
+window.chgStatus = async (id, status) => {
+  if (!status) return;
+  await updateOrderStatus(id, status);
+  showToast('Status updated: ' + status);
+  loadOrders();
+};
+window.closeModal = () => document.getElementById('order-modal').classList.remove('open');
+
+/* ── CHAT — uses firebase.js getChats + listenMessages + sendMessage ── */
+async function loadChats() {
+  const chats = await getChats();
+  document.getElementById('chat-list').innerHTML = chats.length
+    ? chats.map(c => `<div class="chat-list-item" onclick="openChat('${c.chatId}','${c.userName}')">
+        <div class="chat-ava">👤</div>
+        <div class="chat-info"><div class="chat-user">${c.userName}</div><div class="chat-preview">${c.lastMsg||''}</div></div>
+      </div>`).join('')
+    : '<p style="color:var(--text-muted);text-align:center">No chats yet</p>';
+}
+window.openChat = (chatId, name) => {
+  activeChatId = chatId;
+  document.getElementById('chat-with-label').textContent = 'with ' + name;
+  if (chatUnsub) chatUnsub();
+  chatUnsub = listenMessages(chatId, msgs => {
+    const panel = document.getElementById('owner-chat-panel');
+    panel.innerHTML = msgs.map(m => `<div class="msg ${m.sender==='owner'?'owner':'user'}">${m.text}</div>`).join('');
+    panel.scrollTop = panel.scrollHeight;
+  });
+};
+window.sendOwnerMsg = async () => {
+  const input = document.getElementById('owner-chat-input');
+  const text  = input.value.trim();
+  if (!text || !activeChatId) return;
+  await sendMessage(activeChatId, text, 'owner', 'Owner');
+  input.value = '';
+};
+
+/* ── ENQUIRIES — uses firebase.js getEnquiries ── */
+async function loadEnquiries() {
+  const enqs = await getEnquiries();
+  document.getElementById('enquiries-list').innerHTML = enqs.length
+    ? enqs.map(e => `<div style="background:var(--cream);border-radius:12px;padding:16px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <strong>${e.name}</strong>
+          <span style="font-size:12px;color:var(--text-muted)">${e.createdAt?.toDate?e.createdAt.toDate().toLocaleString():''}</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:6px">📱 ${e.phone||'—'}</div>
+        <div style="font-size:14px">${e.message}</div>
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <a href="tel:${e.phone}" class="btn-sm btn-rose" style="text-decoration:none"><i class="fas fa-phone"></i> Call</a>
+          <a href="https://wa.me/${(e.phone||'').replace(/[^0-9]/g,'')}" target="_blank" class="btn-sm btn-ghost"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>`).join('')
+    : '<p style="color:var(--text-muted);text-align:center;padding:20px">No enquiries yet</p>';
+}
+
+/* ── PAYMENT SETTINGS — uses firebase.js getSettings + updateSettings ── */
+async function loadSettingsForm() {
+  try {
+    const s = await getSettings();
+    document.getElementById('set-upi').value      = s.upi      || '';
+    document.getElementById('set-phone').value    = s.phone    || '';
+    document.getElementById('set-wa').value       = s.wa       || '';
+    document.getElementById('set-insta').value    = s.insta    || '';
+    document.getElementById('set-storename').value= s.storeName|| '';
+  } catch(e) {}
+}
+window.saveSettings = async () => {
+  await updateSettings({
+    upi:       document.getElementById('set-upi').value,
+    phone:     document.getElementById('set-phone').value,
+    wa:        document.getElementById('set-wa').value,
+    insta:     document.getElementById('set-insta').value,
+    storeName: document.getElementById('set-storename').value
+  });
+  showToast('Settings saved!');
+};
+
+/* ── OFFER POPUP — uses firebase.js getOffer + setOffer ── */
+async function loadOfferForm() {
+  try {
+    const o = await getOffer();
+    if (o) {
+      offerActive = !!o.active;
+      document.getElementById('off-emoji').value = o.emoji       || '🌸';
+      document.getElementById('off-title').value = o.title       || '';
+      document.getElementById('off-desc').value  = o.description || '';
+      document.getElementById('off-code').value  = o.code        || '';
+      updateToggleUI();
+    }
+  } catch(e) {}
+  bindOfferPreview();
+}
+function bindOfferPreview() {
+  ['off-emoji','off-title','off-desc','off-code'].forEach(id => {
+    document.getElementById(id).oninput = () => {
+      document.getElementById('prev-emoji').textContent = document.getElementById('off-emoji').value || '🌸';
+      document.getElementById('prev-title').textContent = document.getElementById('off-title').value || 'Offer Title';
+      document.getElementById('prev-desc').textContent  = document.getElementById('off-desc').value  || 'Description';
+      document.getElementById('prev-code').textContent  = document.getElementById('off-code').value  || 'CODE';
+    };
+  });
+}
+window.toggleOfferActive = () => { offerActive = !offerActive; updateToggleUI(); };
+function updateToggleUI() {
+  document.getElementById('offer-toggle').classList.toggle('on', offerActive);
+  document.getElementById('offer-active-label').textContent = offerActive ? 'Offer is ACTIVE' : 'Offer is OFF';
+}
+window.saveOffer = async () => {
+  await setOffer({
+    active:      offerActive,
+    emoji:       document.getElementById('off-emoji').value,
+    title:       document.getElementById('off-title').value,
+    description: document.getElementById('off-desc').value,
+    code:        document.getElementById('off-code').value
+  });
+  showToast('Offer saved!');
+};
+
+/* TOAST */
+window.showToast = msg => {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+};
+</script>
+</body>
+</html>

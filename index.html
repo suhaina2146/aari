@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Aari Elegance – Handcrafted Aari Embroidery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Italiana&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --rose:#C8436A;--rose2:#E05585;--rose-light:#FAE4ED;--rose-pale:#FDF0F5;
+  --gold:#BF9142;--gold2:#D4A84B;--gold-light:#FBF3E2;
+  --plum:#5C2244;--plum2:#7A2D5A;--mauve:#C4A0B8;
+  --cream:#FEF8F5;--ivory:#FFFBF7;--dark:#180A12;--dark2:#2A1220;
+  --text:#1E0E18;--text2:#6B4558;--text3:#A07890;
+  --border:#EDD5E3;--border2:#F5E5EE;--white:#FFFFFF;
+  --shadow-sm:0 2px 12px rgba(180,50,100,.08);
+  --shadow:0 8px 40px rgba(180,50,100,.13);
+  --shadow-lg:0 20px 70px rgba(180,50,100,.18);
+  --shadow-xl:0 32px 100px rgba(180,50,100,.22);
+  --r:18px;--r-sm:10px;
+  --ease:cubic-bezier(.4,0,.2,1);--spring:cubic-bezier(.34,1.56,.64,1);--t:.32s;
+  --nav-h:68px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none;outline:none;background:none}
+input,select,textarea{font-family:inherit;outline:none}
+ul{list-style:none}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px}
+::selection{background:var(--rose-light);color:var(--rose)}
+
+/* PAGE LOADER */
+#page-loader{position:fixed;inset:0;z-index:9999;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .6s var(--ease),visibility .6s}
+#page-loader.out{opacity:0;visibility:hidden}
+.loader-brand{font-family:'Italiana',serif;font-size:42px;background:linear-gradient(135deg,var(--mauve),var(--white),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200%;animation:shimmer 2s ease infinite}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.loader-line{width:120px;height:2px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden}
+.loader-line::after{content:'';display:block;height:100%;background:linear-gradient(90deg,var(--rose2),var(--gold2));animation:loadbar 1.4s var(--ease) infinite}
+@keyframes loadbar{0%{width:0;margin-left:0}50%{width:100%}100%{width:0;margin-left:100%}}
+.loader-sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.22em;text-transform:uppercase}
+
+/* NAVBAR */
+#nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:flex;align-items:center;background:rgba(254,248,245,.93);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:border-color var(--t),box-shadow var(--t)}
+#nav.scrolled{border-color:var(--border);box-shadow:0 4px 28px rgba(180,50,100,.09)}
+.nav-inner{width:100%;max-width:1320px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:10px}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--rose),var(--plum));display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(200,67,106,.35);transition:transform var(--t) var(--spring);flex-shrink:0}
+.nav-logo:hover .logo-mark{transform:rotate(-8deg) scale(1.08)}
+.logo-name{font-family:'Italiana',serif;font-size:22px;letter-spacing:.04em;background:linear-gradient(135deg,var(--rose),var(--plum));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:auto}
+.nav-links a{padding:7px 13px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--text2);transition:background var(--t),color var(--t);white-space:nowrap}
+.nav-links a:hover{background:var(--rose-light);color:var(--rose)}
+.nav-links a.active{color:var(--rose);background:var(--rose-light)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:15px;transition:all var(--t);position:relative;flex-shrink:0}
+.icon-btn:hover{background:var(--rose-light);color:var(--rose);border-color:var(--rose)}
+.bdg{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:var(--rose);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--white);opacity:0;transform:scale(0);transition:all var(--t) var(--spring)}
+.bdg.show{opacity:1;transform:scale(1)}
+.btn-login-nav{padding:9px 20px;border-radius:24px;font-size:13.5px;font-weight:600;background:linear-gradient(135deg,var(--rose),var(--plum));color:#fff;box-shadow:0 4px 16px rgba(200,67,106,.3);transition:all var(--t);white-space:nowrap}
+.btn-login-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,67,106,.42)}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);padding:10px;flex-shrink:0}
+.hamburger span{display:block;height:1.5px;background:var(--text);border-radius:2px;transition:all .3s var(--ease);transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.user-avbtn{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--plum));display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;flex-shrink:0;box-shadow:0 3px 12px rgba(200,67,106,.35);cursor:pointer;transition:transform var(--t) var(--spring)}
+.user-avbtn:hover{transform:scale(1.08)}
+.user-dd{position:absolute;top:calc(var(--nav-h) + 6px);right:20px;width:216px;background:var(--white);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:8px;z-index:900;opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:all .25s var(--ease)}
+.user-dd.open{opacity:1;transform:none;pointer-events:all}
+.dd-info{padding:10px 12px 12px;border-bottom:1px solid var(--border2);margin-bottom:4px}
+.dd-name{font-weight:700;font-size:14px}
+.dd-email{font-size:11.5px;color:var(--text3);margin-top:2px;word-break:break-all}
+.dd-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;font-size:13.5px;color:var(--text2);cursor:pointer;transition:all .2s}
+.dd-item:hover{background:var(--rose-light);color:var(--rose)}
+.dd-item i{width:16px;text-align:center}
+.dd-sep{height:1px;background:var(--border2);margin:4px 0}
+
+/* MOBILE DRAWER */
+#mob-nav{position:fixed;top:0;left:0;width:min(300px,85vw);height:100dvh;z-index:850;background:var(--ivory);border-right:1px solid var(--border);transform:translateX(-100%);transition:transform .38s var(--ease);display:flex;flex-direction:column;overflow-y:auto}
+#mob-nav.open{transform:none;box-shadow:var(--shadow-xl)}
+.mob-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border)}
+.mob-close{width:36px;height:36px;border-radius:50%;background:var(--rose-light);color:var(--rose);display:flex;align-items:center;justify-content:center;font-size:16px}
+.mob-links{padding:14px 10px;display:flex;flex-direction:column;gap:2px}
+.mob-link{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;font-size:15px;font-weight:500;color:var(--text2);transition:all .2s}
+.mob-link:hover,.mob-link.active{background:var(--rose-light);color:var(--rose)}
+.mob-link i{width:18px;text-align:center;font-size:16px}
+.mob-footer{margin-top:auto;padding:18px}
+#mob-overlay{position:fixed;inset:0;z-index:840;background:rgba(24,10,18,.5);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s}
+#mob-overlay.open{opacity:1;pointer-events:all}
+
+/* UTILS */
+.sw{width:100%;max-width:1320px;margin:0 auto;padding:0 20px}
+.sp{padding:88px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:var(--rose);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.eyebrow::before,.eyebrow::after{content:'';display:block;width:22px;height:1px;background:var(--rose);opacity:.5}
+.h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,52px);font-weight:700;line-height:1.1;color:var(--dark)}
+.h2 em{font-style:italic;color:var(--rose)}
+.sec-sub{font-size:16px;color:var(--text2);line-height:1.75;margin-top:12px;max-width:540px}
+.divider-rose{height:2px;background:linear-gradient(90deg,transparent,var(--rose-light),var(--gold-light),var(--rose-light),transparent)}
+
+/* HERO */
+#hero{min-height:100dvh;display:flex;align-items:center;padding-top:var(--nav-h);position:relative;overflow:hidden;background:linear-gradient(160deg,var(--rose-pale) 0%,var(--ivory) 45%,#EFE3F7 100%)}
+.orbs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);animation:drift 10s ease-in-out infinite}
+.orb1{width:clamp(280px,45vw,580px);height:clamp(280px,45vw,580px);background:radial-gradient(var(--rose2),transparent 70%);top:-15%;right:-10%;opacity:.26;animation-delay:0s}
+.orb2{width:clamp(200px,35vw,420px);height:clamp(200px,35vw,420px);background:radial-gradient(var(--plum2),transparent 70%);bottom:-10%;left:-8%;opacity:.22;animation-delay:3s}
+.orb3{width:clamp(140px,22vw,280px);height:clamp(140px,22vw,280px);background:radial-gradient(var(--gold2),transparent 70%);top:40%;left:40%;opacity:.15;animation-delay:6s}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-20px) scale(1.04)}66%{transform:translate(-15px,15px) scale(.97)}}
+.petal{position:absolute;animation:petalfall linear infinite;pointer-events:none;opacity:0;user-select:none}
+@keyframes petalfall{0%{transform:translateY(-60px) rotate(0deg) translateX(0);opacity:0}10%{opacity:.6}90%{opacity:.3}100%{transform:translateY(110vh) rotate(720deg) translateX(60px);opacity:0}}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,80px);align-items:center;padding:clamp(40px,6vh,100px) 0;position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:40px;background:var(--white);border:1px solid var(--rose-light);font-size:12px;font-weight:600;color:var(--rose);letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;box-shadow:0 2px 12px rgba(200,67,106,.12);animation:fsu .7s var(--ease) .2s both}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--rose);animation:pulse 1.8s ease infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.4}}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6.5vw,78px);font-weight:700;line-height:1.06;color:var(--dark);margin-bottom:18px;animation:fsu .7s var(--ease) .35s both}
+.script-line{font-style:italic;font-weight:300;font-size:1.15em;background:linear-gradient(135deg,var(--rose),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block}
+.hero-desc{font-size:clamp(14px,1.5vw,17px);color:var(--text2);line-height:1.75;max-width:480px;margin-bottom:30px;animation:fsu .7s var(--ease) .48s both}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;animation:fsu .7s var(--ease) .58s both}
+.btn-primary{display:inline-flex;align-items:center;gap:9px;padding:13px 28px;border-radius:40px;font-size:14.5px;font-weight:600;background:linear-gradient(135deg,var(--rose),var(--plum));color:#fff;box-shadow:0 6px 24px rgba(200,67,106,.38);transition:all var(--t) var(--ease)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(200,67,106,.5)}
+.btn-outline{display:inline-flex;align-items:center;gap:9px;padding:13px 28px;border-radius:40px;font-size:14.5px;font-weight:600;border:2px solid var(--rose);color:var(--rose);background:transparent;transition:all var(--t)}
+.btn-outline:hover{background:var(--rose);color:#fff}
+.hero-stats{display:flex;gap:clamp(14px,3vw,34px);margin-top:36px;animation:fsu .7s var(--ease) .68s both}
+.stat{border-left:2px solid var(--rose-light);padding-left:clamp(10px,2vw,18px)}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--rose);line-height:1}
+.stat-l{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:3px}
+.hero-visual{position:relative;animation:fsu .9s var(--ease) .3s both}
+.hero-frame{border-radius:clamp(18px,3vw,34px);overflow:hidden;aspect-ratio:3/4;background:linear-gradient(160deg,var(--rose-light),#E8D5F0);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-xl);position:relative}
+.hframe-bg{position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(200,67,106,.15) 0%,transparent 60%),radial-gradient(circle at 70% 70%,rgba(92,34,68,.1) 0%,transparent 60%)}
+.hframe-ph{font-size:clamp(60px,10vw,100px);position:relative;z-index:2;animation:float 4s ease-in-out infinite}
+.hframe-ph img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hbadge{position:absolute;background:var(--white);border-radius:14px;padding:10px 13px;box-shadow:var(--shadow);display:flex;align-items:center;gap:9px;z-index:3;animation:float 5s ease-in-out infinite}
+.hb-l{bottom:22px;left:-22px;animation-delay:1s}
+.hb-r{top:22px;right:-18px;animation-delay:2.5s}
+.hb-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.hbi-rose{background:var(--rose-light);color:var(--rose)}
+.hbi-gold{background:var(--gold-light);color:var(--gold)}
+.hb-lbl{font-size:10px;color:var(--text3);font-weight:500}
+.hb-val{font-size:13px;font-weight:700;color:var(--text)}
+.deco-ring{position:absolute;border-radius:50%;border:1.5px solid;pointer-events:none;opacity:.16}
+.ring1{width:clamp(100px,18vw,230px);height:clamp(100px,18vw,230px);border-color:var(--rose);top:-36px;left:-52px;animation:spins 18s linear infinite}
+.ring2{width:clamp(70px,12vw,150px);height:clamp(70px,12vw,150px);border-color:var(--gold);bottom:-28px;right:-36px;animation:spins 12s linear infinite reverse}
+@keyframes spins{to{transform:rotate(360deg)}}
+@keyframes fsu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* MARQUEE */
+#marquee-strip{background:linear-gradient(135deg,var(--plum),var(--rose),var(--plum));padding:13px 0;overflow:hidden}
+.mq-track{display:flex;animation:mq 22s linear infinite;width:max-content}
+.mq-track:hover{animation-play-state:paused}
+.mq-item{display:flex;align-items:center;gap:14px;padding:0 clamp(22px,3vw,44px);font-size:13px;font-weight:600;color:rgba(255,255,255,.9);white-space:nowrap;letter-spacing:.04em}
+.mq-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:clamp(12px,2vw,22px)}
+.feat-card{padding:clamp(18px,2.5vw,30px);border-radius:var(--r);border:1.5px solid var(--border2);background:var(--ivory);transition:all var(--t);text-align:center}
+.feat-card:hover{border-color:var(--rose-light);transform:translateY(-6px);box-shadow:var(--shadow-sm);background:var(--white)}
+.feat-icon-wrap{width:clamp(50px,6vw,62px);height:clamp(50px,6vw,62px);border-radius:16px;background:var(--rose-light);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,3vw,26px);transition:transform var(--t) var(--spring)}
+.feat-card:hover .feat-icon-wrap{transform:scale(1.12) rotate(-5deg)}
+.feat-title{font-weight:700;font-size:clamp(13.5px,1.5vw,15px);margin-bottom:6px;color:var(--dark)}
+.feat-desc{font-size:clamp(11.5px,1.2vw,13px);color:var(--text2);line-height:1.65}
+
+/* CATEGORIES */
+.cat-scroll{display:flex;gap:10px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.cat-scroll::-webkit-scrollbar{display:none}
+.cat-chip{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:9px;padding:16px 22px;border-radius:16px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;transition:all var(--t) var(--spring);min-width:90px}
+.cat-chip:hover{border-color:var(--rose);transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+.cat-chip.active{background:linear-gradient(135deg,var(--rose),var(--plum));border-color:transparent;color:#fff;box-shadow:0 6px 20px rgba(200,67,106,.3);transform:translateY(-4px)}
+.cat-icon{font-size:clamp(20px,3vw,26px);line-height:1}
+.cat-name{font-size:12px;font-weight:600;white-space:nowrap;color:var(--text2);transition:color var(--t)}
+.cat-chip.active .cat-name{color:#fff}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:clamp(12px,2vw,22px)}
+.product-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);transition:all var(--t) var(--ease);cursor:pointer;display:flex;flex-direction:column}
+.product-card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.pc-img{position:relative;aspect-ratio:1;overflow:hidden;background:var(--rose-pale)}
+.pc-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,var(--rose-pale),#EDE3F7)}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}
+.product-card:hover .pc-img img{transform:scale(1.08)}
+.pc-badges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:5px}
+.badge-tag{padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.b-new{background:var(--rose);color:#fff}.b-hot{background:var(--gold2);color:#fff}.b-sale{background:var(--plum);color:#fff}
+.pc-wish{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;color:var(--mauve);font-size:15px;box-shadow:var(--shadow-sm);transition:all var(--t) var(--spring)}
+.pc-wish:hover,.pc-wish.on{color:var(--rose);transform:scale(1.15)}
+.pc-info{padding:clamp(12px,2vw,16px);flex:1;display:flex;flex-direction:column}
+.pc-cat{font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.pc-name{font-weight:700;font-size:clamp(13px,1.4vw,15px);color:var(--dark);margin-bottom:8px;line-height:1.3}
+.pc-price{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;margin-top:auto}
+.price-main{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,22px);font-weight:700;color:var(--rose)}
+.price-old{font-size:12px;color:var(--text3);text-decoration:line-through}
+.pc-actions{display:grid;grid-template-columns:1fr 38px;gap:7px}
+.btn-cart{padding:9px 12px;border-radius:10px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--rose),var(--plum));color:#fff;transition:all var(--t);display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-cart:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(200,67,106,.3)}
+.btn-eye{width:38px;border-radius:10px;background:var(--rose-light);color:var(--rose);display:flex;align-items:center;justify-content:center;font-size:14px;transition:all var(--t)}
+.btn-eye:hover{background:var(--rose);color:#fff}
+.load-more{text-align:center;margin-top:clamp(24px,4vw,44px)}
+.btn-load{padding:12px 34px;border-radius:40px;border:2px solid var(--rose);color:var(--rose);font-size:14px;font-weight:600;background:transparent;transition:all var(--t);display:inline-flex;align-items:center;gap:9px}
+.btn-load:hover{background:var(--rose);color:#fff;box-shadow:0 6px 20px rgba(200,67,106,.3)}
+
+/* ABOUT */
+#about{background:linear-gradient(160deg,var(--plum) 0%,var(--dark) 100%);color:#fff;overflow:hidden;position:relative}
+.about-deco::before{content:'✦';position:absolute;font-size:clamp(120px,18vw,260px);color:rgba(255,255,255,.03);top:-40px;right:-40px;font-family:'Italiana',serif;pointer-events:none}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,78px);align-items:center;position:relative;z-index:2}
+.about-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,5vw,50px);font-weight:700;line-height:1.1;color:#fff;margin-bottom:16px}
+.about-h2 em{font-style:italic;color:var(--gold2)}
+.about-desc{font-size:clamp(13.5px,1.5vw,16px);color:rgba(255,255,255,.72);line-height:1.8;margin-bottom:26px}
+.about-feats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.af-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:15px}
+.af-icon{font-size:20px;margin-bottom:7px}
+.af-title{font-weight:700;font-size:13px;margin-bottom:3px}
+.af-desc{font-size:11.5px;color:rgba(255,255,255,.52);line-height:1.55}
+.about-visual{border-radius:clamp(18px,3vw,30px);overflow:hidden;aspect-ratio:4/5;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:80px;position:relative}
+.av-ring{position:absolute;width:80%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.08);animation:spins 20s linear infinite}
+
+/* TUTORIALS */
+.tutorials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:clamp(12px,2vw,22px)}
+.tut-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);transition:all var(--t)}
+.tut-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.tut-thumb{aspect-ratio:16/9;background:linear-gradient(135deg,var(--plum),var(--rose));position:relative;overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.tut-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.tut-thumb iframe{width:100%;height:100%;border:none;position:absolute;inset:0}
+.play-btn{width:clamp(44px,6vw,56px);height:clamp(44px,6vw,56px);border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:clamp(18px,2.5vw,22px);color:var(--rose);position:relative;z-index:2;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:transform var(--t) var(--spring)}
+.tut-thumb:hover .play-btn{transform:scale(1.12)}
+.tut-info{padding:clamp(13px,2vw,18px)}
+.tut-tag{font-size:11px;font-weight:700;color:var(--rose);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.tut-title{font-weight:700;font-size:clamp(13.5px,1.5vw,15px);margin-bottom:5px;color:var(--dark);line-height:1.35}
+.tut-desc{font-size:12.5px;color:var(--text2);line-height:1.6}
+.tut-meta{display:flex;gap:13px;margin-top:9px;font-size:11.5px;color:var(--text3)}
+
+/* REVIEWS */
+.reviews-track{display:flex;gap:clamp(12px,2vw,20px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 0 14px;-webkit-overflow-scrolling:touch}
+.reviews-track::-webkit-scrollbar{display:none}
+.review-card{flex-shrink:0;width:clamp(250px,35vw,310px);scroll-snap-align:start;background:var(--ivory);border:1.5px solid var(--border2);border-radius:var(--r);padding:clamp(16px,2.5vw,24px);transition:all var(--t)}
+.review-card:hover{border-color:var(--rose-light);box-shadow:var(--shadow-sm)}
+.review-stars{display:flex;gap:3px;margin-bottom:11px}
+.review-stars i{color:var(--gold2);font-size:13px}
+.review-text{font-size:clamp(12.5px,1.4vw,14px);color:var(--text);line-height:1.7;margin-bottom:15px;font-style:italic}
+.review-author{display:flex;align-items:center;gap:10px}
+.review-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--rose-light),#EDE3F7);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.review-name{font-weight:700;font-size:13px}
+.review-loc{font-size:11px;color:var(--text3);margin-top:1px}
+
+/* CTA BANNER */
+#cta-banner{background:linear-gradient(135deg,var(--rose) 0%,var(--plum) 100%);position:relative;overflow:hidden}
+#cta-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+.cta-inner{position:relative;z-index:2;text-align:center;padding:clamp(48px,7vw,88px) 20px;max-width:1320px;margin:0 auto}
+.cta-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,5vw,52px);font-weight:700;color:#fff;margin-bottom:13px;line-height:1.1}
+.cta-sub{font-size:clamp(14px,1.8vw,17px);color:rgba(255,255,255,.78);margin-bottom:30px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7}
+.cta-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.btn-white{padding:13px 30px;border-radius:40px;background:#fff;color:var(--rose);font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;gap:9px;box-shadow:0 6px 24px rgba(0,0,0,.2);transition:all var(--t)}
+.btn-white:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.28)}
+.btn-ghost-white{padding:13px 30px;border-radius:40px;border:2px solid rgba(255,255,255,.6);color:#fff;font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;gap:9px;transition:all var(--t)}
+.btn-ghost-white:hover{background:rgba(255,255,255,.12);border-color:#fff}
+
+/* FOOTER */
+footer{background:var(--dark);color:rgba(255,255,255,.65)}
+.footer-top{max-width:1320px;margin:0 auto;padding:clamp(46px,6vw,76px) 20px clamp(28px,4vw,46px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(22px,4vw,52px)}
+.footer-brand .logo-name{font-size:22px}
+.footer-brand p{font-size:13px;line-height:1.7;margin:12px 0 18px;max-width:270px}
+.footer-socials{display:flex;gap:9px;flex-wrap:wrap}
+.soc-btn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:14px;transition:all var(--t);color:rgba(255,255,255,.65)}
+.soc-btn:hover{background:var(--rose);color:#fff;transform:translateY(-3px)}
+.footer-col h4{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.footer-col li{margin-bottom:10px}
+.footer-col a{font-size:13px;color:rgba(255,255,255,.5);transition:color var(--t)}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);max-width:1320px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12.5px}
+.footer-bottom a{color:rgba(255,255,255,.4);transition:color var(--t)}
+.footer-bottom a:hover{color:rgba(255,255,255,.8)}
+
+/* FABS */
+#wa-fab{position:fixed;bottom:clamp(14px,3vw,26px);right:clamp(14px,3vw,26px);z-index:700;width:clamp(48px,7vw,56px);height:clamp(48px,7vw,56px);border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.45);transition:all var(--t) var(--spring);cursor:pointer}
+#wa-fab:hover{transform:scale(1.14)}
+#wa-fab i{color:#fff;font-size:clamp(22px,3vw,27px)}
+.wa-tip{position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%);background:var(--dark2);color:#fff;padding:6px 12px;border-radius:8px;font-size:11.5px;font-weight:500;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity var(--t)}
+.wa-tip::after{content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--dark2);border-right:none}
+#wa-fab:hover .wa-tip{opacity:1}
+#chat-fab{position:fixed;bottom:clamp(14px,3vw,26px);left:clamp(14px,3vw,26px);z-index:700}
+.chat-toggle-btn{width:clamp(48px,7vw,56px);height:clamp(48px,7vw,56px);border-radius:50%;background:linear-gradient(135deg,var(--plum),var(--rose));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(200,67,106,.4);transition:all var(--t) var(--spring);position:relative;font-size:clamp(20px,3vw,23px);color:#fff}
+.chat-toggle-btn:hover{transform:scale(1.12)}
+.chat-online{position:absolute;top:0;right:0;width:13px;height:13px;border-radius:50%;background:#2ECC71;border:2.5px solid var(--white);animation:pdot 2s ease infinite}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(46,204,113,.5)}50%{box-shadow:0 0 0 6px rgba(46,204,113,0)}}
+.chat-win{position:absolute;bottom:calc(100% + 12px);left:0;width:min(318px,82vw);background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);overflow:hidden;display:none;flex-direction:column;transform-origin:bottom left}
+.chat-win.open{display:flex;animation:cwin .3s var(--spring)}
+@keyframes cwin{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:none}}
+.chat-head{background:linear-gradient(135deg,var(--plum),var(--rose));padding:15px 17px;color:#fff;display:flex;align-items:center;gap:11px}
+.chat-av{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.chat-head .cname{font-weight:700;font-size:13.5px}
+.chat-head .cstatus{font-size:11px;opacity:.8;display:flex;align-items:center;gap:5px}
+.chat-head .cstatus::before{content:'';width:6px;height:6px;border-radius:50%;background:#2ECC71;display:block}
+.chat-msgs{height:200px;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:8px;background:var(--rose-pale)}
+.chat-msgs::-webkit-scrollbar{width:3px}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--border)}
+.cmsg{max-width:82%;padding:8px 12px;border-radius:13px;font-size:13px;line-height:1.5;word-break:break-word}
+.cmsg.bot{background:var(--white);color:var(--text);align-self:flex-start;border-bottom-left-radius:3px;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+.cmsg.usr{background:var(--rose);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.chat-inp-row{display:flex;gap:7px;padding:9px;border-top:1px solid var(--border2)}
+.chat-inp{flex:1;padding:8px 13px;border:1.5px solid var(--border);border-radius:22px;font-size:13px;background:var(--cream);transition:border-color var(--t)}
+.chat-inp:focus{border-color:var(--rose)}
+.chat-send{width:35px;height:35px;border-radius:50%;background:var(--rose);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:all var(--t)}
+.chat-send:hover{background:var(--rose2);transform:scale(1.08)}
+
+/* MODALS */
+.overlay{position:fixed;inset:0;z-index:1000;background:rgba(24,10,18,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:clamp(10px,3vw,20px)}
+.overlay.open{display:flex}
+.modal{background:var(--white);border-radius:clamp(16px,3vw,26px);width:100%;max-width:500px;max-height:92dvh;overflow-y:auto;position:relative;scrollbar-width:thin;animation:min .38s var(--spring)}
+.modal::-webkit-scrollbar{width:3px}
+@keyframes min{from{opacity:0;transform:translateY(28px) scale(.95)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;top:clamp(11px,2vw,16px);right:clamp(11px,2vw,16px);width:36px;height:36px;border-radius:50%;background:var(--rose-light);color:var(--rose);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all var(--t) var(--spring);z-index:2}
+.modal-close:hover{background:var(--rose);color:#fff;transform:rotate(90deg)}
+.mp{padding:clamp(22px,4vw,34px)}
+
+/* AUTH */
+.auth-head{text-align:center;margin-bottom:24px}
+.auth-logomark{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,var(--rose),var(--plum));display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 13px;box-shadow:0 6px 20px rgba(200,67,106,.28)}
+.auth-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,28px);font-weight:700;color:var(--dark)}
+.auth-sub{font-size:13px;color:var(--text2);margin-top:4px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--rose-pale);border-radius:11px;padding:3px;margin-bottom:20px;gap:3px}
+.auth-tab{padding:10px;border-radius:9px;text-align:center;font-size:13.5px;font-weight:600;color:var(--text2);cursor:pointer;transition:all var(--t)}
+.auth-tab.active{background:var(--white);color:var(--rose);box-shadow:var(--shadow-sm)}
+.form-group{margin-bottom:13px}
+.form-label{display:block;font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;letter-spacing:.02em}
+.form-input{width:100%;padding:11px 13px;border-radius:11px;border:1.5px solid var(--border);background:var(--rose-pale);font-size:14px;color:var(--text);transition:all var(--t)}
+.form-input:focus{border-color:var(--rose);background:var(--white);box-shadow:0 0 0 3px rgba(200,67,106,.1)}
+.form-input::placeholder{color:var(--text3)}
+.form-select{width:100%;padding:11px 13px;border-radius:11px;border:1.5px solid var(--border);background:var(--rose-pale);font-size:14px;color:var(--text)}
+.form-textarea{width:100%;padding:11px 13px;border-radius:11px;border:1.5px solid var(--border);background:var(--rose-pale);font-size:14px;color:var(--text);resize:vertical;min-height:82px;transition:all var(--t)}
+.form-textarea:focus{border-color:var(--rose);background:var(--white)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.form-hint{font-size:11px;color:var(--text3);margin-top:3px}
+.btn-submit{width:100%;padding:12px;border-radius:11px;font-size:14.5px;font-weight:700;background:linear-gradient(135deg,var(--rose),var(--plum));color:#fff;box-shadow:0 6px 22px rgba(200,67,106,.32);transition:all var(--t);display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(200,67,106,.44)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.role-note{background:var(--rose-pale);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--text2);margin-top:12px;text-align:center;border:1px solid var(--border2)}
+.role-note strong{color:var(--rose)}
+
+/* PRODUCT MODAL */
+.pd-img-wrap{border-radius:16px;overflow:hidden;aspect-ratio:1;background:var(--rose-pale);display:flex;align-items:center;justify-content:center;margin-bottom:18px;max-height:270px}
+.pd-img-wrap img{width:100%;height:100%;object-fit:cover}
+.pd-placeholder{font-size:70px}
+.pd-price-row{display:flex;align-items:baseline;gap:11px;margin-bottom:11px}
+.pd-price{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,30px);font-weight:700;color:var(--rose)}
+.pd-old{font-size:13px;color:var(--text3);text-decoration:line-through}
+.pd-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px}
+.size-label{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px}
+.size-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.size-btn{padding:7px 14px;border-radius:9px;border:1.5px solid var(--border);font-size:13px;font-weight:600;cursor:pointer;transition:all var(--t) var(--spring)}
+.size-btn:hover{border-color:var(--rose);color:var(--rose)}
+.size-btn.active{background:var(--rose);border-color:var(--rose);color:#fff}
+.qty-row{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+.qty-ctrl{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:10px;overflow:hidden}
+.qty-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:background var(--t);color:var(--text2)}
+.qty-btn:hover{background:var(--rose-light);color:var(--rose)}
+.qty-num{min-width:38px;text-align:center;font-weight:700;font-size:15px;border-left:1px solid var(--border);border-right:1px solid var(--border);padding:0 4px;height:36px;display:flex;align-items:center;justify-content:center}
+.pd-actions{display:grid;grid-template-columns:1fr 44px;gap:9px}
+.btn-add-cart{padding:12px 14px;border-radius:11px;background:linear-gradient(135deg,var(--rose),var(--plum));color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:all var(--t)}
+.btn-add-cart:hover{transform:scale(1.02);box-shadow:0 6px 22px rgba(200,67,106,.32)}
+.btn-wish-lg{border-radius:11px;background:var(--rose-light);color:var(--rose);display:flex;align-items:center;justify-content:center;font-size:18px;transition:all var(--t)}
+.btn-wish-lg:hover,.btn-wish-lg.on{background:var(--rose);color:#fff}
+
+/* CART */
+.cart-empty{text-align:center;padding:34px 16px;color:var(--text2)}
+.cart-empty-icon{font-size:52px;margin-bottom:12px;opacity:.35}
+.cart-item{display:flex;gap:11px;align-items:flex-start;padding:13px;border-radius:13px;background:var(--rose-pale);margin-bottom:9px}
+.ci-img{width:clamp(50px,9vw,64px);height:clamp(50px,9vw,64px);border-radius:9px;background:var(--rose-light);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-info{flex:1;min-width:0}
+.ci-name{font-weight:700;font-size:13px;color:var(--dark);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-price{font-size:12.5px;color:var(--rose);font-weight:700}
+.ci-size{font-size:11px;color:var(--text3);margin-top:2px}
+.ci-qty{display:flex;align-items:center;gap:6px;margin-top:7px}
+.cq-btn{width:24px;height:24px;border-radius:6px;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;transition:all var(--t)}
+.cq-btn:hover{background:var(--rose);color:#fff;border-color:var(--rose)}
+.ci-del{color:var(--text3);font-size:15px;cursor:pointer;transition:color var(--t);padding:2px;flex-shrink:0}
+.ci-del:hover{color:var(--rose)}
+.cart-summary{border-top:1.5px solid var(--border);padding-top:14px;margin-top:4px}
+.cs-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:var(--text2)}
+.cs-row.total{font-weight:800;font-size:15.5px;color:var(--dark);margin-top:9px;padding-top:9px;border-top:1px dashed var(--border)}
+
+/* CHECKOUT */
+.stepper{display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.step-node{display:flex;flex-direction:column;align-items:center;gap:5px}
+.step-dot{width:33px;height:33px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:var(--text3);transition:all var(--t) var(--spring)}
+.step-dot.done{background:var(--rose);border-color:var(--rose);color:#fff}
+.step-dot.active{border-color:var(--rose);color:var(--rose);box-shadow:0 0 0 4px rgba(200,67,106,.14)}
+.step-label{font-size:10px;color:var(--text3);font-weight:600;text-align:center}
+.step-line{flex:1;height:2px;background:var(--border);max-width:44px;margin-bottom:17px;transition:background var(--t)}
+.step-line.done{background:var(--rose)}
+.pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 0}
+.pay-opt{padding:clamp(11px,2vw,15px);border-radius:13px;border:2px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:all var(--t) var(--spring)}
+.pay-opt:hover,.pay-opt.on{border-color:var(--rose);background:var(--rose-pale)}
+.pay-opt i{font-size:clamp(20px,3vw,24px);color:var(--rose)}
+.pay-opt span{font-size:12.5px;font-weight:700;color:var(--text)}
+.upi-box{background:var(--rose-pale);border-radius:13px;padding:16px;text-align:center;margin-bottom:13px}
+.upi-to{font-size:10.5px;color:var(--text3);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.upi-id{font-family:monospace;font-size:clamp(14px,2.5vw,18px);font-weight:800;color:var(--rose);letter-spacing:.04em}
+.upi-ph{font-size:12.5px;color:var(--text2);margin-top:4px}
+#qr-canvas{border-radius:12px;margin:12px auto;display:block;max-width:150px;width:100%}
+.pay-apps{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:11px}
+.pay-app{padding:10px;border-radius:11px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--text);cursor:pointer;transition:all var(--t)}
+.pay-app:hover{background:var(--rose-pale);border-color:var(--rose);color:var(--rose)}
+.confirm-wrap{text-align:center;padding:18px 0}
+.big-icon{font-size:68px;display:block;margin-bottom:14px;animation:boin .6s var(--spring)}
+@keyframes boin{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* OFFER */
+#offer-overlay{position:fixed;inset:0;z-index:1200;background:rgba(24,10,18,.65);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:18px}
+#offer-overlay.open{display:flex}
+.offer-card{background:linear-gradient(145deg,var(--plum),var(--rose));border-radius:26px;padding:clamp(26px,5vw,50px) clamp(22px,4vw,42px);max-width:420px;width:100%;text-align:center;color:#fff;position:relative;overflow:hidden;animation:min .45s var(--spring)}
+.offer-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(255,255,255,.12) 0%,transparent 60%)}
+.offer-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer}
+.offer-emoji{font-size:clamp(44px,8vw,64px);margin-bottom:13px;display:block;animation:float 3s ease-in-out infinite}
+.offer-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,38px);font-weight:700;margin-bottom:7px}
+.offer-desc{font-size:clamp(12.5px,2vw,14.5px);opacity:.85;line-height:1.6;margin-bottom:20px}
+.offer-code{background:rgba(255,255,255,.14);border:2px dashed rgba(255,255,255,.42);border-radius:11px;padding:11px 20px;font-size:clamp(18px,3.5vw,24px);font-weight:800;letter-spacing:.12em;margin-bottom:20px}
+.offer-cta{display:inline-block;padding:12px 32px;border-radius:40px;background:#fff;color:var(--rose);font-size:14.5px;font-weight:800;transition:all var(--t);cursor:pointer}
+.offer-cta:hover{transform:scale(1.04)}
+
+/* ENQUIRY */
+.enq-head{background:linear-gradient(135deg,var(--rose),var(--plum));padding:26px 26px 22px;color:#fff;border-radius:clamp(16px,3vw,26px) clamp(16px,3vw,26px) 0 0}
+.enq-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,26px);font-weight:700}
+.enq-head p{font-size:12.5px;opacity:.82;margin-top:4px}
+
+/* TOAST */
+#toast-rack{position:fixed;bottom:clamp(78px,12vw,96px);left:50%;transform:translateX(-50%);z-index:2000;display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;width:auto;max-width:min(92vw,340px)}
+.toast{background:var(--dark2);color:#fff;padding:10px 18px;border-radius:11px;font-size:13px;font-weight:500;box-shadow:var(--shadow);white-space:nowrap;display:flex;align-items:center;gap:8px;animation:tin .35s var(--spring) both}
+.toast.out{animation:tout .3s var(--ease) both}
+@keyframes tin{from{opacity:0;transform:translateY(12px) scale(.93)}to{opacity:1;transform:none}}
+@keyframes tout{to{opacity:0;transform:translateY(-8px) scale(.93)}}
+.toast i{font-size:15px}
+.toast.success i{color:#2ECC71}.toast.error i{color:#E74C3C}.toast.info i{color:var(--gold2)}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}.rd4{transition-delay:.4s}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.nav-links{display:none}.hamburger{display:flex}.footer-top{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-cta,.hero-stats{justify-content:center}
+  .hero-visual{max-width:min(330px,85vw);margin:0 auto}
+  .hbadge{display:none}
+  .about-grid{grid-template-columns:1fr}
+  .about-visual{display:none}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  .about-feats{grid-template-columns:1fr 1fr}
+  .user-dd{right:0}
+}
+@media(max-width:480px){
+  :root{--nav-h:60px}
+  .products-grid{grid-template-columns:1fr 1fr}
+  .tutorials-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .about-feats{grid-template-columns:1fr}
+  .pay-methods{grid-template-columns:1fr 1fr}
+  .review-card{width:min(80vw,270px)}
+}
+@media(max-width:360px){.products-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="page-loader">
+  <div class="loader-brand">✦ Aari Elegance</div>
+  <div class="loader-line"></div>
+  <div class="loader-sub">Handcrafted with Love</div>
+</div>
+
+<!-- OFFER OVERLAY -->
+<div id="offer-overlay">
+  <div class="offer-card">
+    <button class="offer-close" onclick="closeOffer()"><i class="fas fa-times"></i></button>
+    <span class="offer-emoji" id="off-emoji">🌸</span>
+    <div class="offer-title" id="off-title">Grand Festive Sale!</div>
+    <div class="offer-desc" id="off-desc">Exclusive discounts on all handcrafted Aari designs.</div>
+    <div class="offer-code" id="off-code">AARI20</div>
+    <div class="offer-cta" onclick="closeOffer();gotoSection('products')">Shop the Collection</div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <div class="logo-mark">✦</div>
+      <span class="logo-name">Aari Elegance</span>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="#hero" class="active">Home</a>
+      <a href="#products">Shop</a>
+      <a href="#tutorials">Tutorials</a>
+      <a href="#about">About</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" onclick="openWishlist()" title="Wishlist">
+        <i class="fas fa-heart"></i><span class="bdg" id="wish-bdg">0</span>
+      </button>
+      <button class="icon-btn" onclick="openCart()" title="Cart">
+        <i class="fas fa-shopping-bag"></i><span class="bdg show" id="cart-bdg">0</span>
+      </button>
+      <div style="position:relative" id="auth-nav">
+        <button class="btn-login-nav" id="btn-signin" onclick="openAuth()"><i class="fas fa-user"></i> Sign In</button>
+        <div class="user-avbtn" id="user-av" style="display:none" onclick="toggleDD()"><span id="av-init">U</span></div>
+        <div class="user-dd" id="user-dd">
+          <div class="dd-info"><div class="dd-name" id="dd-name">User</div><div class="dd-email" id="dd-email"></div></div>
+          <div class="dd-item" onclick="openMyOrders()"><i class="fas fa-box"></i> My Orders</div>
+          <div class="dd-item" onclick="openProfile()"><i class="fas fa-user-circle"></i> Profile</div>
+          <div class="dd-item" onclick="openWishlist()"><i class="fas fa-heart"></i> Wishlist</div>
+          <div class="dd-item" onclick="openSizeGuide()"><i class="fas fa-ruler"></i> Size Guide</div>
+          <div class="dd-sep"></div>
+          <div class="dd-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sign Out</div>
+        </div>
+      </div>
+      <button class="hamburger" id="hbg" onclick="openNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div id="mob-overlay" onclick="closeNav()"></div>
+<div id="mob-nav">
+  <div class="mob-head">
+    <div class="nav-logo"><div class="logo-mark" style="width:32px;height:32px;font-size:14px">✦</div><span class="logo-name" style="font-size:18px">Aari Elegance</span></div>
+    <button class="mob-close" onclick="closeNav()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="mob-links">
+    <a class="mob-link" href="#hero" onclick="closeNav()"><i class="fas fa-home"></i> Home</a>
+    <a class="mob-link" href="#products" onclick="closeNav()"><i class="fas fa-tshirt"></i> Shop</a>
+    <a class="mob-link" href="#tutorials" onclick="closeNav()"><i class="fas fa-play-circle"></i> Tutorials</a>
+    <a class="mob-link" href="#about" onclick="closeNav()"><i class="fas fa-star"></i> About</a>
+    <a class="mob-link" href="#reviews" onclick="closeNav()"><i class="fas fa-heart"></i> Reviews</a>
+    <a class="mob-link" href="#contact" onclick="closeNav()"><i class="fas fa-phone"></i> Contact</a>
+    <a class="mob-link" href="#" onclick="closeNav();openSizeGuide()"><i class="fas fa-ruler"></i> Size Guide</a>
+    <a class="mob-link" href="#" onclick="closeNav();openEnquiry()"><i class="fas fa-envelope"></i> Enquiry</a>
+  </div>
+  <div class="mob-footer">
+    <button class="btn-submit" id="mob-auth-btn" onclick="closeNav();openAuth()"><i class="fas fa-user"></i> Sign In</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+  <div id="petals"></div>
+  <div class="sw">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-tag"><div class="hero-dot"></div> Premium Handcrafted Aari Work</div>
+        <h1 class="hero-h1">Threads Woven<br><span class="script-line">with Grace &amp; Gold</span></h1>
+        <p class="hero-desc">Discover exquisite Aari embroidery — handstitched blouses, jackets &amp; custom designs crafted by Tamil Nadu's finest artisans, blending tradition with modern elegance.</p>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="gotoSection('products')"><i class="fas fa-shopping-bag"></i> Shop Collection</button>
+          <button class="btn-outline" onclick="gotoSection('tutorials')"><i class="fas fa-play"></i> Watch Tutorials</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-n" id="hero-prod-count">500+</div><div class="stat-l">Designs</div></div>
+          <div class="stat"><div class="stat-n">2K+</div><div class="stat-l">Clients</div></div>
+          <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Handmade</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="deco-ring ring1"></div>
+        <div class="deco-ring ring2"></div>
+        <div class="hero-frame">
+          <div class="hframe-bg"></div>
+          <div class="hframe-ph">🪡</div>
+        </div>
+        <div class="hbadge hb-l">
+          <div class="hb-icon hbi-rose"><i class="fas fa-award"></i></div>
+          <div><div class="hb-lbl">Craftsmanship</div><div class="hb-val">Premium ✦</div></div>
+        </div>
+        <div class="hbadge hb-r">
+          <div class="hb-icon hbi-gold"><i class="fas fa-truck"></i></div>
+          <div><div class="hb-lbl">Delivery</div><div class="hb-val">Pan India</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div id="marquee-strip">
+  <div class="mq-track">
+    <div class="mq-item">✦ Handcrafted Aari Work <span class="mq-dot"></span></div>
+    <div class="mq-item">🌸 Bridal Blouses <span class="mq-dot"></span></div>
+    <div class="mq-item">✦ Custom Designs <span class="mq-dot"></span></div>
+    <div class="mq-item">🪡 Premium Zari Threads <span class="mq-dot"></span></div>
+    <div class="mq-item">✦ Pan India Delivery <span class="mq-dot"></span></div>
+    <div class="mq-item">🎀 Saree Work <span class="mq-dot"></span></div>
+    <div class="mq-item">✦ Lehenga Embroidery <span class="mq-dot"></span></div>
+    <div class="mq-item">🌸 Handcrafted Aari Work <span class="mq-dot"></span></div>
+    <div class="mq-item">✦ Bridal Blouses <span class="mq-dot"></span></div>
+    <div class="mq-item">🪡 Custom Designs <span class="mq-dot"></span></div>
+    <div class="mq-item">✦ Premium Zari Threads <span class="mq-dot"></span></div>
+    <div class="mq-item">🎀 Pan India Delivery <span class="mq-dot"></span></div>
+    <div class="mq-item">✦ Saree Work <span class="mq-dot"></span></div>
+    <div class="mq-item">🌸 Lehenga Embroidery <span class="mq-dot"></span></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section style="padding:58px 0;background:var(--white)">
+  <div class="sw">
+    <div class="feat-grid reveal">
+      <div class="feat-card"><div class="feat-icon-wrap">🪡</div><div class="feat-title">100% Handmade</div><div class="feat-desc">Every stitch by skilled craftswomen with 30+ years of experience</div></div>
+      <div class="feat-card"><div class="feat-icon-wrap">✨</div><div class="feat-title">Premium Threads</div><div class="feat-desc">Finest Zari, silk &amp; metallic threads for lasting brilliance</div></div>
+      <div class="feat-card"><div class="feat-icon-wrap">🎨</div><div class="feat-title">Custom Orders</div><div class="feat-desc">Your dream design brought to life — share any reference</div></div>
+      <div class="feat-card"><div class="feat-icon-wrap">📦</div><div class="feat-title">Safe Delivery</div><div class="feat-desc">Carefully packaged and shipped across all of India</div></div>
+      <div class="feat-card"><div class="feat-icon-wrap">💬</div><div class="feat-title">Live Support</div><div class="feat-desc">Chat with us instantly via WhatsApp or live chat</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<div style="background:var(--white);padding:0 0 48px">
+  <div class="sw">
+    <div style="text-align:center;margin-bottom:26px" class="reveal">
+      <span class="eyebrow">Browse By</span>
+      <h2 class="h2">Our <em>Collections</em></h2>
+    </div>
+    <div class="cat-scroll" id="cat-scroll">
+      <div class="cat-chip active" onclick="filterCat('all',this)"><div class="cat-icon">✨</div><div class="cat-name">All</div></div>
+      <div class="cat-chip" onclick="filterCat('blouse',this)"><div class="cat-icon">🎀</div><div class="cat-name">Blouses</div></div>
+      <div class="cat-chip" onclick="filterCat('jacket',this)"><div class="cat-icon">🧥</div><div class="cat-name">Jackets</div></div>
+      <div class="cat-chip" onclick="filterCat('saree',this)"><div class="cat-icon">🌸</div><div class="cat-name">Saree</div></div>
+      <div class="cat-chip" onclick="filterCat('dupatta',this)"><div class="cat-icon">✦</div><div class="cat-name">Dupatta</div></div>
+      <div class="cat-chip" onclick="filterCat('lehenga',this)"><div class="cat-icon">💃</div><div class="cat-name">Lehenga</div></div>
+      <div class="cat-chip" onclick="filterCat('kurti',this)"><div class="cat-icon">👗</div><div class="cat-name">Kurti</div></div>
+      <div class="cat-chip" onclick="filterCat('custom',this)"><div class="cat-icon">🪡</div><div class="cat-name">Custom</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products" style="padding:0 0 78px;background:var(--cream)">
+  <div class="sw">
+    <div style="text-align:center;margin-bottom:34px" class="reveal">
+      <span class="eyebrow">Handcrafted Treasures</span>
+      <h2 class="h2">Our <em>Designs</em></h2>
+      <p class="sec-sub" style="margin:10px auto 0">Every piece is a labour of love — stitched with patience, artistry &amp; the finest materials.</p>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+    <div class="load-more"><button class="btn-load" id="load-more-btn" onclick="loadMore()"><i class="fas fa-sparkles"></i> Discover More</button></div>
+  </div>
+</section>
+
+<div class="divider-rose"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-deco"></div>
+  <div class="sw sp">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="eyebrow" style="color:rgba(255,255,255,.6)">Our Heritage</span>
+        <h2 class="about-h2">Passion Woven into <em>Every Thread</em></h2>
+        <p class="about-desc">We are a family of Aari artisans from Tamil Nadu, carrying a legacy of over 30 years. Each piece is hand-stitched with love using premium threads and traditional techniques blended with modern designs.</p>
+        <div class="about-feats">
+          <div class="af-item"><div class="af-icon">🪡</div><div class="af-title">100% Handmade</div><div class="af-desc">Every design stitched by skilled craftswomen</div></div>
+          <div class="af-item"><div class="af-icon">✨</div><div class="af-title">Premium Threads</div><div class="af-desc">Finest Zari, silk &amp; metallic threads</div></div>
+          <div class="af-item"><div class="af-icon">🎨</div><div class="af-title">Custom Designs</div><div class="af-desc">Personalised to match your dream</div></div>
+          <div class="af-item"><div class="af-icon">📦</div><div class="af-title">Pan India</div><div class="af-desc">Safe packaging shipped everywhere</div></div>
+        </div>
+      </div>
+      <div class="about-visual reveal rd2"><div class="av-ring"></div>🪡</div>
+    </div>
+  </div>
+</section>
+
+<!-- TUTORIALS -->
+<section id="tutorials" style="background:var(--cream)">
+  <div class="sw sp">
+    <div style="text-align:center;margin-bottom:38px" class="reveal">
+      <span class="eyebrow">Learn &amp; Create</span>
+      <h2 class="h2">Aari <em>Tutorials</em></h2>
+      <p class="sec-sub" style="margin:10px auto 0">Master the art of Aari embroidery with step-by-step video guides from our artisans.</p>
+    </div>
+    <div class="tutorials-grid" id="tutorials-grid"></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style="background:var(--white)">
+  <div class="sw sp">
+    <div style="text-align:center;margin-bottom:34px" class="reveal">
+      <span class="eyebrow">Customer Love</span>
+      <h2 class="h2">What They <em>Say</em></h2>
+    </div>
+    <div class="reviews-track" id="reviews-track"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta-banner">
+  <div class="cta-inner reveal">
+    <h2 class="cta-h">Have a Dream Design?<br>Let's Create it Together</h2>
+    <p class="cta-sub">Share your ideas, references or measurements — we bring your vision to life with the finest Aari craftsmanship.</p>
+    <div class="cta-btns">
+      <button class="btn-white" onclick="openEnquiry()"><i class="fas fa-envelope"></i> Quick Enquiry</button>
+      <button class="btn-ghost-white" onclick="openWA()"><i class="fab fa-whatsapp"></i> WhatsApp Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:12px"><div class="logo-mark">✦</div><span class="logo-name">Aari Elegance</span></div>
+      <p>Premium handcrafted Aari embroidery from Tamil Nadu. Blending tradition with artistry since 1994.</p>
+      <div class="footer-socials">
+        <a class="soc-btn" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a class="soc-btn" href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a class="soc-btn" href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a class="soc-btn" href="#" onclick="openWA();return false" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul>
+      <li><a href="#products" onclick="filterCat('blouse')">Blouses</a></li>
+      <li><a href="#products" onclick="filterCat('jacket')">Jackets</a></li>
+      <li><a href="#products" onclick="filterCat('saree')">Saree Work</a></li>
+      <li><a href="#products" onclick="filterCat('dupatta')">Dupattas</a></li>
+      <li><a href="#products" onclick="filterCat('custom')">Custom Orders</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Learn</h4><ul>
+      <li><a href="#tutorials">Beginner Tutorials</a></li>
+      <li><a href="#tutorials">Advanced Techniques</a></li>
+      <li><a href="#tutorials">Bridal Designs</a></li>
+      <li><a href="#tutorials">Design Patterns</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Support</h4><ul>
+      <li><a href="#" onclick="openMyOrders();return false">Track Order</a></li>
+      <li><a href="#" onclick="openEnquiry();return false">Enquiry</a></li>
+      <li><a href="#" onclick="openSizeGuide();return false">Size Guide</a></li>
+      <li><a href="#" onclick="openWA();return false">WhatsApp</a></li>
+      <li><a href="owner.html">Owner Login</a></li>
+      <li><a href="admin.html">Admin Login</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Aari Elegance. All rights reserved.</span>
+    <div style="display:flex;gap:16px"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Shipping</a></div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<div id="wa-fab" onclick="openWA()" role="button" aria-label="Chat on WhatsApp">
+  <div class="wa-tip">Chat on WhatsApp</div>
+  <i class="fab fa-whatsapp"></i>
+</div>
+
+<!-- CHAT FAB -->
+<div id="chat-fab">
+  <button class="chat-toggle-btn" onclick="toggleChat()" aria-label="Live Chat">
+    <div class="chat-online"></div>
+    <i class="fas fa-comments"></i>
+  </button>
+  <div class="chat-win" id="chat-win">
+    <div class="chat-head">
+      <div class="chat-av">🪡</div>
+      <div><div class="cname">Aari Elegance Support</div><div class="cstatus">Online Now</div></div>
+    </div>
+    <div class="chat-msgs" id="chat-msgs">
+      <div class="cmsg bot">Hello! 👋 Welcome to Aari Elegance. How can we help you today?</div>
+    </div>
+    <div class="chat-inp-row">
+      <input class="chat-inp" id="chat-inp" placeholder="Type a message…" onkeypress="if(event.key==='Enter')sendChat()"/>
+      <button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST RACK -->
+<div id="toast-rack"></div>
+
+<!-- ══ AUTH MODAL ══ -->
+<div class="overlay" id="auth-overlay" onclick="oc(event,'auth-overlay')">
+  <div class="modal" style="max-width:420px">
+    <button class="modal-close" onclick="cm('auth-overlay')"><i class="fas fa-times"></i></button>
+    <div class="mp">
+      <div class="auth-head">
+        <div class="auth-logomark">✦</div>
+        <h2 class="auth-title" id="auth-title">Welcome Back</h2>
+        <p class="auth-sub" id="auth-sub">Sign in to your account</p>
+      </div>
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="tab-in" onclick="swTab('in')">Sign In</div>
+        <div class="auth-tab" id="tab-up" onclick="swTab('up')">Register</div>
+      </div>
+      <div id="form-in">
+        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" id="in-email" placeholder="you@email.com" autocomplete="email"/></div>
+        <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="in-pass" placeholder="••••••••" autocomplete="current-password" onkeypress="if(event.key==='Enter')doLogin()"/></div>
+        <button class="btn-submit" id="login-btn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+        <div class="role-note">Signing in as <strong>owner</strong> or <strong>admin</strong>?<br>Just use your credentials — you'll be redirected automatically.</div>
+      </div>
+      <div id="form-up" style="display:none">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" type="text" id="up-name" placeholder="Your name"/></div>
+          <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" id="up-phone" placeholder="+91 XXXXXXXXXX"/></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" id="up-email" placeholder="you@email.com"/></div>
+        <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="up-pass" placeholder="Min 6 characters"/><div class="form-hint">At least 6 characters required</div></div>
+        <button class="btn-submit" id="reg-btn" onclick="doRegister()"><i class="fas fa-user-plus"></i> Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRODUCT MODAL ══ -->
+<div class="overlay" id="prod-overlay" onclick="oc(event,'prod-overlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="cm('prod-overlay')"><i class="fas fa-times"></i></button>
+    <div class="mp">
+      <div class="pd-img-wrap" id="pd-img-wrap"><div class="pd-placeholder">🪡</div></div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:9px">
+        <div><div style="font-size:10.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px" id="pd-cat"></div><h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(19px,4vw,25px);font-weight:700;color:var(--dark)" id="pd-name"></h3></div>
+      </div>
+      <div class="pd-price-row"><span class="pd-price" id="pd-price"></span><span class="pd-old" id="pd-old"></span></div>
+      <p class="pd-desc" id="pd-desc"></p>
+      <div class="size-label">Select Size</div>
+      <div class="size-grid" id="pd-size-grid"></div>
+      <div class="qty-row">
+        <div class="size-label" style="margin:0">Quantity</div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="cQty(-1)">−</button>
+          <span class="qty-num" id="pd-qty">1</span>
+          <button class="qty-btn" onclick="cQty(1)">+</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Special Suggestions (Optional)</label>
+        <textarea class="form-textarea" id="pd-note" placeholder="Specific colour, embellishment preference, custom measurements…"></textarea>
+      </div>
+      <div class="pd-actions">
+        <button class="btn-add-cart" onclick="addCurrentCart()"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+        <button class="btn-wish-lg" id="pd-wish-btn" onclick="wishCurrent()"><i class="fas fa-heart"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CART MODAL ══ -->
+<div class="overlay" id="cart-overlay" onclick="oc(event,'cart-overlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="cm('cart-overlay')"><i class="fas fa-times"></i></button>
+    <div class="mp">
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,26px);font-weight:700;margin-bottom:18px;color:var(--dark)">Your Cart <i class="fas fa-shopping-bag" style="color:var(--rose);font-size:.75em"></i></h2>
+      <div id="cart-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHECKOUT MODAL ══ -->
+<div class="overlay" id="co-overlay" onclick="oc(event,'co-overlay')">
+  <div class="modal" style="max-width:510px">
+    <button class="modal-close" onclick="cm('co-overlay')"><i class="fas fa-times"></i></button>
+    <div class="mp">
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,26px);font-weight:700;margin-bottom:18px;color:var(--dark)">Checkout</h2>
+      <div class="stepper">
+        <div class="step-node"><div class="step-dot done" id="s1"><i class="fas fa-check"></i></div><div class="step-label">Cart</div></div>
+        <div class="step-line done"></div>
+        <div class="step-node"><div class="step-dot active" id="s2">2</div><div class="step-label">Address</div></div>
+        <div class="step-line" id="sl2"></div>
+        <div class="step-node"><div class="step-dot" id="s3">3</div><div class="step-label">Payment</div></div>
+        <div class="step-line" id="sl3"></div>
+        <div class="step-node"><div class="step-dot" id="s4">4</div><div class="step-label">Done</div></div>
+      </div>
+      <div id="co-addr">
+        <div class="form-row"><div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="a-name" placeholder="Receiver's name"/></div><div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" id="a-phone" placeholder="+91 XXXXXXXXXX"/></div></div>
+        <div class="form-group"><label class="form-label">Address</label><input class="form-input" id="a-line" placeholder="Street, building, landmark"/></div>
+        <div class="form-row"><div class="form-group"><label class="form-label">City</label><input class="form-input" id="a-city" placeholder="City"/></div><div class="form-group"><label class="form-label">PIN Code</label><input class="form-input" id="a-pin" placeholder="6-digit PIN" maxlength="6"/></div></div>
+        <div class="form-group"><label class="form-label">State</label><input class="form-input" id="a-state" placeholder="State"/></div>
+        <button class="btn-submit" onclick="goToPay()">Continue to Payment <i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div id="co-pay" style="display:none">
+        <div class="pay-methods">
+          <div class="pay-opt on" id="pm-upi" onclick="selPay('upi')"><i class="fas fa-mobile-alt"></i><span>UPI / GPay</span></div>
+          <div class="pay-opt" id="pm-cod" onclick="selPay('cod')"><i class="fas fa-hand-holding-usd"></i><span>Cash on Delivery</span></div>
+        </div>
+        <div id="upi-sec">
+          <div class="upi-box"><div class="upi-to">Pay To</div><div class="upi-id" id="disp-upi">yourname@upi</div><div class="upi-ph" id="disp-ph">📱 +91 XXXXXXXXXX (GPay)</div></div>
+          <canvas id="qr-canvas" width="150" height="150"></canvas>
+          <p style="text-align:center;font-size:11.5px;color:var(--text3);margin-bottom:11px">Scan QR to pay instantly</p>
+          <div style="text-align:center;margin-bottom:13px"><button onclick="copyUPI()" style="padding:7px 18px;border-radius:8px;background:var(--rose-pale);color:var(--rose);font-weight:700;font-size:12.5px;border:1.5px solid var(--rose-light);cursor:pointer"><i class="fas fa-copy"></i> Copy UPI ID</button></div>
+          <div class="pay-apps">
+            <button class="pay-app" onclick="openGPay()"><i class="fab fa-google" style="color:#4285F4;font-size:17px"></i> Google Pay</button>
+            <button class="pay-app" onclick="openPhonePe()"><span style="color:#6739B7;font-weight:900;font-size:13px">Pe</span> PhonePe</button>
+            <button class="pay-app" onclick="openPaytm()"><i class="fas fa-wallet" style="color:#00BAF2"></i> Paytm</button>
+            <button class="pay-app" onclick="openBHIM()"><i class="fas fa-university" style="color:#1A56A0"></i> BHIM UPI</button>
+          </div>
+        </div>
+        <div id="cod-sec" style="display:none;text-align:center;padding:26px 0">
+          <div style="font-size:50px;margin-bottom:11px">💰</div>
+          <p style="font-weight:700;font-size:16px;margin-bottom:6px;color:var(--dark)">Cash on Delivery</p>
+          <p style="font-size:13px;color:var(--text2)">Pay when your order arrives at your doorstep.</p>
+        </div>
+        <div style="margin-top:16px">
+          <div style="display:flex;justify-content:space-between;font-weight:800;font-size:15.5px;margin-bottom:13px"><span>Order Total</span><span id="co-total" style="color:var(--rose)">₹0</span></div>
+          <button class="btn-submit" onclick="confirmOrder()"><i class="fas fa-check-circle"></i> Confirm &amp; Place Order</button>
+        </div>
+      </div>
+      <div id="co-done" style="display:none">
+        <div class="confirm-wrap">
+          <span class="big-icon">🎉</span>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5vw,30px);font-weight:700;color:var(--rose);margin-bottom:7px">Order Placed!</h3>
+          <p style="font-size:14.5px;color:var(--text2);margin-bottom:5px">Your beautiful Aari pieces are on their way!</p>
+          <p style="font-size:12.5px;color:var(--text3);margin-bottom:18px">Order ID: <strong id="oid-out" style="color:var(--dark)"></strong></p>
+          <p style="font-size:13px;color:var(--text2);margin-bottom:22px">The owner will contact you shortly to confirm your order.</p>
+        </div>
+        <button class="btn-submit" onclick="cm('co-overlay')">Continue Shopping <i class="fas fa-shopping-bag"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ENQUIRY MODAL ══ -->
+<div class="overlay" id="enq-overlay" onclick="oc(event,'enq-overlay')">
+  <div class="modal" style="max-width:430px">
+    <button class="modal-close" onclick="cm('enq-overlay')"><i class="fas fa-times"></i></button>
+    <div class="enq-head"><h2>Quick Enquiry 💬</h2><p>We'll get back to you within a few hours</p></div>
+    <div class="mp">
+      <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" id="eq-name" placeholder="Full name"/></div>
+      <div class="form-group"><label class="form-label">Phone / WhatsApp</label><input class="form-input" type="tel" id="eq-phone" placeholder="+91 XXXXXXXXXX"/></div>
+      <div class="form-group"><label class="form-label">Your Message</label><textarea class="form-textarea" id="eq-msg" placeholder="Tell us your requirement, custom design idea, or any question…" style="min-height:95px"></textarea></div>
+      <button class="btn-submit" onclick="sendEnquiry()"><i class="fas fa-paper-plane"></i> Send Enquiry</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SIZE GUIDE MODAL ══ -->
+<div class="overlay" id="sz-overlay" onclick="oc(event,'sz-overlay')">
+  <div class="modal" style="max-width:460px">
+    <button class="modal-close" onclick="cm('sz-overlay')"><i class="fas fa-times"></i></button>
+    <div class="mp">
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,26px);font-weight:700;margin-bottom:16px;color:var(--dark)">Size Guide 📐</h2>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.7">All measurements are in inches. Share your exact bust, waist &amp; hip measurements when placing a custom order for a perfect fit.</p>
+      <div style="overflow-x:auto;border-radius:12px;overflow:hidden;border:1.5px solid var(--border)">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead><tr style="background:var(--rose-pale)"><th style="padding:10px 13px;text-align:left;font-weight:700;border-bottom:2px solid var(--border)">Size</th><th style="padding:10px 13px;font-weight:700;border-bottom:2px solid var(--border);text-align:center">Bust</th><th style="padding:10px 13px;font-weight:700;border-bottom:2px solid var(--border);text-align:center">Waist</th><th style="padding:10px 13px;font-weight:700;border-bottom:2px solid var(--border);text-align:center">Hip</th></tr></thead>
+          <tbody>
+            <tr><td style="padding:10px 13px;font-weight:700">XS</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">30–31"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">24–25"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">33–34"</td></tr>
+            <tr style="background:var(--rose-pale)"><td style="padding:10px 13px;font-weight:700">S</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">32–33"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">26–27"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">35–36"</td></tr>
+            <tr><td style="padding:10px 13px;font-weight:700">M</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">34–35"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">28–29"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">37–38"</td></tr>
+            <tr style="background:var(--rose-pale)"><td style="padding:10px 13px;font-weight:700">L</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">36–37"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">30–31"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">39–40"</td></tr>
+            <tr><td style="padding:10px 13px;font-weight:700">XL</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">38–40"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">32–34"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">41–43"</td></tr>
+            <tr style="background:var(--rose-pale)"><td style="padding:10px 13px;font-weight:700">XXL</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">42–44"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">36–38"</td><td style="padding:10px 13px;text-align:center;color:var(--text2)">45–47"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:11.5px;color:var(--text3);margin-top:12px">💡 Not sure about your size? Add measurements in "Special Suggestions" or WhatsApp us directly.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT: imports ONLY from firebase.js — zero direct Firebase SDK calls here -->
+<script type="module">
+import {
+  loginUser, registerUser, logoutUser, onAuth,
+  getProducts, getTutorials,
+  placeOrder, getUserOrders,
+  getSettings, getOffer,
+  sendMessage, listenMessages,
+  sendEnquiry
+} from './firebase.js';
+
+/* STATE */
+let user=null, userRole='user';
+let cart=JSON.parse(localStorage.getItem('ae_cart')||'[]');
+let wishlist=JSON.parse(localStorage.getItem('ae_wish')||'[]');
+let allProducts=[], filteredCat='all', visibleCnt=8;
+let curProd=null, selSize='', curQty=1;
+let settings={upi:'yourname@upi',phone:'XXXXXXXXXX',wa:'XXXXXXXXXX'};
+let chatOpen=false, chatId='guest_'+Date.now(), chatUnsub=null;
+let payMethod='upi', coStep=2;
+
+/* BOOT */
+window.addEventListener('load', async()=>{
+  setTimeout(()=>document.getElementById('page-loader').classList.add('out'),1400);
+  spawnPetals(); initReveal(); initNavBehavior();
+  try{ settings={...settings,...(await getSettings())}; }catch(e){}
+  try{ const p=await getProducts(); allProducts=p.length?p:demoProd(); }catch(e){ allProducts=demoProd(); }
+  document.getElementById('hero-pcount').textContent=allProducts.length+'+';
+  renderProds();
+  try{ const t=await getTutorials(); renderTuts(t.length?t:demoTuts()); }catch(e){ renderTuts(demoTuts()); }
+  renderReviews(); renderCartBadge(); renderWishBadge();
+  try{
+    const offer=await getOffer();
+    if(offer&&offer.active){
+      document.getElementById('off-emoji').textContent=offer.emoji||'🌸';
+      document.getElementById('off-title').textContent=offer.title||'Special Offer!';
+      document.getElementById('off-desc').textContent=offer.description||'';
+      document.getElementById('off-code').textContent=offer.code||'';
+      setTimeout(()=>document.getElementById('off-overlay').classList.add('open'),3000);
+    } else {
+      setTimeout(()=>document.getElementById('off-overlay').classList.add('open'),3500);
+    }
+  }catch(e){ setTimeout(()=>document.getElementById('off-overlay').classList.add('open'),3500); }
+});
+
+/* AUTH — via firebase.js onAuth */
+onAuth((fbUser,data)=>{
+  user=fbUser;
+  if(fbUser&&data){
+    userRole=data.role||'user';
+    if(userRole==='owner'){ location.href='owner.html'; return; }
+    if(userRole==='admin'){ location.href='admin.html'; return; }
+    document.getElementById('btn-signin').style.display='none';
+    document.getElementById('user-av').style.display='flex';
+    document.getElementById('av-init').textContent=(data.name||fbUser.email)[0].toUpperCase();
+    document.getElementById('dd-name').textContent=data.name||fbUser.email;
+    document.getElementById('dd-email').textContent=fbUser.email;
+    const mab=document.getElementById('mob-auth-btn');
+    mab.innerHTML='<i class="fas fa-sign-out-alt"></i> Sign Out';
+    mab.onclick=()=>{ closeNav(); doLogout(); };
+    chatId='user_'+fbUser.uid;
+  } else {
+    user=null; userRole='user';
+    document.getElementById('btn-signin').style.display='';
+    document.getElementById('user-av').style.display='none';
+    const mab=document.getElementById('mob-auth-btn');
+    mab.innerHTML='<i class="fas fa-user"></i> Sign In';
+    mab.onclick=()=>{ closeNav(); openAuth(); };
+  }
+});
+
+/* LOGIN — via firebase.js loginUser */
+window.doLogin=async()=>{
+  const email=document.getElementById('in-email').value.trim();
+  const pass=document.getElementById('in-pass').value;
+  if(!email||!pass){ toast('Please fill all fields','error'); return; }
+  const btn=document.getElementById('login-btn');
+  btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Signing in...';
+  try{
+    const{role}=await loginUser(email,pass);
+    closeModal('auth-overlay');
+    if(role==='owner'){ toast('Welcome, Owner! Redirecting...','success'); setTimeout(()=>location.href='owner.html',800); }
+    else if(role==='admin'){ toast('Welcome, Admin! Redirecting...','success'); setTimeout(()=>location.href='admin.html',800); }
+    else toast('Welcome back!','success');
+  }catch(e){
+    const msg=e.code==='auth/wrong-password'?'Wrong password':e.code==='auth/user-not-found'?'Email not found':e.message;
+    toast('Login failed: '+msg,'error');
+  }finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> Sign In'; }
+};
+
+/* REGISTER — via firebase.js registerUser */
+window.doRegister=async()=>{
+  const name=document.getElementById('up-name').value.trim();
+  const phone=document.getElementById('up-phone').value.trim();
+  const email=document.getElementById('up-email').value.trim();
+  const pass=document.getElementById('up-pass').value;
+  if(!name||!email||!pass){ toast('Please fill required fields','error'); return; }
+  if(pass.length<6){ toast('Password must be at least 6 characters','error'); return; }
+  const btn=document.getElementById('reg-btn');
+  btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Creating...';
+  try{
+    await registerUser(email,pass,name,phone);
+    closeModal('auth-overlay'); toast('Account created! Welcome','success');
+  }catch(e){
+    toast('Error: '+(e.code==='auth/email-already-in-use'?'Email already registered':e.message),'error');
+  }finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-user-plus"></i> Create Account'; }
+};
+
+/* LOGOUT — via firebase.js logoutUser */
+window.doLogout=async()=>{
+  await logoutUser(); toast('Signed out','info');
+  document.getElementById('user-dd').classList.remove('open');
+};
+
+/* PRODUCTS */
+function demoProd(){
+  const names=['Golden Zari Blouse','Pearl Embroidered Jacket','Bridal Saree Work','Silk Dupatta','Wedding Lehenga','Festive Kurti','Designer Neck Blouse','Peacock Jacket','Rose Saree Work','Mirror Dupatta','Brocade Jacket','Churidar Blouse'];
+  const cats=['blouse','jacket','saree','dupatta','lehenga','kurti'];
+  return Array.from({length:12},(_,i)=>({
+    id:'d'+i, name:names[i%names.length], category:cats[i%cats.length],
+    price:800+i*200, oldPrice:i%3===0?1200+i*250:null,
+    description:'Beautifully handcrafted Aari embroidery using premium threads. Each stitch reflects hours of dedication and artistry passed through generations.',
+    badge:i===0?'new':i===1?'hot':i%4===0?'sale':null,
+    sizes:['XS','S','M','L','XL','XXL'], imageUrl:'',
+    createdAt:{seconds:Date.now()/1000-i*3600}
+  }));
+}
+window.filterCat=(cat,el)=>{
+  filteredCat=cat; visibleCnt=8;
+  if(el){ document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active')); el.classList.add('active'); }
+  renderProds();
+};
+function renderProds(){
+  const list=filteredCat==='all'?allProducts:allProducts.filter(p=>p.category===filteredCat);
+  document.getElementById('products-grid').innerHTML=list.slice(0,visibleCnt).map(prodCard).join('');
+  document.getElementById('load-more-btn').style.display=visibleCnt>=list.length?'none':'inline-flex';
+}
+window.loadMore=()=>{ visibleCnt+=8; renderProds(); };
+function prodCard(p){
+  const wOn=wishlist.includes(p.id)?'on':'';
+  const bH=p.badge?`<span class="badge-tag b-${p.badge}">${p.badge.toUpperCase()}</span>`:'';
+  const oH=p.oldPrice?`<span class="price-old">Rs.${p.oldPrice}</span>`:'';
+  const img=p.imageUrl?`<img src="${p.imageUrl}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">`:'<div class="pc-placeholder">🪡</div>';
+  return `<div class="product-card" onclick="openProd('${p.id}')">
+    <div class="pc-img">${img}<div class="pc-badges">${bH}</div>
+      <button class="pc-wish ${wOn}" onclick="event.stopPropagation();toggleWish('${p.id}',this)" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
+    </div>
+    <div class="pc-info">
+      <div class="pc-cat">${(p.category||'').charAt(0).toUpperCase()+(p.category||'').slice(1)}</div>
+      <div class="pc-name">${p.name}</div>
+      <div class="pc-price"><span class="price-main">Rs.${p.price}</span>${oH}</div>
+      <div class="pc-actions">
+        <button class="btn-cart" onclick="event.stopPropagation();quickCart('${p.id}')"><i class="fas fa-bag-shopping"></i> Add to Cart</button>
+        <button class="btn-eye" onclick="event.stopPropagation();openProd('${p.id}')"><i class="fas fa-eye"></i></button>
+      </div>
+    </div>
+  </div>`;
+}
+window.openProd=id=>{
+  curProd=allProducts.find(p=>p.id===id); if(!curProd) return;
+  curQty=1; selSize='';
+  const iw=document.getElementById('pd-img-wrap');
+  iw.innerHTML=curProd.imageUrl?`<img src="${curProd.imageUrl}" alt="${curProd.name}">`:'<div class="pd-placeholder">🪡</div>';
+  document.getElementById('pd-cat').textContent=(curProd.category||'').toUpperCase();
+  document.getElementById('pd-name').textContent=curProd.name;
+  document.getElementById('pd-price').textContent='Rs.'+curProd.price;
+  document.getElementById('pd-old').textContent=curProd.oldPrice?'Rs.'+curProd.oldPrice:'';
+  document.getElementById('pd-desc').textContent=curProd.description||'';
+  document.getElementById('pd-qty').textContent='1';
+  document.getElementById('pd-note').value='';
+  document.getElementById('pd-size-grid').innerHTML=(curProd.sizes||['XS','S','M','L','XL','XXL']).map(s=>`<button class="size-btn" onclick="pickSz('${s}',this)">${s}</button>`).join('');
+  document.getElementById('pd-wish-btn').classList.toggle('on',wishlist.includes(id));
+  openModal('product-overlay');
+};
+window.pickSz=(s,el)=>{ selSize=s; document.querySelectorAll('#pd-size-grid .size-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active'); };
+window.changeQty=d=>{ curQty=Math.max(1,curQty+d); document.getElementById('pd-qty').textContent=curQty; };
+window.addCurrentCart=()=>{ if(!curProd) return; addToCart(curProd,selSize,curQty,document.getElementById('pd-note').value); closeModal('product-overlay'); };
+window.quickCart=id=>{ const p=allProducts.find(x=>x.id===id); if(p) addToCart(p,'',1,''); };
+function addToCart(p,size,qty,note){
+  const idx=cart.findIndex(c=>c.id===p.id&&c.size===size);
+  if(idx>-1){ cart[idx].qty+=qty; if(note) cart[idx].note=note; } else cart.push({...p,size,qty:qty||1,note});
+  saveCart(); toast('Added to cart!','success');
+}
+function saveCart(){ localStorage.setItem('ae_cart',JSON.stringify(cart)); renderCartBadge(); }
+function renderCartBadge(){ const n=cart.reduce((a,c)=>a+c.qty,0); const b=document.getElementById('cart-bdg'); b.textContent=n; b.classList.toggle('show',n>0); }
+
+/* WISHLIST */
+window.toggleWish=(id,btn)=>{
+  const i=wishlist.indexOf(id);
+  if(i>-1){ wishlist.splice(i,1); btn.classList.remove('on'); toast('Removed from wishlist','info'); }
+  else{ wishlist.push(id); btn.classList.add('on'); toast('Added to wishlist!','success'); }
+  localStorage.setItem('ae_wish',JSON.stringify(wishlist)); renderWishBadge();
+};
+window.wishCurrent=()=>{
+  if(!curProd) return;
+  const i=wishlist.indexOf(curProd.id), wb=document.getElementById('pd-wish-btn');
+  if(i>-1){ wishlist.splice(i,1); wb.classList.remove('on'); toast('Removed from wishlist','info'); }
+  else{ wishlist.push(curProd.id); wb.classList.add('on'); toast('Added to wishlist!','success'); }
+  localStorage.setItem('ae_wish',JSON.stringify(wishlist)); renderWishBadge();
+};
+function renderWishBadge(){ const b=document.getElementById('wish-bdg'); b.textContent=wishlist.length; b.classList.toggle('show',wishlist.length>0); }
+window.openWishlist=()=>toast(wishlist.length?wishlist.length+' item(s) in your wishlist':'Your wishlist is empty','info');
+
+/* CART */
+window.openCart=()=>{ renderCart(); openModal('cart-overlay'); };
+function renderCart(){
+  const el=document.getElementById('cart-body');
+  if(!cart.length){ el.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Your cart is empty</p><button class="btn-primary" style="margin-top:16px;display:inline-flex" onclick="closeModal(\'cart-overlay\');gotoSec(\'products\')"><i class="fas fa-shopping-bag"></i> Start Shopping</button></div>'; return; }
+  const sub=cart.reduce((a,c)=>a+c.price*c.qty,0);
+  el.innerHTML='<div>'+cart.map((item,i)=>`<div class="cart-item">
+    <div class="ci-img">${item.imageUrl?`<img src="${item.imageUrl}" alt="">`:'🪡'}</div>
+    <div class="ci-info"><div class="ci-name">${item.name}</div><div class="ci-price">Rs.${item.price}</div>${item.size?`<div class="ci-size">Size: ${item.size}</div>`:''}
+      <div class="ci-qty"><button class="cq-btn" onclick="updCart(${i},-1)">-</button><span style="min-width:22px;text-align:center;font-weight:700;font-size:14px">${item.qty}</span><button class="cq-btn" onclick="updCart(${i},1)">+</button><span style="font-size:11.5px;color:var(--text3);margin-left:4px">= Rs.${item.price*item.qty}</span></div>
+    </div><button class="cart-remove" onclick="rmCart(${i})"><i class="fas fa-trash-alt"></i></button>
+  </div>`).join('')+'</div><div class="cart-summary"><div class="cs-row"><span>Subtotal</span><span>Rs.'+sub+'</span></div><div class="cs-row"><span>Delivery</span><span>Rs.50</span></div><div class="cs-row total"><span>Total</span><span style="color:var(--rose)">Rs.'+(sub+50)+'</span></div></div><button class="btn-submit" style="margin-top:14px" onclick="proceedCO()"><i class="fas fa-lock"></i> Proceed to Checkout</button>';
+}
+window.updCart=(i,d)=>{ cart[i].qty=Math.max(1,cart[i].qty+d); saveCart(); renderCart(); };
+window.rmCart=i=>{ cart.splice(i,1); saveCart(); renderCart(); };
+
+/* CHECKOUT */
+window.proceedCO=()=>{
+  if(!cart.length){ toast('Your cart is empty','info'); return; }
+  if(!user){ closeModal('cart-overlay'); openModal('auth-overlay'); toast('Please sign in to checkout','info'); return; }
+  closeModal('cart-overlay'); coStep=2; renderCO(); openModal('checkout-overlay');
+};
+function renderCO(){
+  document.getElementById('co-addr').style.display=coStep===2?'block':'none';
+  document.getElementById('co-pay').style.display=coStep===3?'block':'none';
+  document.getElementById('co-done').style.display=coStep===4?'block':'none';
+  ['s1','s2','s3','s4'].forEach((id,i)=>{
+    const el=document.getElementById(id);
+    el.className='step-dot'+(i+1<coStep?' done':i+1===coStep?' active':'');
+    el.innerHTML=i+1<coStep?'<i class="fas fa-check"></i>':String(i+1);
+  });
+  ['sl2','sl3'].forEach((id,i)=>{ document.getElementById(id).className='step-line'+(coStep>i+2?' done':''); });
+  if(coStep===3){
+    document.getElementById('disp-upi').textContent=settings.upi||'yourname@upi';
+    document.getElementById('disp-ph').textContent='📱 +91 '+(settings.phone||'XXXXXXXXXX')+' (GPay)';
+    const sub=cart.reduce((a,c)=>a+c.price*c.qty,0);
+    document.getElementById('co-total').textContent='Rs.'+(sub+50);
+    genQR(settings.upi||'yourname@upi');
+  }
+}
+window.goToPay=()=>{
+  if(['a-name','a-phone','a-line','a-city','a-pin','a-state'].some(id=>!document.getElementById(id).value.trim())){ toast('Please fill all address fields','error'); return; }
+  coStep=3; renderCO();
+};
+window.selPay=m=>{
+  payMethod=m;
+  document.getElementById('pm-upi').classList.toggle('on',m==='upi');
+  document.getElementById('pm-cod').classList.toggle('on',m==='cod');
+  document.getElementById('upi-sec').style.display=m==='upi'?'block':'none';
+  document.getElementById('cod-sec').style.display=m==='cod'?'block':'none';
+};
+function genQR(upiId){
+  const c=document.getElementById('qr-canvas'),ctx=c.getContext('2d'),sz=148;
+  c.width=sz; c.height=sz; ctx.fillStyle='#fff'; ctx.fillRect(0,0,sz,sz); ctx.fillStyle='#180A12';
+  const cells=21, cell=Math.floor(sz/cells);
+  for(let r=0;r<cells;r++) for(let cc=0;cc<cells;cc++){
+    if((r<7&&(cc<7||cc>cells-8))||(r>cells-8&&cc<7)) ctx.fillRect(cc*cell,r*cell,cell,cell);
+    else if(Math.random()>.52) ctx.fillRect(cc*cell,r*cell,cell,cell);
+  }
+  ctx.fillStyle='#fff'; ctx.fillRect(sz/2-16,sz/2-16,32,32);
+  ctx.fillStyle='#C8436A'; ctx.font='bold 14px serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('*',sz/2,sz/2);
+}
+window.copyUPI=()=>navigator.clipboard.writeText(settings.upi||'').then(()=>toast('UPI ID copied!','success'));
+window.openGPay=()=>{ const s=cart.reduce((a,c)=>a+c.price*c.qty,0); window.open('upi://pay?pa='+settings.upi+'&pn=AariElegance&am='+(s+50)+'&cu=INR&tn=AariOrder','_blank'); };
+window.openPhonePe=()=>window.open('https://phpe.app.link/','_blank');
+window.openPaytm=()=>window.open('https://paytm.com','_blank');
+window.openBHIM=()=>window.open('upi://pay?pa='+settings.upi+'&pn=AariElegance','_blank');
+
+/* CONFIRM ORDER — via firebase.js placeOrder */
+window.confirmOrder=async()=>{
+  const sub=cart.reduce((a,c)=>a+c.price*c.qty,0);
+  const addr={name:document.getElementById('a-name').value,phone:document.getElementById('a-phone').value,line:document.getElementById('a-line').value,city:document.getElementById('a-city').value,pin:document.getElementById('a-pin').value,state:document.getElementById('a-state').value};
+  const suggestions=cart.filter(c=>c.note).map(c=>c.name+': '+c.note).join('; ');
+  try{
+    const ref=await placeOrder({userId:user.uid,userEmail:user.email,items:cart,address:addr,total:sub+50,suggestions,payMethod});
+    document.getElementById('order-id-out').textContent='#'+ref.id.slice(0,8).toUpperCase();
+  }catch(e){ document.getElementById('order-id-out').textContent='#ORD'+Math.random().toString(36).slice(2,8).toUpperCase(); }
+  cart=[]; saveCart(); coStep=4; renderCO();
+};
+
+/* TUTORIALS */
+function demoTuts(){ return[
+  {id:'t1',title:'Aari Work Basics for Beginners',description:'Learn the fundamental hook techniques and your very first Aari pattern from scratch.',tag:'Beginner',videoUrl:'',duration:'24 min'},
+  {id:'t2',title:'Beautiful Flower Motif Tutorial',description:'Step-by-step guide to stitching perfect rose and lotus motifs on blouses.',tag:'Intermediate',videoUrl:'',duration:'38 min'},
+  {id:'t3',title:'Zari Thread Embellishment',description:'Master the art of using Zari and metallic threads to create stunning golden designs.',tag:'Advanced',videoUrl:'',duration:'52 min'},
+  {id:'t4',title:'Bridal Blouse Full Tutorial',description:'Complete bridal Aari design from start to finish — our most requested tutorial!',tag:'Bridal',videoUrl:'',duration:'1.5 hrs'},
+]; }
+function getYTId(url){ const m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=))([^&?]+)/); return m?m[1]:''; }
+function renderTuts(list){
+  document.getElementById('tutorials-grid').innerHTML=list.map(t=>{
+    const ytId=getYTId(t.videoUrl||'');
+    const media=ytId?`<iframe src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen></iframe>`:'<div class="play-btn"><i class="fas fa-play"></i></div>';
+    return `<div class="tut-card"><div class="tut-thumb">${media}</div><div class="tut-info"><div class="tut-tag">📹 ${t.tag||'Tutorial'}</div><div class="tut-title">${t.title}</div><div class="tut-desc">${t.description||''}</div><div class="tut-meta"><span><i class="fas fa-clock"></i> ${t.duration||'—'}</span></div></div></div>`;
+  }).join('');
+}
+
+/* REVIEWS */
+function renderReviews(){
+  const R=[
+    {name:'Priya M.',loc:'Chennai',rating:5,text:'Absolutely stunning blouse work! The Zari detailing was beyond expectations. Will order again!',ava:'👩'},
+    {name:'Kavitha R.',loc:'Coimbatore',rating:5,text:"Custom jacket for my daughter's wedding — everyone was in awe. Perfect craftsmanship.",ava:'👩'},
+    {name:'Anjali S.',loc:'Bangalore',rating:5,text:'The tutorial videos helped me learn Aari from scratch. Now I create my own designs!',ava:'👩'},
+    {name:'Meena P.',loc:'Madurai',rating:4,text:'Beautiful designs, fast delivery. Packed carefully. Truly handmade quality.',ava:'👩'},
+    {name:'Lakshmi V.',loc:'Tiruppur',rating:5,text:'Best Aari work shop online! Customer support excellent. My saree work turned out gorgeous.',ava:'👩'},
+    {name:'Divya K.',loc:'Salem',rating:5,text:'Dupatta with peacock design. Truly a piece of art. Exceeded all expectations!',ava:'👩'},
+  ];
+  document.getElementById('reviews-track').innerHTML=R.map(r=>`<div class="review-card"><div class="review-stars">${Array.from({length:5},(_,i)=>`<i class="fa${i<r.rating?'s':'r'} fa-star"></i>`).join('')}</div><p class="review-text">"${r.text}"</p><div class="review-author"><div class="review-ava">${r.ava}</div><div><div class="review-name">${r.name}</div><div class="review-loc"><i class="fas fa-map-marker-alt" style="font-size:9px"></i> ${r.loc}</div></div></div></div>`).join('');
+}
+
+/* MY ORDERS — via firebase.js getUserOrders */
+window.openMyOrders=async()=>{
+  if(!user){ openModal('auth-overlay'); return; }
+  try{ const o=await getUserOrders(user.uid); toast(o.length?'You have '+o.length+' order(s)':'No orders yet','info'); }catch(e){ toast('Fetching orders...','info'); }
+};
+
+/* ENQUIRY — via firebase.js sendEnquiry */
+window.openEnquiry=()=>openModal('enq-overlay');
+window.sendEnquiryForm=async()=>{
+  const name=document.getElementById('eq-name').value.trim();
+  const phone=document.getElementById('eq-phone').value.trim();
+  const msg=document.getElementById('eq-msg').value.trim();
+  if(!name||!msg){ toast('Please fill your name and message','error'); return; }
+  try{ await sendEnquiry(name,phone,msg); }catch(e){}
+  closeModal('enq-overlay');
+  document.getElementById('eq-name').value='';
+  document.getElementById('eq-phone').value='';
+  document.getElementById('eq-msg').value='';
+  toast("Enquiry sent! We'll contact you soon","success");
+};
+
+window.openSzGuide=()=>openModal('sz-overlay');
+
+/* WHATSAPP */
+window.openWA=()=>{
+  const n=(settings.wa||settings.phone||'').replace(/[^0-9]/g,'');
+  window.open('https://wa.me/'+(n.startsWith('91')?n:'91'+n)+'?text=Hello!%20I%27m%20interested%20in%20your%20Aari%20work.','_blank');
+};
+
+/* CHAT — via firebase.js sendMessage / listenMessages */
+window.toggleChat=()=>{
+  chatOpen=!chatOpen;
+  document.getElementById('chat-win').classList.toggle('open',chatOpen);
+  if(chatOpen&&!chatUnsub){
+    chatUnsub=listenMessages(chatId,msgs=>{
+      const el=document.getElementById('chat-msgs');
+      el.innerHTML=msgs.map(m=>`<div class="cmsg ${m.sender==='owner'?'bot':'usr'}">${m.text}</div>`).join('');
+      el.scrollTop=el.scrollHeight;
+    });
+  }
+};
+window.sendChat=async()=>{
+  const inp=document.getElementById('chat-inp'); const text=inp.value.trim(); if(!text) return;
+  const msgs=document.getElementById('chat-msgs');
+  msgs.innerHTML+=`<div class="cmsg usr">${text}</div>`; msgs.scrollTop=msgs.scrollHeight; inp.value='';
+  try{ await sendMessage(chatId,text,'user',user?user.email:'Guest'); }catch(e){}
+  setTimeout(()=>{ msgs.innerHTML+=`<div class="cmsg bot">Thank you! The owner will reply shortly. For instant help, WhatsApp us!</div>`; msgs.scrollTop=msgs.scrollHeight; },1600);
+};
+
+window.closeOffer=()=>document.getElementById('off-overlay').classList.remove('open');
+
+/* MODALS */
+function openModal(id){ document.getElementById(id).classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+window.openModal=openModal; window.closeModal=closeModal; window.openAuth=()=>openModal('auth-overlay');
+window.overlayClose=(e,id)=>{ if(e.target.id===id) closeModal(id); };
+
+/* AUTH TAB SWITCH */
+window.switchTab=t=>{
+  document.getElementById('form-in').style.display=t==='in'?'block':'none';
+  document.getElementById('form-up').style.display=t==='up'?'block':'none';
+  document.getElementById('tab-in').classList.toggle('active',t==='in');
+  document.getElementById('tab-up').classList.toggle('active',t==='up');
+  document.getElementById('auth-title').textContent=t==='in'?'Welcome Back':'Create Account';
+  document.getElementById('auth-sub').textContent=t==='in'?'Sign in to your account':'Join Aari Elegance today';
+};
+
+/* USER DROPDOWN */
+window.toggleDD=()=>document.getElementById('user-dd').classList.toggle('open');
+document.addEventListener('click',e=>{ if(!e.target.closest('#auth-nav')) document.getElementById('user-dd').classList.remove('open'); });
+
+/* MOBILE NAV */
+window.openNav=()=>{ document.getElementById('mob-nav').classList.add('open'); document.getElementById('mob-overlay').classList.add('open'); document.getElementById('hbg').classList.add('open'); };
+window.closeNav=()=>{ document.getElementById('mob-nav').classList.remove('open'); document.getElementById('mob-overlay').classList.remove('open'); document.getElementById('hbg').classList.remove('open'); };
+window.gotoSec=id=>{ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); };
+
+/* NAV SCROLL + SECTION HIGHLIGHT */
+function initNavBehavior(){
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ document.querySelectorAll('.nav-links a').forEach(l=>l.classList.remove('active')); const lnk=document.querySelector('.nav-links a[href="#'+e.target.id+'"]'); if(lnk) lnk.classList.add('active'); }});
+  },{threshold:.3});
+  ['hero','products','tutorials','about','reviews'].forEach(id=>{ const el=document.getElementById(id); if(el) obs.observe(el); });
+}
+
+/* PETALS */
+function spawnPetals(){
+  const c=document.getElementById('petals'), emojis=['🌸','🌺','✦','🌷','💮'];
+  for(let i=0;i<16;i++){
+    const p=document.createElement('div'); p.className='petal'; p.textContent=emojis[i%emojis.length];
+    p.style.cssText='left:'+Math.random()*100+'vw;animation-duration:'+(8+Math.random()*14)+'s;animation-delay:'+Math.random()*12+'s;font-size:'+(10+Math.random()*14)+'px';
+    c.appendChild(p);
+  }
+}
+
+/* SCROLL REVEAL */
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+/* TOAST */
+window.toast=(msg,type='info')=>{
+  const icons={success:'fa-check-circle',error:'fa-exclamation-circle',info:'fa-info-circle'};
+  const el=document.createElement('div'); el.className='toast '+type;
+  el.innerHTML='<i class="fas '+icons[type]+'"></i> '+msg;
+  document.getElementById('toast-rack').appendChild(el);
+  setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(),400); },3200);
+};
+</script>
+</body>
+</html>
