@@ -992,7 +992,10 @@ let payMethod='upi', coStep=2;
 
 /* BOOT */
 window.addEventListener('load', async()=>{
-  setTimeout(()=>document.getElementById('page-loader').classList.add('out'),1400);
+  // Hide loader after max 2s — don't wait for Firebase
+  const hideLoader=()=>document.getElementById('page-loader').classList.add('out');
+  setTimeout(hideLoader,2000);
+  document.getElementById('page-loader').addEventListener('click',hideLoader);
   spawnPetals(); initReveal(); initNavBehavior();
   try{ settings={...settings,...(await getSettings())}; }catch(e){}
   try{ const p=await getProducts(); allProducts=p.length?p:demoProd(); }catch(e){ allProducts=demoProd(); }
