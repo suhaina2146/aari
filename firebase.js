@@ -31,7 +31,7 @@ const firebaseConfig = {
 };
 // ──────────────────────────────────────────────────────────────
 
-const _app     = initializeApp(_config);
+const _app     = initializeApp(firebaseConfig);
 const _auth    = getAuth(_app);
 const _db      = getFirestore(_app);
 const _storage = getStorage(_app);
