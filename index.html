@@ -1251,8 +1251,8 @@ window.confirmOrder=async()=>{
   const suggestions=cart.filter(c=>c.note).map(c=>c.name+': '+c.note).join('; ');
   try{
     const ref=await placeOrder({userId:user.uid,userEmail:user.email,items:cart,address:addr,total:sub+50,suggestions,payMethod});
-    document.getElementById('order-id-out').textContent='#'+ref.id.slice(0,8).toUpperCase();
-  }catch(e){ document.getElementById('order-id-out').textContent='#ORD'+Math.random().toString(36).slice(2,8).toUpperCase(); }
+    document.getElementById('oid-out').textContent='#'+ref.id.slice(0,8).toUpperCase();
+  }catch(e){ document.getElementById('oid-out').textContent='#ORD'+Math.random().toString(36).slice(2,8).toUpperCase(); }
   cart=[]; saveCart(); coStep=4; renderCO();
 };
 
