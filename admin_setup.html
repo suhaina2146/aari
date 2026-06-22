@@ -8,153 +8,130 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
 :root{
-  --rose:#C8436A;--plum:#5C2244;--plum2:#7A2D5A;
-  --rose-light:#FAE4ED;--cream:#FEF8F5;--dark:#180A12;--dark2:#2A1220;
-  --border:#EDD5E3;--text:#1E0E18;--text2:#6B4558;--text3:#A07890;--white:#fff;
-  --gold:#BF9142;--r:16px;
+  --rose:#C8436A;--plum:#5C2244;--rose-light:#FAE4ED;--gold:#BF9142;--gold2:#D4A84B;
+  --dark:#180A12;--dark2:#2A1220;--border:rgba(255,255,255,.1);--white:#fff;
+  --text2:rgba(255,255,255,.65);--text3:rgba(255,255,255,.35);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--dark);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.wrap{width:100%;max-width:460px}
-.brand{text-align:center;margin-bottom:32px}
-.brand-name{font-family:'Italiana',serif;font-size:38px;background:linear-gradient(135deg,#C4A0B8,#fff,#D4A84B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200%;animation:shimmer 2.5s ease infinite}
+.wrap{width:100%;max-width:480px}
+.brand{text-align:center;margin-bottom:28px}
+.brand-name{font-family:'Italiana',serif;font-size:36px;background:linear-gradient(135deg,#C4A0B8,#fff,var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200%;animation:shimmer 2.5s ease infinite}
 @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
-.brand-sub{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase;margin-top:6px}
-.warn-box{background:rgba(191,145,66,.12);border:1px solid rgba(191,145,66,.35);border-radius:12px;padding:14px 18px;display:flex;gap:12px;margin-bottom:24px;align-items:flex-start}
-.warn-icon{color:var(--gold);font-size:18px;flex-shrink:0;margin-top:2px}
-.warn-text{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
-.warn-text strong{color:rgba(255,255,255,.9)}
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:28px;backdrop-filter:blur(12px)}
-.card-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:20px;display:flex;align-items:center;gap:9px}
+.brand-sub{font-size:11.5px;color:var(--text3);letter-spacing:.18em;text-transform:uppercase;margin-top:5px}
+.warn{background:rgba(191,145,66,.1);border:1px solid rgba(191,145,66,.3);border-radius:12px;padding:13px 16px;display:flex;gap:11px;margin-bottom:22px}
+.warn i{color:var(--gold2);font-size:17px;flex-shrink:0;margin-top:2px}
+.warn p{font-size:12.5px;color:var(--text2);line-height:1.6}
+.warn strong{color:#fff}
+.card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:20px;padding:28px;backdrop-filter:blur(12px)}
+.card-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:20px;display:flex;align-items:center;gap:9px}
 .card-title i{color:var(--rose)}
-.field{margin-bottom:16px}
-label{display:block;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px}
-input,select{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;transition:border-color .2s;outline:none}
-input::placeholder{color:rgba(255,255,255,.25)}
-input:focus,select:focus{border-color:var(--rose)}
-select{cursor:pointer}
-select option{background:#2A1220;color:#fff}
-.role-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.role-btn{padding:12px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:rgba(255,255,255,.6);font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:5px}
-.role-btn i{font-size:22px;margin-bottom:3px}
-.role-btn.sel-admin{border-color:#D4A84B;background:rgba(212,168,75,.12);color:#D4A84B}
-.role-btn.sel-owner{border-color:var(--rose);background:rgba(200,67,106,.12);color:var(--rose)}
-.role-desc{font-size:11px;font-weight:400;opacity:.75;margin-top:2px}
-.btn-create{width:100%;padding:14px;border-radius:40px;background:linear-gradient(135deg,var(--rose),var(--plum));color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;border:none;cursor:pointer;margin-top:8px;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:9px}
-.btn-create:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(200,67,106,.45)}
-.btn-create:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.msg{display:none;padding:13px 16px;border-radius:10px;font-size:13.5px;font-weight:500;margin-top:16px;align-items:center;gap:10px}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.rbtn{padding:13px 10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:5px}
+.rbtn i{font-size:22px}
+.rbtn small{font-size:10.5px;font-weight:400;opacity:.7}
+.rbtn.a{border-color:var(--gold2);background:rgba(212,168,75,.1);color:var(--gold2)}
+.rbtn.o{border-color:var(--rose);background:rgba(200,67,106,.1);color:var(--rose)}
+label{display:block;font-size:11.5px;font-weight:700;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.field{margin-bottom:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input{width:100%;padding:11px 13px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#fff;font-family:'DM Sans',sans-serif;font-size:13.5px;outline:none;transition:border-color .2s}
+input::placeholder{color:var(--text3)}
+input:focus{border-color:var(--rose)}
+.btn{width:100%;padding:14px;border-radius:40px;background:linear-gradient(135deg,var(--rose),var(--plum));color:#fff;font-family:'DM Sans',sans-serif;font-size:14.5px;font-weight:700;border:none;cursor:pointer;margin-top:6px;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:9px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,67,106,.4)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.msg{display:none;padding:12px 15px;border-radius:10px;font-size:13px;font-weight:500;margin-top:14px;align-items:flex-start;gap:9px;line-height:1.55}
 .msg.show{display:flex}
-.msg.success{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3);color:#2ECC71}
-.msg.error{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);color:#E74C3C}
-.divider{display:flex;align-items:center;gap:12px;margin:22px 0}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08)}
-.divider span{font-size:11.5px;color:rgba(255,255,255,.3);white-space:nowrap}
-.login-link{display:block;text-align:center;font-size:13.5px;color:rgba(255,255,255,.4);padding:10px}
-.login-link a{color:var(--rose);font-weight:600;text-decoration:none}
-.login-link a:hover{text-decoration:underline}
-.step-indicator{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px}
-.step-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.15);transition:all .3s}
-.step-dot.active{background:var(--rose);transform:scale(1.4)}
-.step-dot.done{background:rgba(46,204,113,.7)}
+.msg.ok{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25);color:#2ECC71}
+.msg.err{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25);color:#E74C3C}
+.back{display:block;text-align:center;margin-top:18px;font-size:13px;color:var(--text3)}
+.back a{color:var(--rose);font-weight:600;text-decoration:none}
+.back a:hover{text-decoration:underline}
+.schema-info{margin-top:20px;padding:14px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px}
+.schema-info h3{font-size:12px;font-weight:700;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.col-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);color:var(--text2)}
+.col-row:last-child{border:none}
+.col-key{font-family:monospace;color:rgba(255,255,255,.8)}
+.col-val{color:var(--text3);font-size:11px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="brand">
     <div class="brand-name">✦ Aari Elegance</div>
-    <div class="brand-sub">Admin Account Setup</div>
+    <div class="brand-sub">First-Time Admin Setup</div>
   </div>
 
-  <div class="warn-box">
-    <i class="fas fa-shield-halved warn-icon"></i>
-    <div class="warn-text">
-      <strong>One-Time Setup Page.</strong> Use this only to create your first admin or owner account.
-      After setup, <strong>delete or restrict access</strong> to this file from your server. Do not share this URL.
-    </div>
+  <div class="warn">
+    <i class="fas fa-shield-halved"></i>
+    <p><strong>One-time setup only.</strong> Create your first Owner or Admin account here.
+    Once done, <strong>delete this file from your server</strong> and use the main login page.</p>
   </div>
 
   <div class="card">
     <div class="card-title"><i class="fas fa-user-shield"></i> Create Privileged Account</div>
 
-    <div class="field">
-      <label>Account Role</label>
-      <div class="role-btns">
-        <button class="role-btn sel-admin" id="rb-admin" onclick="pickRole('admin')">
-          <i class="fas fa-user-cog"></i>
-          Admin
-          <span class="role-desc">Manage products &amp; orders</span>
-        </button>
-        <button class="role-btn" id="rb-owner" onclick="pickRole('owner')">
-          <i class="fas fa-crown"></i>
-          Owner
-          <span class="role-desc">Full store control</span>
-        </button>
-      </div>
+    <div class="role-grid">
+      <button class="rbtn a" id="rb-admin" onclick="pick('admin')">
+        <i class="fas fa-user-cog"></i> Admin
+        <small>Products, orders, users</small>
+      </button>
+      <button class="rbtn" id="rb-owner" onclick="pick('owner')">
+        <i class="fas fa-crown"></i> Owner
+        <small>Full store control</small>
+      </button>
     </div>
 
-    <div class="field">
-      <label>Full Name</label>
-      <input id="s-name" type="text" placeholder="e.g. Suhaina"/>
+    <div class="row">
+      <div class="field"><label>Full Name</label><input id="s-name" type="text" placeholder="e.g. Suhaina"/></div>
+      <div class="field"><label>Phone</label><input id="s-phone" type="tel" placeholder="+91 XXXXXXXXXX"/></div>
     </div>
-    <div class="field">
-      <label>Phone (optional)</label>
-      <input id="s-phone" type="tel" placeholder="+91 XXXXXXXXXX"/>
-    </div>
-    <div class="field">
-      <label>Email Address</label>
-      <input id="s-email" type="email" placeholder="admin@yourdomain.com"/>
-    </div>
-    <div class="field">
-      <label>Password (min 6 chars)</label>
-      <input id="s-pass" type="password" placeholder="Choose a strong password"/>
-    </div>
-    <div class="field">
-      <label>Confirm Password</label>
-      <input id="s-pass2" type="password" placeholder="Repeat password"/>
+    <div class="field"><label>Email Address</label><input id="s-email" type="email" placeholder="admin@yourdomain.com"/></div>
+    <div class="row">
+      <div class="field"><label>Password (min 6)</label><input id="s-pass" type="password" placeholder="Strong password"/></div>
+      <div class="field"><label>Confirm Password</label><input id="s-pass2" type="password" placeholder="Repeat"/></div>
     </div>
 
-    <button class="btn-create" id="create-btn" onclick="createAccount()">
+    <button class="btn" id="create-btn" onclick="createAccount()">
       <i class="fas fa-user-plus"></i> Create Account
     </button>
+    <div class="msg" id="msgbox"></div>
 
-    <div class="msg" id="msg-box"></div>
+    <div class="schema-info">
+      <h3>What gets auto-created in Firestore</h3>
+      <div class="col-row"><span class="col-key">users/{uid}/name</span><span class="col-val">Full name</span></div>
+      <div class="col-row"><span class="col-key">users/{uid}/email</span><span class="col-val">Email address</span></div>
+      <div class="col-row"><span class="col-key">users/{uid}/phone</span><span class="col-val">Phone number</span></div>
+      <div class="col-row"><span class="col-key">users/{uid}/role</span><span class="col-val">"admin" or "owner"</span></div>
+      <div class="col-row"><span class="col-key">users/{uid}/address</span><span class="col-val">Nested object</span></div>
+      <div class="col-row"><span class="col-key">users/{uid}/wishlist</span><span class="col-val">[]</span></div>
+      <div class="col-row"><span class="col-key">users/{uid}/totalOrders</span><span class="col-val">0</span></div>
+      <div class="col-row"><span class="col-key">users/{uid}/createdAt</span><span class="col-val">serverTimestamp</span></div>
+      <div class="col-row"><span class="col-key">settings/store</span><span class="col-val">Auto-initialized</span></div>
+      <div class="col-row"><span class="col-key">settings/offer</span><span class="col-val">Auto-initialized</span></div>
+    </div>
   </div>
 
-  <div class="divider"><span>already have an account?</span></div>
-  <a class="login-link" href="index.html">← Back to <a href="index.html" style="color:var(--rose);font-weight:600">Aari Elegance</a></a>
+  <div class="back">Already have an account? <a href="index.html">← Go to store login</a></div>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+// Import ONLY from firebase.js — it handles all Firestore schema & auto-init
+import { registerUser, updateSettings } from './firebase.js';
 
-// ── Same config as firebase.js ──────────────────────────────────
-const firebaseConfig = {
-  apiKey: "AIzaSyBR8CWIveXMn0yVFfVK4jgFql1WQfQYnhw",
-  authDomain: "aari-web-41113.firebaseapp.com",
-  projectId: "aari-web-41113",
-  storageBucket: "aari-web-41113.firebasestorage.app",
-  messagingSenderId: "207040525163",
-  appId: "1:207040525163:web:746599625ea525dc36122e"
-};
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
+let role = 'admin';
 
-let selectedRole = 'admin';
-
-window.pickRole = (role) => {
-  selectedRole = role;
-  document.getElementById('rb-admin').className = 'role-btn' + (role==='admin'?' sel-admin':'');
-  document.getElementById('rb-owner').className = 'role-btn' + (role==='owner'?' sel-owner':'');
+window.pick = r => {
+  role = r;
+  document.getElementById('rb-admin').className = 'rbtn' + (r==='admin'?' a':'');
+  document.getElementById('rb-owner').className = 'rbtn' + (r==='owner'?' o':'');
 };
 
-function showMsg(text, type) {
-  const el = document.getElementById('msg-box');
-  el.className = 'msg show ' + type;
-  el.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${text}`;
+function msg(text, type) {
+  const el = document.getElementById('msgbox');
+  el.className = 'msg show ' + (type==='ok'?'ok':'err');
+  el.innerHTML = `<i class="fas fa-${type==='ok'?'check-circle':'exclamation-circle'}"></i><span>${text}</span>`;
 }
 
 window.createAccount = async () => {
@@ -164,29 +141,40 @@ window.createAccount = async () => {
   const pass  = document.getElementById('s-pass').value;
   const pass2 = document.getElementById('s-pass2').value;
 
-  if (!name || !email || !pass) { showMsg('Please fill Name, Email, and Password.', 'error'); return; }
-  if (pass.length < 6) { showMsg('Password must be at least 6 characters.', 'error'); return; }
-  if (pass !== pass2) { showMsg('Passwords do not match.', 'error'); return; }
+  if (!name || !email || !pass) { msg('Please fill Name, Email, and Password.', 'err'); return; }
+  if (pass.length < 6)          { msg('Password must be at least 6 characters.', 'err'); return; }
+  if (pass !== pass2)           { msg('Passwords do not match.', 'err'); return; }
 
   const btn = document.getElementById('create-btn');
   btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account & Firestore documents...';
 
   try {
-    const cred = await createUserWithEmailAndPassword(auth, email, pass);
-    await setDoc(doc(db, 'users', cred.user.uid), {
-      name, email, phone, role: selectedRole, createdAt: serverTimestamp()
-    });
-    showMsg(
-      `✅ ${selectedRole.charAt(0).toUpperCase()+selectedRole.slice(1)} account created for <strong>${name}</strong>. You can now <a href="index.html" style="color:#2ECC71;font-weight:700">sign in</a>. Delete this file after setup!`,
-      'success'
+    // registerUser in firebase.js: creates Auth user + full Firestore users/{uid} document
+    // Then we patch the role since registerUser defaults to "user"
+    const { user: newUser } = await registerUser(email, pass, name, phone);
+
+    // Import setUserRole to update role (firebase.js auto-creates all fields first)
+    const { setUserRole } = await import('./firebase.js');
+    await setUserRole(newUser.uid, role);
+
+    // Also initialise store settings document if it doesn't exist yet
+    await updateSettings({});   // triggers auto-create in firebase.js
+
+    const dashLink = role === 'owner' ? 'owner.html' : 'admin.html';
+    msg(
+      `✅ <strong>${role.charAt(0).toUpperCase()+role.slice(1)}</strong> account created for <strong>${name}</strong>. 
+       All Firestore fields initialized automatically.<br><br>
+       👉 <a href="${dashLink}" style="color:#2ECC71;font-weight:700">Go to your dashboard →</a><br>
+       ⚠️ <strong>Delete setup-admin.html</strong> from your server now!`,
+      'ok'
     );
-    btn.innerHTML = '<i class="fas fa-check"></i> Created!';
+    btn.innerHTML = '<i class="fas fa-check"></i> Account Created!';
   } catch(e) {
-    const m = e.code === 'auth/email-already-in-use' ? 'This email is already registered.'
+    const m = e.code === 'auth/email-already-in-use' ? 'Email is already registered.'
             : e.code === 'auth/invalid-email' ? 'Invalid email address.'
             : e.message;
-    showMsg(m, 'error');
+    msg(m, 'err');
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
   }
