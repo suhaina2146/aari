@@ -19,6 +19,7 @@ import {
   getStorage, ref, uploadBytes, getDownloadURL, deleteObject
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
+// ── FIX: was incorrectly using _config (undefined variable) ──────
 const firebaseConfig = {
   apiKey: "AIzaSyBR8CWIveXMn0yVFfVK4jgFql1WQfQYnhw",
   authDomain: "aari-web-41113.firebaseapp.com",
@@ -30,7 +31,7 @@ const firebaseConfig = {
 };
 // ──────────────────────────────────────────────────────────────
 
-const _app     = initializeApp(_config);
+const _app     = initializeApp(firebaseConfig);  // FIX: was initializeApp(_config)
 const _auth    = getAuth(_app);
 const _db      = getFirestore(_app);
 const _storage = getStorage(_app);
@@ -65,9 +66,14 @@ export async function logoutUser() {
 export function onAuth(callback) {
   return onAuthStateChanged(_auth, async (user) => {
     if (!user) { callback(null, null); return; }
-    const snap = await getDoc(doc(_db, "users", user.uid));
-    const data = snap.exists() ? snap.data() : { role: "user", name: user.email };
-    callback(user, data);
+    try {
+      const snap = await getDoc(doc(_db, "users", user.uid));
+      const data = snap.exists() ? snap.data() : { role: "user", name: user.email };
+      callback(user, data);
+    } catch(e) {
+      // If Firestore fetch fails, still call back with basic user info
+      callback(user, { role: "user", name: user.email });
+    }
   });
 }
 
@@ -202,8 +208,10 @@ export function listenOrders(callback) {
 // ═══════════════════════════════════════════════════════════════
 
 export async function getSettings() {
-  const snap = await getDoc(doc(_db, "settings", "store"));
-  return snap.exists() ? snap.data() : {};
+  try {
+    const snap = await getDoc(doc(_db, "settings", "store"));
+    return snap.exists() ? snap.data() : {};
+  } catch(e) { return {}; }
 }
 
 export async function updateSettings(data) {
@@ -215,8 +223,10 @@ export async function updateSettings(data) {
 // ═══════════════════════════════════════════════════════════════
 
 export async function getOffer() {
-  const snap = await getDoc(doc(_db, "settings", "offer"));
-  return snap.exists() ? snap.data() : null;
+  try {
+    const snap = await getDoc(doc(_db, "settings", "offer"));
+    return snap.exists() ? snap.data() : null;
+  } catch(e) { return null; }
 }
 
 export async function setOffer(data) {
