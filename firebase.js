@@ -59,6 +59,49 @@ enableIndexedDbPersistence(_db).catch(e => {
 });
 
 // ═══════════════════════════════════════════════════════════════
+//  RETRY HELPER
+//  ─────────────────────────────────────────────────────────────
+//  With experimentalForceLongPolling, there's a short window right
+//  after initializeFirestore() where the SDK hasn't yet confirmed
+//  its long-poll "channel" is online. Any getDoc/getDocs/setDoc
+//  fired in that window throws "Failed to get document because the
+//  client is offline" even though the network is perfectly healthy.
+//
+//  _withRetry wraps a Firestore call and silently retries (with
+//  backoff) whenever it sees this specific transient condition,
+//  instead of letting it bubble up as a hard failure. Every
+//  exported function in this file that touches Firestore goes
+//  through this wrapper, not just login.
+// ═══════════════════════════════════════════════════════════════
+
+function _isTransientOffline(e) {
+  const msg = (e && e.message) || "";
+  return (
+    e?.code === "unavailable" ||
+    msg.includes("client is offline") ||
+    msg.includes("offline") ||
+    msg.includes("network")
+  );
+}
+
+async function _withRetry(fn, retries = 4, delayMs = 900) {
+  let lastErr;
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      lastErr = e;
+      if (_isTransientOffline(e) && i < retries - 1) {
+        await new Promise(r => setTimeout(r, delayMs * (i + 1)));
+        continue;
+      }
+      throw e;
+    }
+  }
+  throw lastErr;
+}
+
+// ═══════════════════════════════════════════════════════════════
 //  SCHEMA DEFINITIONS
 //  These describe every field in every collection. Used for
 //  auto-init and for documenting the data model.
@@ -200,29 +243,32 @@ const SCHEMAS = {
 //  Uses sessionStorage flag so it only fires once per tab.
 // ═══════════════════════════════════════════════════════════════
 
-// Auto-init runs with a short delay to let Firestore connection stabilise first.
-// Uses merge:true so it never overwrites existing data.
+// Auto-init runs with a delay to let the long-polling connection
+// stabilise first, and is itself wrapped in _withRetry so a slow
+// handshake doesn't permanently skip initialization.
 async function _autoInitFirestore() {
   if (sessionStorage.getItem("ae_init_done")) return;
   try {
-    const batch = writeBatch(_db);
-    let needsWrite = false;
+    await _withRetry(async () => {
+      const batch = writeBatch(_db);
+      let needsWrite = false;
 
-    const storeRef = doc(_db, "settings", "store");
-    const storeSnap = await getDoc(storeRef);
-    if (!storeSnap.exists()) {
-      batch.set(storeRef, { ...SCHEMAS.storeSettings, updatedAt: serverTimestamp() });
-      needsWrite = true;
-    }
+      const storeRef = doc(_db, "settings", "store");
+      const storeSnap = await getDoc(storeRef);
+      if (!storeSnap.exists()) {
+        batch.set(storeRef, { ...SCHEMAS.storeSettings, updatedAt: serverTimestamp() });
+        needsWrite = true;
+      }
 
-    const offerRef = doc(_db, "settings", "offer");
-    const offerSnap = await getDoc(offerRef);
-    if (!offerSnap.exists()) {
-      batch.set(offerRef, { ...SCHEMAS.offerSettings, updatedAt: serverTimestamp() });
-      needsWrite = true;
-    }
+      const offerRef = doc(_db, "settings", "offer");
+      const offerSnap = await getDoc(offerRef);
+      if (!offerSnap.exists()) {
+        batch.set(offerRef, { ...SCHEMAS.offerSettings, updatedAt: serverTimestamp() });
+        needsWrite = true;
+      }
 
-    if (needsWrite) await batch.commit();
+      if (needsWrite) await batch.commit();
+    });
     sessionStorage.setItem("ae_init_done", "1");
     console.log("Firestore auto-init: settings documents ready.");
   } catch(e) {
@@ -231,8 +277,10 @@ async function _autoInitFirestore() {
   }
 }
 
-// Delay init by 2s so the long-polling connection has time to establish
-setTimeout(_autoInitFirestore, 2000);
+// Delay init by 3.5s so the long-polling connection has time to establish.
+// _withRetry inside _autoInitFirestore is a second layer of protection
+// on top of this delay.
+setTimeout(_autoInitFirestore, 3500);
 
 // ═══════════════════════════════════════════════════════════════
 //  HELPERS — build full user document with all required fields
@@ -347,26 +395,6 @@ function _buildEnquiryDoc(fields = {}) {
 //  AUTH
 // ═══════════════════════════════════════════════════════════════
 
-// ── Retry helper: retries a Firestore call up to 3x with backoff ──
-async function _withRetry(fn, retries = 3, delayMs = 1200) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      return await fn();
-    } catch(e) {
-      const isOffline = e.message && (
-        e.message.includes("offline") ||
-        e.message.includes("network") ||
-        e.code === "unavailable"
-      );
-      if (isOffline && i < retries - 1) {
-        await new Promise(r => setTimeout(r, delayMs * (i + 1)));
-        continue;
-      }
-      throw e;
-    }
-  }
-}
-
 /** Login → returns { user, role, name }. Updates lastLoginAt. */
 export async function loginUser(email, password) {
   // Auth works even offline (cached). Firestore read retries on flaky connections.
@@ -377,7 +405,7 @@ export async function loginUser(email, password) {
     const snap = await _withRetry(() => getDoc(userRef));
     if (snap.exists()) {
       // Fire-and-forget lastLoginAt update — don't let it block login
-      updateDoc(userRef, { lastLoginAt: serverTimestamp() }).catch(() => {});
+      _withRetry(() => updateDoc(userRef, { lastLoginAt: serverTimestamp() })).catch(() => {});
       const data = snap.data();
       return { user: cred.user, role: data.role || "user", name: data.name || email };
     } else {
@@ -430,45 +458,47 @@ export function onAuth(callback) {
 
 /** Get single user profile by uid */
 export async function getUserProfile(uid) {
-  const snap = await getDoc(doc(_db, "users", uid));
+  const snap = await _withRetry(() => getDoc(doc(_db, "users", uid)));
   return snap.exists() ? { id: snap.id, ...snap.data() } : null;
 }
 
 /** Update user role (admin only) */
 export async function setUserRole(uid, role) {
-  await updateDoc(doc(_db, "users", uid), { role });
+  await _withRetry(() => updateDoc(doc(_db, "users", uid), { role }));
 }
 
 /** Update user profile fields */
 export async function updateUserProfile(uid, fields) {
   const allowed = { name:1, phone:1, photoURL:1, address:1 };
   const safe    = Object.fromEntries(Object.entries(fields).filter(([k]) => allowed[k]));
-  await updateDoc(doc(_db, "users", uid), safe);
+  await _withRetry(() => updateDoc(doc(_db, "users", uid), safe));
 }
 
 /** Create a full user record in Firestore (admin use — Auth account must already exist) */
 export async function createUserRecord(uid, fields) {
   const userDoc = _buildUserDoc(fields);
-  await setDoc(doc(_db, "users", uid), userDoc);
+  await _withRetry(() => setDoc(doc(_db, "users", uid), userDoc));
 }
 
 /** Get all users */
 export async function getAllUsers() {
-  const snap = await getDocs(collection(_db, "users"));
+  const snap = await _withRetry(() => getDocs(collection(_db, "users")));
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
 
 /** Delete user record from Firestore */
 export async function deleteUserRecord(uid) {
-  await deleteDoc(doc(_db, "users", uid));
+  await _withRetry(() => deleteDoc(doc(_db, "users", uid)));
 }
 
 /** Promote / demote user by email */
 export async function promoteUserByEmail(email, role) {
-  const snap = await getDocs(query(collection(_db, "users"), where("email", "==", email)));
+  const snap = await _withRetry(() =>
+    getDocs(query(collection(_db, "users"), where("email", "==", email)))
+  );
   if (snap.empty) throw new Error("User not found");
   const uid = snap.docs[0].id;
-  await updateDoc(doc(_db, "users", uid), { role });
+  await _withRetry(() => updateDoc(doc(_db, "users", uid), { role }));
   return uid;
 }
 
@@ -477,22 +507,22 @@ export async function promoteUserByEmail(email, role) {
 // ═══════════════════════════════════════════════════════════════
 
 export async function addProduct(fields) {
-  return await addDoc(collection(_db, "products"), _buildProductDoc(fields));
+  return await _withRetry(() => addDoc(collection(_db, "products"), _buildProductDoc(fields)));
 }
 
 export async function updateProduct(id, fields) {
   const safe = _buildProductDoc(fields);
   delete safe.createdAt; // never overwrite createdAt on update
-  await updateDoc(doc(_db, "products", id), safe);
+  await _withRetry(() => updateDoc(doc(_db, "products", id), safe));
 }
 
 export async function deleteProduct(id) {
-  await deleteDoc(doc(_db, "products", id));
+  await _withRetry(() => deleteDoc(doc(_db, "products", id)));
 }
 
 export async function getProducts() {
-  const snap = await getDocs(
-    query(collection(_db, "products"), orderBy("createdAt", "desc"))
+  const snap = await _withRetry(() =>
+    getDocs(query(collection(_db, "products"), orderBy("createdAt", "desc")))
   );
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
@@ -509,24 +539,24 @@ export function listenProducts(callback) {
 // ═══════════════════════════════════════════════════════════════
 
 export async function addTutorial(fields) {
-  return await addDoc(collection(_db, "tutorials"), _buildTutorialDoc(fields));
+  return await _withRetry(() => addDoc(collection(_db, "tutorials"), _buildTutorialDoc(fields)));
 }
 
 export async function updateTutorial(id, fields) {
   const safe = _buildTutorialDoc(fields);
   delete safe.createdAt;
-  await updateDoc(doc(_db, "tutorials", id), safe);
+  await _withRetry(() => updateDoc(doc(_db, "tutorials", id), safe));
 }
 
 export async function getTutorials() {
-  const snap = await getDocs(
-    query(collection(_db, "tutorials"), orderBy("createdAt", "desc"))
+  const snap = await _withRetry(() =>
+    getDocs(query(collection(_db, "tutorials"), orderBy("createdAt", "desc")))
   );
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
 
 export async function deleteTutorial(id) {
-  await deleteDoc(doc(_db, "tutorials", id));
+  await _withRetry(() => deleteDoc(doc(_db, "tutorials", id)));
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -535,15 +565,15 @@ export async function deleteTutorial(id) {
 
 export async function placeOrder(fields) {
   const orderDoc = _buildOrderDoc(fields);
-  const ref      = await addDoc(collection(_db, "orders"), orderDoc);
+  const ref      = await _withRetry(() => addDoc(collection(_db, "orders"), orderDoc));
 
   // Increment user's totalOrders counter
   if (fields.userId) {
     try {
       const userRef = doc(_db, "users", fields.userId);
-      const usnap   = await getDoc(userRef);
+      const usnap   = await _withRetry(() => getDoc(userRef));
       if (usnap.exists()) {
-        await updateDoc(userRef, { totalOrders: (usnap.data().totalOrders || 0) + 1 });
+        await _withRetry(() => updateDoc(userRef, { totalOrders: (usnap.data().totalOrders || 0) + 1 }));
       }
     } catch(e) { /* non-critical */ }
   }
@@ -551,30 +581,29 @@ export async function placeOrder(fields) {
 }
 
 export async function getOrders() {
-  const snap = await getDocs(
-    query(collection(_db, "orders"), orderBy("createdAt", "desc"))
+  const snap = await _withRetry(() =>
+    getDocs(query(collection(_db, "orders"), orderBy("createdAt", "desc")))
   );
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
 
 export async function getUserOrders(uid) {
-  const snap = await getDocs(
-    query(collection(_db, "orders"), where("userId", "==", uid), orderBy("createdAt", "desc"))
+  const snap = await _withRetry(() =>
+    getDocs(query(collection(_db, "orders"), where("userId", "==", uid), orderBy("createdAt", "desc")))
   );
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
 
 /** Update order status and append to statusHistory */
 export async function updateOrderStatus(id, status, byUid = "system") {
-  await updateDoc(doc(_db, "orders", id), {
-    status,
-    updatedAt:     serverTimestamp(),
-    statusHistory: /* Firestore arrayUnion equivalent — read first then update */
-      await (async () => {
-        const snap = await getDoc(doc(_db, "orders", id));
-        const hist = snap.exists() ? (snap.data().statusHistory || []) : [];
-        return [...hist, { status, at: serverTimestamp(), by: byUid }];
-      })()
+  await _withRetry(async () => {
+    const snap = await getDoc(doc(_db, "orders", id));
+    const hist = snap.exists() ? (snap.data().statusHistory || []) : [];
+    await updateDoc(doc(_db, "orders", id), {
+      status,
+      updatedAt:     serverTimestamp(),
+      statusHistory: [...hist, { status, at: serverTimestamp(), by: byUid }]
+    });
   });
 }
 
@@ -590,19 +619,23 @@ export function listenOrders(callback) {
 // ═══════════════════════════════════════════════════════════════
 
 export async function getSettings() {
-  const snap = await getDoc(doc(_db, "settings", "store"));
-  if (snap.exists()) return snap.data();
-  // Auto-create with defaults if missing
-  const defaults = { ...SCHEMAS.storeSettings, updatedAt: serverTimestamp() };
-  await setDoc(doc(_db, "settings", "store"), defaults);
-  return defaults;
+  return await _withRetry(async () => {
+    const snap = await getDoc(doc(_db, "settings", "store"));
+    if (snap.exists()) return snap.data();
+    // Auto-create with defaults if missing
+    const defaults = { ...SCHEMAS.storeSettings, updatedAt: serverTimestamp() };
+    await setDoc(doc(_db, "settings", "store"), defaults);
+    return defaults;
+  });
 }
 
 export async function updateSettings(fields) {
-  await setDoc(doc(_db, "settings", "store"), {
-    ...fields,
-    updatedAt: serverTimestamp()
-  }, { merge: true });
+  await _withRetry(() =>
+    setDoc(doc(_db, "settings", "store"), {
+      ...fields,
+      updatedAt: serverTimestamp()
+    }, { merge: true })
+  );
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -610,20 +643,24 @@ export async function updateSettings(fields) {
 // ═══════════════════════════════════════════════════════════════
 
 export async function getOffer() {
-  const snap = await getDoc(doc(_db, "settings", "offer"));
-  if (snap.exists()) return snap.data();
-  // Auto-create with defaults
-  const defaults = { ...SCHEMAS.offerSettings, updatedAt: serverTimestamp() };
-  await setDoc(doc(_db, "settings", "offer"), defaults);
-  return defaults;
+  return await _withRetry(async () => {
+    const snap = await getDoc(doc(_db, "settings", "offer"));
+    if (snap.exists()) return snap.data();
+    // Auto-create with defaults
+    const defaults = { ...SCHEMAS.offerSettings, updatedAt: serverTimestamp() };
+    await setDoc(doc(_db, "settings", "offer"), defaults);
+    return defaults;
+  });
 }
 
 export async function setOffer(fields) {
-  await setDoc(doc(_db, "settings", "offer"), {
-    ...SCHEMAS.offerSettings,
-    ...fields,
-    updatedAt: serverTimestamp()
-  });
+  await _withRetry(() =>
+    setDoc(doc(_db, "settings", "offer"), {
+      ...SCHEMAS.offerSettings,
+      ...fields,
+      updatedAt: serverTimestamp()
+    })
+  );
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -631,17 +668,21 @@ export async function setOffer(fields) {
 // ═══════════════════════════════════════════════════════════════
 
 export async function sendMessage(chatId, text, sender, userName) {
-  await addDoc(collection(_db, "messages"), _buildMessageDoc({ chatId, text, sender, userName }));
+  await _withRetry(() =>
+    addDoc(collection(_db, "messages"), _buildMessageDoc({ chatId, text, sender, userName }))
+  );
 }
 
 /** Mark all messages in a chat as read */
 export async function markChatRead(chatId) {
-  const snap = await getDocs(
-    query(collection(_db, "messages"), where("chatId", "==", chatId), where("read", "==", false))
-  );
-  const batch = writeBatch(_db);
-  snap.docs.forEach(d => batch.update(d.ref, { read: true }));
-  if (!snap.empty) await batch.commit();
+  await _withRetry(async () => {
+    const snap = await getDocs(
+      query(collection(_db, "messages"), where("chatId", "==", chatId), where("read", "==", false))
+    );
+    const batch = writeBatch(_db);
+    snap.docs.forEach(d => batch.update(d.ref, { read: true }));
+    if (!snap.empty) await batch.commit();
+  });
 }
 
 export function listenMessages(chatId, callback) {
@@ -656,8 +697,8 @@ export function listenMessages(chatId, callback) {
 }
 
 export async function getChats() {
-  const snap = await getDocs(
-    query(collection(_db, "messages"), orderBy("createdAt", "desc"))
+  const snap = await _withRetry(() =>
+    getDocs(query(collection(_db, "messages"), orderBy("createdAt", "desc")))
   );
   const map = {};
   snap.docs.forEach(d => {
@@ -682,26 +723,30 @@ export async function getChats() {
 // ═══════════════════════════════════════════════════════════════
 
 export async function sendEnquiry(name, phone, message) {
-  await addDoc(collection(_db, "enquiries"), _buildEnquiryDoc({ name, phone, message }));
+  await _withRetry(() =>
+    addDoc(collection(_db, "enquiries"), _buildEnquiryDoc({ name, phone, message }))
+  );
 }
 
 export async function getEnquiries() {
-  const snap = await getDocs(
-    query(collection(_db, "enquiries"), orderBy("createdAt", "desc"))
+  const snap = await _withRetry(() =>
+    getDocs(query(collection(_db, "enquiries"), orderBy("createdAt", "desc")))
   );
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
 
 export async function replyEnquiry(id, reply) {
-  await updateDoc(doc(_db, "enquiries", id), {
-    reply,
-    status:    "replied",
-    repliedAt: serverTimestamp()
-  });
+  await _withRetry(() =>
+    updateDoc(doc(_db, "enquiries", id), {
+      reply,
+      status:    "replied",
+      repliedAt: serverTimestamp()
+    })
+  );
 }
 
 export async function closeEnquiry(id) {
-  await updateDoc(doc(_db, "enquiries", id), { status: "closed" });
+  await _withRetry(() => updateDoc(doc(_db, "enquiries", id), { status: "closed" }));
 }
 
 // ═══════════════════════════════════════════════════════════════
