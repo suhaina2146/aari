@@ -11,10 +11,11 @@ import {
   createUserWithEmailAndPassword, signOut, onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
-  getFirestore, doc, setDoc, getDoc, collection,
+  doc, setDoc, getDoc, collection,
   addDoc, updateDoc, deleteDoc, getDocs,
   query, where, orderBy, onSnapshot, serverTimestamp,
-  writeBatch
+  writeBatch, enableIndexedDbPersistence, initializeFirestore,
+  CACHE_SIZE_UNLIMITED
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import {
   getStorage, ref, uploadBytes, getDownloadURL, deleteObject
@@ -34,8 +35,28 @@ const firebaseConfig = {
 
 const _app     = initializeApp(firebaseConfig);
 const _auth    = getAuth(_app);
-const _db      = getFirestore(_app);
 const _storage = getStorage(_app);
+
+// ── Firestore: force long-polling to work on GitHub Pages / CDN hosts ──
+// GitHub Pages blocks WebChannel (WebSocket upgrade). Using HTTPS long-poll
+// via experimentalForceLongPolling bypasses that restriction entirely.
+const _db = initializeFirestore(_app, {
+  experimentalForceLongPolling: true,   // fixes "client is offline" on GitHub Pages
+  experimentalAutoDetectLongPolling: false,
+  cacheSizeBytes: CACHE_SIZE_UNLIMITED
+});
+
+// Enable offline persistence so the app works even on flaky connections.
+// Silently ignored if already enabled (e.g. multiple tabs).
+enableIndexedDbPersistence(_db).catch(e => {
+  if (e.code === "failed-precondition") {
+    // Multiple tabs open — persistence only works in one tab at a time.
+    console.warn("Firestore persistence: multiple tabs open.");
+  } else if (e.code === "unimplemented") {
+    // Browser does not support persistence.
+    console.warn("Firestore persistence: not supported in this browser.");
+  }
+});
 
 // ═══════════════════════════════════════════════════════════════
 //  SCHEMA DEFINITIONS
@@ -179,13 +200,14 @@ const SCHEMAS = {
 //  Uses sessionStorage flag so it only fires once per tab.
 // ═══════════════════════════════════════════════════════════════
 
+// Auto-init runs with a short delay to let Firestore connection stabilise first.
+// Uses merge:true so it never overwrites existing data.
 async function _autoInitFirestore() {
   if (sessionStorage.getItem("ae_init_done")) return;
   try {
     const batch = writeBatch(_db);
     let needsWrite = false;
 
-    // settings/store
     const storeRef = doc(_db, "settings", "store");
     const storeSnap = await getDoc(storeRef);
     if (!storeSnap.exists()) {
@@ -193,7 +215,6 @@ async function _autoInitFirestore() {
       needsWrite = true;
     }
 
-    // settings/offer
     const offerRef = doc(_db, "settings", "offer");
     const offerSnap = await getDoc(offerRef);
     if (!offerSnap.exists()) {
@@ -203,14 +224,15 @@ async function _autoInitFirestore() {
 
     if (needsWrite) await batch.commit();
     sessionStorage.setItem("ae_init_done", "1");
+    console.log("Firestore auto-init: settings documents ready.");
   } catch(e) {
-    // Silent fail — app still works even if init fails
     console.warn("Firestore auto-init skipped:", e.message);
+    // Will retry next page load — not fatal
   }
 }
 
-// Run auto-init immediately (non-blocking)
-_autoInitFirestore();
+// Delay init by 2s so the long-polling connection has time to establish
+setTimeout(_autoInitFirestore, 2000);
 
 // ═══════════════════════════════════════════════════════════════
 //  HELPERS — build full user document with all required fields
@@ -325,21 +347,48 @@ function _buildEnquiryDoc(fields = {}) {
 //  AUTH
 // ═══════════════════════════════════════════════════════════════
 
+// ── Retry helper: retries a Firestore call up to 3x with backoff ──
+async function _withRetry(fn, retries = 3, delayMs = 1200) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch(e) {
+      const isOffline = e.message && (
+        e.message.includes("offline") ||
+        e.message.includes("network") ||
+        e.code === "unavailable"
+      );
+      if (isOffline && i < retries - 1) {
+        await new Promise(r => setTimeout(r, delayMs * (i + 1)));
+        continue;
+      }
+      throw e;
+    }
+  }
+}
+
 /** Login → returns { user, role, name }. Updates lastLoginAt. */
 export async function loginUser(email, password) {
+  // Auth works even offline (cached). Firestore read retries on flaky connections.
   const cred = await signInWithEmailAndPassword(_auth, email, password);
   const userRef = doc(_db, "users", cred.user.uid);
-  const snap    = await getDoc(userRef);
 
-  if (snap.exists()) {
-    // Update lastLoginAt on every login
-    await updateDoc(userRef, { lastLoginAt: serverTimestamp() });
-    const data = snap.data();
-    return { user: cred.user, role: data.role || "user", name: data.name || email };
-  } else {
-    // User exists in Auth but not Firestore — auto-create full document
-    const newDoc = _buildUserDoc({ email, role: "user", name: email });
-    await setDoc(userRef, newDoc);
+  try {
+    const snap = await _withRetry(() => getDoc(userRef));
+    if (snap.exists()) {
+      // Fire-and-forget lastLoginAt update — don't let it block login
+      updateDoc(userRef, { lastLoginAt: serverTimestamp() }).catch(() => {});
+      const data = snap.data();
+      return { user: cred.user, role: data.role || "user", name: data.name || email };
+    } else {
+      // User in Auth but not Firestore — auto-create full document
+      const newDoc = _buildUserDoc({ email, role: "user", name: email });
+      await _withRetry(() => setDoc(userRef, newDoc));
+      return { user: cred.user, role: "user", name: email };
+    }
+  } catch(e) {
+    // If Firestore is truly unreachable, still let Auth succeed with default role
+    console.warn("loginUser: Firestore unavailable, using auth-only fallback.", e.message);
     return { user: cred.user, role: "user", name: email };
   }
 }
@@ -348,7 +397,7 @@ export async function loginUser(email, password) {
 export async function registerUser(email, password, name, phone) {
   const cred    = await createUserWithEmailAndPassword(_auth, email, password);
   const userDoc = _buildUserDoc({ name, email, phone, role: "user" });
-  await setDoc(doc(_db, "users", cred.user.uid), userDoc);
+  await _withRetry(() => setDoc(doc(_db, "users", cred.user.uid), userDoc));
   return { user: cred.user, role: "user", name };
 }
 
@@ -362,14 +411,19 @@ export function onAuth(callback) {
   return onAuthStateChanged(_auth, async (user) => {
     if (!user) { callback(null, null); return; }
     const userRef = doc(_db, "users", user.uid);
-    const snap    = await getDoc(userRef);
-    if (snap.exists()) {
-      callback(user, snap.data());
-    } else {
-      // Auto-create Firestore record if missing
-      const newDoc = _buildUserDoc({ email: user.email, role: "user", name: user.email });
-      await setDoc(userRef, newDoc);
-      callback(user, newDoc);
+    try {
+      const snap = await _withRetry(() => getDoc(userRef));
+      if (snap.exists()) {
+        callback(user, snap.data());
+      } else {
+        const newDoc = _buildUserDoc({ email: user.email, role: "user", name: user.email });
+        await _withRetry(() => setDoc(userRef, newDoc));
+        callback(user, newDoc);
+      }
+    } catch(e) {
+      // Firestore offline — still surface the auth user with fallback data
+      console.warn("onAuth: Firestore unavailable, using fallback.", e.message);
+      callback(user, { role: "user", name: user.email, email: user.email });
     }
   });
 }
