@@ -489,7 +489,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
     <div class="offer-title" id="off-title">Grand Festive Sale!</div>
     <div class="offer-desc" id="off-desc">Exclusive discounts on all handcrafted Aari designs.</div>
     <div class="offer-code" id="off-code">AARI20</div>
-    <div class="offer-cta" onclick="closeOffer();gotoSection('products')">Shop the Collection</div>
+    <div class="offer-cta" onclick="closeOffer();gotoSec('products')">Shop the Collection</div>
   </div>
 </div>
 
@@ -523,7 +523,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
           <div class="dd-item" onclick="openMyOrders()"><i class="fas fa-box"></i> My Orders</div>
           <div class="dd-item" onclick="openProfile()"><i class="fas fa-user-circle"></i> Profile</div>
           <div class="dd-item" onclick="openWishlist()"><i class="fas fa-heart"></i> Wishlist</div>
-          <div class="dd-item" onclick="openSizeGuide()"><i class="fas fa-ruler"></i> Size Guide</div>
+          <div class="dd-item" onclick="openSzGuide()"><i class="fas fa-ruler"></i> Size Guide</div>
           <div class="dd-sep"></div>
           <div class="dd-item" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sign Out</div>
         </div>
@@ -547,7 +547,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
     <a class="mob-link" href="#about" onclick="closeNav()"><i class="fas fa-star"></i> About</a>
     <a class="mob-link" href="#reviews" onclick="closeNav()"><i class="fas fa-heart"></i> Reviews</a>
     <a class="mob-link" href="#contact" onclick="closeNav()"><i class="fas fa-phone"></i> Contact</a>
-    <a class="mob-link" href="#" onclick="closeNav();openSizeGuide()"><i class="fas fa-ruler"></i> Size Guide</a>
+    <a class="mob-link" href="#" onclick="closeNav();openSzGuide()"><i class="fas fa-ruler"></i> Size Guide</a>
     <a class="mob-link" href="#" onclick="closeNav();openEnquiry()"><i class="fas fa-envelope"></i> Enquiry</a>
   </div>
   <div class="mob-footer">
@@ -566,8 +566,8 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
         <h1 class="hero-h1">Threads Woven<br><span class="script-line">with Grace &amp; Gold</span></h1>
         <p class="hero-desc">Discover exquisite Aari embroidery — handstitched blouses, jackets &amp; custom designs crafted by Tamil Nadu's finest artisans, blending tradition with modern elegance.</p>
         <div class="hero-cta">
-          <button class="btn-primary" onclick="gotoSection('products')"><i class="fas fa-shopping-bag"></i> Shop Collection</button>
-          <button class="btn-outline" onclick="gotoSection('tutorials')"><i class="fas fa-play"></i> Watch Tutorials</button>
+          <button class="btn-primary" onclick="gotoSec('products')"><i class="fas fa-shopping-bag"></i> Shop Collection</button>
+          <button class="btn-outline" onclick="gotoSec('tutorials')"><i class="fas fa-play"></i> Watch Tutorials</button>
         </div>
         <div class="hero-stats">
           <div class="stat"><div class="stat-n" id="hero-prod-count">500+</div><div class="stat-l">Designs</div></div>
@@ -748,7 +748,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
     <div class="footer-col"><h4>Support</h4><ul>
       <li><a href="#" onclick="openMyOrders();return false">Track Order</a></li>
       <li><a href="#" onclick="openEnquiry();return false">Enquiry</a></li>
-      <li><a href="#" onclick="openSizeGuide();return false">Size Guide</a></li>
+      <li><a href="#" onclick="openSzGuide();return false">Size Guide</a></li>
       <li><a href="#" onclick="openWA();return false">WhatsApp</a></li>
       <li><a href="owner.html">Owner Login</a></li>
       <li><a href="admin.html">Admin Login</a></li>
@@ -791,9 +791,9 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
 <div id="toast-rack"></div>
 
 <!-- ══ AUTH MODAL ══ -->
-<div class="overlay" id="auth-overlay" onclick="oc(event,'auth-overlay')">
+<div class="overlay" id="auth-overlay" onclick="overlayClose(event,'auth-overlay')">
   <div class="modal" style="max-width:420px">
-    <button class="modal-close" onclick="cm('auth-overlay')"><i class="fas fa-times"></i></button>
+    <button class="modal-close" onclick="closeModal('auth-overlay')"><i class="fas fa-times"></i></button>
     <div class="mp">
       <div class="auth-head">
         <div class="auth-logomark">✦</div>
@@ -801,8 +801,8 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
         <p class="auth-sub" id="auth-sub">Sign in to your account</p>
       </div>
       <div class="auth-tabs">
-        <div class="auth-tab active" id="tab-in" onclick="swTab('in')">Sign In</div>
-        <div class="auth-tab" id="tab-up" onclick="swTab('up')">Register</div>
+        <div class="auth-tab active" id="tab-in" onclick="switchTab('in')">Sign In</div>
+        <div class="auth-tab" id="tab-up" onclick="switchTab('up')">Register</div>
       </div>
       <div id="form-in">
         <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" id="in-email" placeholder="you@email.com" autocomplete="email"/></div>
@@ -824,9 +824,9 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
 </div>
 
 <!-- ══ PRODUCT MODAL ══ -->
-<div class="overlay" id="prod-overlay" onclick="oc(event,'prod-overlay')">
+<div class="overlay" id="prod-overlay" onclick="overlayClose(event,'prod-overlay')">
   <div class="modal">
-    <button class="modal-close" onclick="cm('prod-overlay')"><i class="fas fa-times"></i></button>
+    <button class="modal-close" onclick="closeModal('prod-overlay')"><i class="fas fa-times"></i></button>
     <div class="mp">
       <div class="pd-img-wrap" id="pd-img-wrap"><div class="pd-placeholder">🪡</div></div>
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:9px">
@@ -839,9 +839,9 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
       <div class="qty-row">
         <div class="size-label" style="margin:0">Quantity</div>
         <div class="qty-ctrl">
-          <button class="qty-btn" onclick="cQty(-1)">−</button>
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
           <span class="qty-num" id="pd-qty">1</span>
-          <button class="qty-btn" onclick="cQty(1)">+</button>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
         </div>
       </div>
       <div class="form-group">
@@ -857,9 +857,9 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
 </div>
 
 <!-- ══ CART MODAL ══ -->
-<div class="overlay" id="cart-overlay" onclick="oc(event,'cart-overlay')">
+<div class="overlay" id="cart-overlay" onclick="overlayClose(event,'cart-overlay')">
   <div class="modal">
-    <button class="modal-close" onclick="cm('cart-overlay')"><i class="fas fa-times"></i></button>
+    <button class="modal-close" onclick="closeModal('cart-overlay')"><i class="fas fa-times"></i></button>
     <div class="mp">
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,26px);font-weight:700;margin-bottom:18px;color:var(--dark)">Your Cart <i class="fas fa-shopping-bag" style="color:var(--rose);font-size:.75em"></i></h2>
       <div id="cart-body"></div>
@@ -868,9 +868,9 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
 </div>
 
 <!-- ══ CHECKOUT MODAL ══ -->
-<div class="overlay" id="co-overlay" onclick="oc(event,'co-overlay')">
+<div class="overlay" id="co-overlay" onclick="overlayClose(event,'co-overlay')">
   <div class="modal" style="max-width:510px">
-    <button class="modal-close" onclick="cm('co-overlay')"><i class="fas fa-times"></i></button>
+    <button class="modal-close" onclick="closeModal('co-overlay')"><i class="fas fa-times"></i></button>
     <div class="mp">
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,26px);font-weight:700;margin-bottom:18px;color:var(--dark)">Checkout</h2>
       <div class="stepper">
@@ -924,30 +924,30 @@ footer{background:var(--dark);color:rgba(255,255,255,.65)}
           <p style="font-size:12.5px;color:var(--text3);margin-bottom:18px">Order ID: <strong id="oid-out" style="color:var(--dark)"></strong></p>
           <p style="font-size:13px;color:var(--text2);margin-bottom:22px">The owner will contact you shortly to confirm your order.</p>
         </div>
-        <button class="btn-submit" onclick="cm('co-overlay')">Continue Shopping <i class="fas fa-shopping-bag"></i></button>
+        <button class="btn-submit" onclick="closeModal('co-overlay')">Continue Shopping <i class="fas fa-shopping-bag"></i></button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- ══ ENQUIRY MODAL ══ -->
-<div class="overlay" id="enq-overlay" onclick="oc(event,'enq-overlay')">
+<div class="overlay" id="enq-overlay" onclick="overlayClose(event,'enq-overlay')">
   <div class="modal" style="max-width:430px">
-    <button class="modal-close" onclick="cm('enq-overlay')"><i class="fas fa-times"></i></button>
+    <button class="modal-close" onclick="closeModal('enq-overlay')"><i class="fas fa-times"></i></button>
     <div class="enq-head"><h2>Quick Enquiry 💬</h2><p>We'll get back to you within a few hours</p></div>
     <div class="mp">
       <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" id="eq-name" placeholder="Full name"/></div>
       <div class="form-group"><label class="form-label">Phone / WhatsApp</label><input class="form-input" type="tel" id="eq-phone" placeholder="+91 XXXXXXXXXX"/></div>
       <div class="form-group"><label class="form-label">Your Message</label><textarea class="form-textarea" id="eq-msg" placeholder="Tell us your requirement, custom design idea, or any question…" style="min-height:95px"></textarea></div>
-      <button class="btn-submit" onclick="sendEnquiry()"><i class="fas fa-paper-plane"></i> Send Enquiry</button>
+      <button class="btn-submit" onclick="sendEnquiryForm()"><i class="fas fa-paper-plane"></i> Send Enquiry</button>
     </div>
   </div>
 </div>
 
 <!-- ══ SIZE GUIDE MODAL ══ -->
-<div class="overlay" id="sz-overlay" onclick="oc(event,'sz-overlay')">
+<div class="overlay" id="sz-overlay" onclick="overlayClose(event,'sz-overlay')">
   <div class="modal" style="max-width:460px">
-    <button class="modal-close" onclick="cm('sz-overlay')"><i class="fas fa-times"></i></button>
+    <button class="modal-close" onclick="closeModal('sz-overlay')"><i class="fas fa-times"></i></button>
     <div class="mp">
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,4vw,26px);font-weight:700;margin-bottom:16px;color:var(--dark)">Size Guide 📐</h2>
       <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.7">All measurements are in inches. Share your exact bust, waist &amp; hip measurements when placing a custom order for a perfect fit.</p>
@@ -999,7 +999,7 @@ window.addEventListener('load', async()=>{
   spawnPetals(); initReveal(); initNavBehavior();
   try{ settings={...settings,...(await getSettings())}; }catch(e){}
   try{ const p=await getProducts(); allProducts=p.length?p:demoProd(); }catch(e){ allProducts=demoProd(); }
-  document.getElementById('hero-pcount').textContent=allProducts.length+'+';
+  document.getElementById('hero-prod-count').textContent=allProducts.length+'+';
   renderProds();
   try{ const t=await getTutorials(); renderTuts(t.length?t:demoTuts()); }catch(e){ renderTuts(demoTuts()); }
   renderReviews(); renderCartBadge(); renderWishBadge();
@@ -1010,11 +1010,11 @@ window.addEventListener('load', async()=>{
       document.getElementById('off-title').textContent=offer.title||'Special Offer!';
       document.getElementById('off-desc').textContent=offer.description||'';
       document.getElementById('off-code').textContent=offer.code||'';
-      setTimeout(()=>document.getElementById('off-overlay').classList.add('open'),3000);
+      setTimeout(()=>document.getElementById('offer-overlay').classList.add('open'),3000);
     } else {
-      setTimeout(()=>document.getElementById('off-overlay').classList.add('open'),3500);
+      setTimeout(()=>document.getElementById('offer-overlay').classList.add('open'),3500);
     }
-  }catch(e){ setTimeout(()=>document.getElementById('off-overlay').classList.add('open'),3500); }
+  }catch(e){ setTimeout(()=>document.getElementById('offer-overlay').classList.add('open'),3500); }
 });
 
 /* AUTH — via firebase.js onAuth */
@@ -1081,6 +1081,7 @@ window.doRegister=async()=>{
 };
 
 /* LOGOUT — via firebase.js logoutUser */
+window.openProfile=()=>toast('Profile coming soon','info');
 window.doLogout=async()=>{
   await logoutUser(); toast('Signed out','info');
   document.getElementById('user-dd').classList.remove('open');
@@ -1144,11 +1145,11 @@ window.openProd=id=>{
   document.getElementById('pd-note').value='';
   document.getElementById('pd-size-grid').innerHTML=(curProd.sizes||['XS','S','M','L','XL','XXL']).map(s=>`<button class="size-btn" onclick="pickSz('${s}',this)">${s}</button>`).join('');
   document.getElementById('pd-wish-btn').classList.toggle('on',wishlist.includes(id));
-  openModal('product-overlay');
+  openModal('prod-overlay');
 };
 window.pickSz=(s,el)=>{ selSize=s; document.querySelectorAll('#pd-size-grid .size-btn').forEach(b=>b.classList.remove('active')); el.classList.add('active'); };
 window.changeQty=d=>{ curQty=Math.max(1,curQty+d); document.getElementById('pd-qty').textContent=curQty; };
-window.addCurrentCart=()=>{ if(!curProd) return; addToCart(curProd,selSize,curQty,document.getElementById('pd-note').value); closeModal('product-overlay'); };
+window.addCurrentCart=()=>{ if(!curProd) return; addToCart(curProd,selSize,curQty,document.getElementById('pd-note').value); closeModal('prod-overlay'); };
 window.quickCart=id=>{ const p=allProducts.find(x=>x.id===id); if(p) addToCart(p,'',1,''); };
 function addToCart(p,size,qty,note){
   const idx=cart.findIndex(c=>c.id===p.id&&c.size===size);
@@ -1195,7 +1196,7 @@ window.rmCart=i=>{ cart.splice(i,1); saveCart(); renderCart(); };
 window.proceedCO=()=>{
   if(!cart.length){ toast('Your cart is empty','info'); return; }
   if(!user){ closeModal('cart-overlay'); openModal('auth-overlay'); toast('Please sign in to checkout','info'); return; }
-  closeModal('cart-overlay'); coStep=2; renderCO(); openModal('checkout-overlay');
+  closeModal('cart-overlay'); coStep=2; renderCO(); openModal('co-overlay');
 };
 function renderCO(){
   document.getElementById('co-addr').style.display=coStep===2?'block':'none';
@@ -1333,7 +1334,7 @@ window.sendChat=async()=>{
   setTimeout(()=>{ msgs.innerHTML+=`<div class="cmsg bot">Thank you! The owner will reply shortly. For instant help, WhatsApp us!</div>`; msgs.scrollTop=msgs.scrollHeight; },1600);
 };
 
-window.closeOffer=()=>document.getElementById('off-overlay').classList.remove('open');
+window.closeOffer=()=>document.getElementById('offer-overlay').classList.remove('open');
 
 /* MODALS */
 function openModal(id){ document.getElementById(id).classList.add('open'); }
