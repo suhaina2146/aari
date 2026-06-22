@@ -19,14 +19,14 @@ import {
   getStorage, ref, uploadBytes, getDownloadURL, deleteObject
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-// ── ⚠️  REPLACE WITH YOUR FIREBASE PROJECT CONFIG ─────────────
-const _config = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+const firebaseConfig = {
+  apiKey: "AIzaSyBR8CWIveXMn0yVFfVK4jgFql1WQfQYnhw",
+  authDomain: "aari-web-41113.firebaseapp.com",
+  projectId: "aari-web-41113",
+  storageBucket: "aari-web-41113.firebasestorage.app",
+  messagingSenderId: "207040525163",
+  appId: "1:207040525163:web:746599625ea525dc36122e",
+  measurementId: "G-PT1M2LD427"
 };
 // ──────────────────────────────────────────────────────────────
 
