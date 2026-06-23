@@ -8,204 +8,142 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
 :root{
-  --admin:#1E3A5F;--admin-dark:#132840;--admin-light:#EBF3FB;
-  --rose:#D4507A;--rose-light:#F7D6E4;--gold:#C9A84C;
-  --cream:#F0F4F8;--deep:#0A1628;--white:#FFFFFF;
-  --text:#1A2B3C;--text-muted:#5A7A9A;--border:#C8DCF0;
-  --success:#2ECC71;--warning:#F39C12;--danger:#E74C3C;--info:#3498DB;
-  --sidebar:270px;--radius:14px;
+  --admin:#1E3A5F;--adark:#132840;--alight:#EBF3FB;
+  --rose:#D4507A;--rlight:#F7D6E4;--gold:#C9A84C;
+  --cream:#F0F4F8;--deep:#0A1628;--white:#FFF;
+  --text:#1A2B3C;--tm:#5A7A9A;--border:#C8DCF0;
+  --ok:#2ECC71;--warn:#F39C12;--err:#E74C3C;--info:#3498DB;
+  --sb:270px;--r:14px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);display:flex;min-height:100vh}
 
-/* ── SIDEBAR ── */
-#sidebar{
-  width:var(--sidebar);
-  background:linear-gradient(180deg,var(--admin-dark) 0%,var(--admin) 100%);
-  position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;
-  display:flex;flex-direction:column;
-}
-.sidebar-head{padding:22px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
-.sidebar-logo{display:flex;align-items:center;gap:10px}
+/* SIDEBAR */
+#sidebar{width:var(--sb);background:linear-gradient(180deg,var(--adark),var(--admin));position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
+.sb-head{padding:22px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-logo{display:flex;align-items:center;gap:10px}
 .logo-gem{width:38px;height:38px;border-radius:10px;background:var(--info);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff}
-.sidebar-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff}
-.sidebar-role{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px}
-.sidebar-user{display:flex;align-items:center;gap:10px;padding:14px 20px;margin-bottom:4px}
-.sidebar-ava{width:38px;height:38px;border-radius:50%;background:var(--info);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff}
-.sidebar-uname{color:#fff;font-size:13px;font-weight:600}
-.sidebar-uemail{color:rgba(255,255,255,.45);font-size:11px}
-.nav-group{padding:6px 12px}
-.nav-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;margin-bottom:2px}
-.nav-item{
-  display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:9px;
-  cursor:pointer;color:rgba(255,255,255,.6);font-size:13px;font-weight:500;
-  transition:.2s;margin-bottom:2px;
-}
-.nav-item:hover,.nav-item.active{background:rgba(255,255,255,.1);color:#fff}
-.nav-item i{width:16px;text-align:center;font-size:14px}
-.nav-badge{margin-left:auto;background:var(--danger);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+.sb-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff}
+.sb-role{font-size:11px;color:rgba(255,255,255,.4)}
+.sb-user{display:flex;align-items:center;gap:10px;padding:14px 20px;margin-bottom:4px}
+.sb-ava{width:38px;height:38px;border-radius:50%;background:var(--info);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff}
+.sb-uname{color:#fff;font-size:13px;font-weight:600}
+.sb-uemail{color:rgba(255,255,255,.45);font-size:11px}
+.nav-g{padding:6px 12px}
+.nav-gl{font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;margin-bottom:2px}
+.nav-i{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:9px;cursor:pointer;color:rgba(255,255,255,.6);font-size:13px;font-weight:500;transition:.2s;margin-bottom:2px}
+.nav-i:hover,.nav-i.active{background:rgba(255,255,255,.1);color:#fff}
+.nav-i i{width:16px;text-align:center;font-size:14px}
+.nav-bdg{margin-left:auto;background:var(--err);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
 
-/* ── MAIN ── */
-#main{margin-left:var(--sidebar);flex:1;min-height:100vh;display:flex;flex-direction:column}
-#topbar{
-  background:var(--white);border-bottom:1px solid var(--border);
-  padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:50;
-}
+/* MAIN */
+#main{margin-left:var(--sb);flex:1;min-height:100vh}
+#topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 #topbar h1{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--deep)}
-.topbar-right{display:flex;align-items:center;gap:10px}
-.tbar-btn{padding:8px 16px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:.2s}
-.tbar-outline{background:transparent;border:1.5px solid var(--border);color:var(--text-muted)}
-.tbar-outline:hover{border-color:var(--admin);color:var(--admin)}
-.tbar-logout{background:var(--admin-light);color:var(--admin);border:none}
+.tb-r{display:flex;align-items:center;gap:10px}
+.tbo{background:transparent;border:1.5px solid var(--border);color:var(--tm);padding:8px 16px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.tbo:hover{border-color:var(--admin);color:var(--admin)}
+.tb-out{background:var(--alight);color:var(--admin);border:none;padding:8px 16px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer}
 
 .content{display:none;padding:28px}
 .content.show{display:block}
 
-/* ── STAT CARDS ── */
+/* STAT CARDS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-bottom:28px}
-.stat-card{
-  background:var(--white);border-radius:var(--radius);padding:22px;
-  display:flex;align-items:center;gap:16px;
-  box-shadow:0 2px 10px rgba(30,58,95,.06);
-}
-.stat-icon{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.si-blue{background:#EAF4FB;color:#3498DB}
-.si-rose{background:var(--rose-light);color:var(--rose)}
-.si-gold{background:#FFF8E6;color:var(--gold)}
-.si-green{background:#EAFAF1;color:#27AE60}
-.si-purple{background:#F5EFF9;color:#8E44AD}
-.si-red{background:#FDEDEC;color:#E74C3C}
-.stat-num{font-size:26px;font-weight:700;color:var(--deep);line-height:1}
-.stat-lbl{font-size:12px;color:var(--text-muted);margin-top:3px}
+.stat-card{background:var(--white);border-radius:var(--r);padding:22px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 10px rgba(30,58,95,.06)}
+.s-ico{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.si-blue{background:#EAF4FB;color:#3498DB} .si-rose{background:var(--rlight);color:var(--rose)}
+.si-gold{background:#FFF8E6;color:var(--gold)} .si-green{background:#EAFAF1;color:#27AE60}
+.si-purple{background:#F5EFF9;color:#8E44AD} .si-red{background:#FDEDEC;color:var(--err)}
+.s-num{font-size:26px;font-weight:700;color:var(--deep);line-height:1}
+.s-lbl{font-size:12px;color:var(--tm);margin-top:3px}
 
-/* ── CARD ── */
-.card{background:var(--white);border-radius:var(--radius);padding:24px;margin-bottom:22px;
-  box-shadow:0 2px 10px rgba(30,58,95,.06)}
+/* CARD */
+.card{background:var(--white);border-radius:var(--r);padding:24px;margin-bottom:22px;box-shadow:0 2px 10px rgba(30,58,95,.06)}
 .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .card-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--deep)}
-.card-sub{font-size:13px;color:var(--text-muted);margin-top:2px}
 
-/* ── BUTTONS ── */
+/* BUTTONS */
 .btn{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;border:none;font-family:'DM Sans',sans-serif}
-.btn-primary{background:var(--admin);color:#fff}
-.btn-primary:hover{background:var(--admin-dark)}
-.btn-danger{background:var(--danger);color:#fff}
-.btn-success{background:var(--success);color:#fff}
-.btn-warning{background:var(--warning);color:#fff}
-.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--text-muted)}
+.btn-primary{background:var(--admin);color:#fff} .btn-primary:hover{background:var(--adark)}
+.btn-danger{background:var(--err);color:#fff} .btn-success{background:var(--ok);color:#fff}
+.btn-warning{background:var(--warn);color:#fff}
+.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--tm)}
 .btn-ghost:hover{border-color:var(--admin);color:var(--admin)}
 .btn-rose{background:var(--rose);color:#fff}
-.btn-full{width:100%;padding:12px;border-radius:10px;background:var(--admin);color:#fff;
-  font-size:14px;font-weight:600;cursor:pointer;border:none;transition:.2s;font-family:'DM Sans',sans-serif}
-.btn-full:hover{background:var(--admin-dark)}
+.btn-full{width:100%;padding:12px;border-radius:10px;background:var(--admin);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:.2s;font-family:'DM Sans',sans-serif}
+.btn-full:hover{background:var(--adark)}
 
-/* ── TABLE ── */
+/* TABLE */
 .tbl{width:100%;border-collapse:collapse;font-size:13px}
-.tbl th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;
-  color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;
-  border-bottom:2px solid var(--border);background:var(--cream)}
+.tbl th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--tm);text-transform:uppercase;letter-spacing:.07em;border-bottom:2px solid var(--border);background:var(--cream)}
 .tbl td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
-.tbl tbody tr:hover td{background:var(--admin-light)}
+.tbl tbody tr:hover td{background:var(--alight)}
 .tbl tbody tr:last-child td{border-bottom:none}
 
-/* ── STATUS PILLS ── */
+/* PILLS */
 .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.pill-blue{background:#EAF4FB;color:#2980B9}
-.pill-green{background:#EAFAF1;color:#27AE60}
-.pill-orange{background:#FEF9E7;color:#E67E22}
-.pill-red{background:#FDEDEC;color:#C0392B}
-.pill-purple{background:#F5EFF9;color:#8E44AD}
-.pill-grey{background:#F2F3F4;color:#717D7E}
-
-/* ── FORM ── */
-.form-group{margin-bottom:14px}
-.form-label{display:block;font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
-.form-input{width:100%;padding:10px 13px;border-radius:9px;border:1.5px solid var(--border);
-  background:var(--cream);font-size:13px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif;transition:.2s}
-.form-input:focus{border-color:var(--admin);background:var(--white)}
-.form-select{width:100%;padding:10px 13px;border-radius:9px;border:1.5px solid var(--border);
-  background:var(--cream);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
-.form-textarea{width:100%;padding:10px 13px;border-radius:9px;border:1.5px solid var(--border);
-  background:var(--cream);font-size:13px;color:var(--text);resize:vertical;min-height:80px;font-family:'DM Sans',sans-serif}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-
-/* ── AUTH GATE ── */
-#auth-gate{
-  position:fixed;inset:0;z-index:500;
-  background:linear-gradient(135deg,var(--admin-dark),var(--admin));
-  display:flex;align-items:center;justify-content:center;padding:16px;
-}
-.auth-box{background:var(--white);border-radius:20px;padding:40px;width:100%;max-width:400px}
-.auth-logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;
-  color:var(--admin);text-align:center;margin-bottom:6px}
-.auth-sub{font-size:14px;color:var(--text-muted);text-align:center;margin-bottom:24px}
-.auth-err{background:#FDEDEC;color:var(--danger);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
-
-/* ── GRID ── */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
-
-/* ── USER ROLE BADGE ── */
+.pill-blue{background:#EAF4FB;color:#2980B9} .pill-green{background:#EAFAF1;color:#27AE60}
+.pill-orange{background:#FEF9E7;color:#E67E22} .pill-red{background:#FDEDEC;color:#C0392B}
+.pill-purple{background:#F5EFF9;color:#8E44AD} .pill-grey{background:#F2F3F4;color:#717D7E}
 .role-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.role-user{background:#F2F3F4;color:#717D7E}
-.role-owner{background:#FFF8E6;color:var(--gold)}
-.role-admin{background:#FDEDEC;color:var(--danger)}
+.role-user{background:#F2F3F4;color:#717D7E} .role-owner{background:#FFF8E6;color:var(--gold)} .role-admin{background:#FDEDEC;color:var(--err)}
 
-/* ── CHART PLACEHOLDER ── */
-.chart-placeholder{
-  height:200px;border-radius:12px;background:var(--cream);
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:8px;color:var(--text-muted);font-size:14px;
-}
-.chart-bars{display:flex;align-items:flex-end;gap:8px;height:120px;padding:0 20px}
-.bar{border-radius:6px 6px 0 0;background:var(--admin);opacity:.7;min-width:24px;transition:.5s}
+/* FORM */
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.fi{width:100%;padding:10px 13px;border-radius:9px;border:1.5px solid var(--border);background:var(--cream);font-size:13px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif;transition:.2s}
+.fi:focus{border-color:var(--admin);background:var(--white)}
+.fs{width:100%;padding:10px 13px;border-radius:9px;border:1.5px solid var(--border);background:var(--cream);font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
-/* ── LOADING ── */
-.loading{text-align:center;padding:40px;color:var(--text-muted)}
-.spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--border);
-  border-top-color:var(--admin);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
 
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(10,22,40,.55);backdrop-filter:blur(6px);
-  display:none;align-items:center;justify-content:center;padding:16px;z-index:300}
-.modal-overlay.open{display:flex}
-.modal-box{background:var(--white);border-radius:20px;max-height:90vh;overflow-y:auto;
-  width:100%;max-width:520px;padding:28px;position:relative;
-  animation:popIn .3s cubic-bezier(.34,1.56,.64,1) both}
-@keyframes popIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;
-  margin-bottom:18px;color:var(--deep)}
-.modal-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;
-  background:var(--admin-light);color:var(--admin);border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-size:14px}
+/* BAR CHART */
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:140px;padding:0 10px;margin-bottom:6px}
+.bar{border-radius:6px 6px 0 0;background:linear-gradient(to top,var(--admin),var(--info));min-width:28px;flex:1;transition:.6s;position:relative}
+.bar-val{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:var(--admin);white-space:nowrap}
 
-/* ── TOAST ── */
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
-  background:var(--deep);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;
-  opacity:0;transition:.3s;z-index:500;pointer-events:none;white-space:nowrap}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* AUTH GATE */
+#auth-gate{position:fixed;inset:0;z-index:500;background:linear-gradient(135deg,var(--adark),var(--admin));display:flex;align-items:center;justify-content:center;padding:16px}
+.auth-box{background:var(--white);border-radius:20px;padding:40px;width:100%;max-width:400px}
+.auth-logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--admin);text-align:center;margin-bottom:6px}
+.auth-sub{font-size:14px;color:var(--tm);text-align:center;margin-bottom:24px}
+.auth-err{background:#FDEDEC;color:var(--err);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
 
-/* ── ACTIVITY LOG ── */
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(10,22,40,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:16px;z-index:300}
+.modal-ov.open{display:flex}
+.modal-box{background:var(--white);border-radius:20px;max-height:90vh;overflow-y:auto;width:100%;max-width:520px;padding:28px;position:relative;animation:pop .3s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:18px;color:var(--deep)}
+.modal-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;background:var(--alight);color:var(--admin);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px}
+
+/* LOG */
 .log-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .log-item:last-child{border-bottom:none}
-.log-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.log-text{font-size:13px;color:var(--text)}
-.log-time{font-size:11px;color:var(--text-muted);margin-top:2px}
+.log-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.loading{text-align:center;padding:40px;color:var(--tm)}
+.spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--admin);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── RESPONSIVE ── */
+/* CREATE USER INFO BOX */
+.info-box{background:var(--alight);border:1px solid var(--border);border-radius:10px;padding:13px 15px;font-size:13px;color:var(--tm);margin-bottom:16px;line-height:1.6}
+.info-box strong{color:var(--admin)}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--deep);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;opacity:0;transition:.3s;z-index:500;pointer-events:none;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
 @media(max-width:900px){
-  #sidebar{left:-var(--sidebar)}
+  #sidebar{left:calc(-1 * var(--sb))}
   #sidebar.open{left:0}
   #main{margin-left:0}
-  .grid-2,.grid-3,.form-row{grid-template-columns:1fr}
+  .g2,.g3,.fr{grid-template-columns:1fr}
   .content{padding:16px}
 }
-@media(max-width:600px){
-  .stats-grid{grid-template-columns:1fr 1fr}
-  #topbar{padding:0 14px}
-}
+@media(max-width:600px){.stats-grid{grid-template-columns:1fr 1fr}#topbar{padding:0 14px}}
 </style>
 </head>
 <body>
@@ -216,16 +154,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
     <div class="auth-logo">⚙ Aari Admin</div>
     <div class="auth-sub">Super Admin Control Panel</div>
     <div class="auth-err" id="auth-err"></div>
-    <div class="form-group">
-      <label class="form-label">Email</label>
-      <input class="form-input" type="email" id="admin-email" placeholder="admin@aarielegance.com"/>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <input class="form-input" type="password" id="admin-pass" placeholder="••••••••" onkeypress="if(event.key==='Enter')doAdminLogin()"/>
-    </div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" type="email" id="admin-email" placeholder="admin@aarielegance.com"/></div>
+    <div class="fg"><label class="fl">Password</label><input class="fi" type="password" id="admin-pass" placeholder="••••••••" onkeypress="if(event.key==='Enter')doAdminLogin()"/></div>
     <button class="btn-full" onclick="doAdminLogin()"><i class="fas fa-shield-alt"></i> Admin Login</button>
-    <p style="margin-top:12px;font-size:12px;color:var(--text-muted);text-align:center">
+    <p style="margin-top:12px;font-size:12px;color:var(--tm);text-align:center">
       Owner? <a href="owner.html" style="color:var(--admin);font-weight:600">Owner Login →</a> &nbsp;|&nbsp;
       <a href="index.html" style="color:var(--rose);font-weight:600">Visit Store →</a>
     </p>
@@ -234,49 +166,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 
 <!-- SIDEBAR -->
 <aside id="sidebar">
-  <div class="sidebar-head">
-    <div class="sidebar-logo">
-      <div class="logo-gem">⚙</div>
-      <div>
-        <div class="sidebar-title">Aari Elegance</div>
-        <div class="sidebar-role">Admin Panel</div>
-      </div>
-    </div>
+  <div class="sb-head"><div class="sb-logo"><div class="logo-gem">⚙</div><div><div class="sb-title">Aari Elegance</div><div class="sb-role">Admin Panel</div></div></div></div>
+  <div class="sb-user"><div class="sb-ava">🛡</div><div><div class="sb-uname" id="admin-name">Admin</div><div class="sb-uemail" id="admin-email-d">admin@store.com</div></div></div>
+  <div class="nav-g">
+    <div class="nav-gl">Overview</div>
+    <div class="nav-i active" onclick="showSec('dashboard')"><i class="fas fa-th-large"></i> Dashboard</div>
   </div>
-  <div class="sidebar-user">
-    <div class="sidebar-ava">🛡</div>
-    <div>
-      <div class="sidebar-uname" id="admin-name">Admin</div>
-      <div class="sidebar-uemail" id="admin-email-disp">admin@store.com</div>
-    </div>
+  <div class="nav-g">
+    <div class="nav-gl">User Management</div>
+    <div class="nav-i" onclick="showSec('users')"><i class="fas fa-users"></i> All Users <span class="nav-bdg" id="user-count-badge">0</span></div>
+    <div class="nav-i" onclick="showSec('create-user')"><i class="fas fa-user-plus"></i> Create User</div>
+    <div class="nav-i" onclick="showSec('roles')"><i class="fas fa-user-shield"></i> Manage Roles</div>
   </div>
-
-  <div class="nav-group">
-    <div class="nav-label">Overview</div>
-    <div class="nav-item active" onclick="showSection('dashboard')"><i class="fas fa-th-large"></i> Dashboard</div>
+  <div class="nav-g">
+    <div class="nav-gl">Content</div>
+    <div class="nav-i" onclick="showSec('all-products')"><i class="fas fa-boxes"></i> All Products</div>
+    <div class="nav-i" onclick="showSec('all-tutorials')"><i class="fas fa-video"></i> All Tutorials</div>
+    <div class="nav-i" onclick="showSec('all-orders')"><i class="fas fa-shopping-bag"></i> All Orders</div>
   </div>
-  <div class="nav-group">
-    <div class="nav-label">User Management</div>
-    <div class="nav-item" onclick="showSection('users')"><i class="fas fa-users"></i> All Users <span class="nav-badge" id="user-count-badge">0</span></div>
-    <div class="nav-item" onclick="showSection('create-user')"><i class="fas fa-user-plus"></i> Create User</div>
-    <div class="nav-item" onclick="showSection('roles')"><i class="fas fa-user-shield"></i> Manage Roles</div>
+  <div class="nav-g">
+    <div class="nav-gl">Analytics</div>
+    <div class="nav-i" onclick="showSec('analytics')"><i class="fas fa-chart-bar"></i> Analytics</div>
+    <div class="nav-i" onclick="showSec('revenue')"><i class="fas fa-rupee-sign"></i> Revenue Report</div>
   </div>
-  <div class="nav-group">
-    <div class="nav-label">Content</div>
-    <div class="nav-item" onclick="showSection('all-products')"><i class="fas fa-boxes"></i> All Products</div>
-    <div class="nav-item" onclick="showSection('all-tutorials')"><i class="fas fa-video"></i> All Tutorials</div>
-    <div class="nav-item" onclick="showSection('all-orders')"><i class="fas fa-shopping-bag"></i> All Orders</div>
-  </div>
-  <div class="nav-group">
-    <div class="nav-label">Analytics</div>
-    <div class="nav-item" onclick="showSection('analytics')"><i class="fas fa-chart-bar"></i> Analytics</div>
-    <div class="nav-item" onclick="showSection('revenue')"><i class="fas fa-rupee-sign"></i> Revenue Report</div>
-  </div>
-  <div class="nav-group">
-    <div class="nav-label">System</div>
-    <div class="nav-item" onclick="showSection('settings')"><i class="fas fa-cog"></i> System Settings</div>
-    <div class="nav-item" onclick="showSection('activity')"><i class="fas fa-history"></i> Activity Log</div>
-    <div class="nav-item" onclick="doAdminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</div>
+  <div class="nav-g">
+    <div class="nav-gl">System</div>
+    <div class="nav-i" onclick="showSec('settings')"><i class="fas fa-cog"></i> System Settings</div>
+    <div class="nav-i" onclick="showSec('activity')"><i class="fas fa-history"></i> Activity Log</div>
+    <div class="nav-i" onclick="doAdminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</div>
   </div>
 </aside>
 
@@ -284,47 +201,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 <div id="main">
   <div id="topbar">
     <h1 id="page-title">Dashboard</h1>
-    <div class="topbar-right">
-      <a href="owner.html" class="tbar-btn tbar-outline"><i class="fas fa-user-tie"></i> Owner View</a>
-      <a href="index.html" target="_blank" class="tbar-btn tbar-outline"><i class="fas fa-store"></i> Store</a>
-      <button class="tbar-btn tbar-logout" onclick="doAdminLogout()"><i class="fas fa-power-off"></i> Logout</button>
+    <div class="tb-r">
+      <a href="owner.html" class="tbo"><i class="fas fa-user-tie"></i> Owner View</a>
+      <a href="index.html" target="_blank" class="tbo"><i class="fas fa-store"></i> Store</a>
+      <button class="tb-out" onclick="doAdminLogout()"><i class="fas fa-power-off"></i> Logout</button>
     </div>
   </div>
 
   <!-- DASHBOARD -->
   <div id="content-dashboard" class="content show">
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-icon si-blue"><i class="fas fa-users"></i></div><div><div class="stat-num" id="s-users">0</div><div class="stat-lbl">Total Users</div></div></div>
-      <div class="stat-card"><div class="stat-icon si-rose"><i class="fas fa-shopping-bag"></i></div><div><div class="stat-num" id="s-orders">0</div><div class="stat-lbl">Total Orders</div></div></div>
-      <div class="stat-card"><div class="stat-icon si-gold"><i class="fas fa-rupee-sign"></i></div><div><div class="stat-num" id="s-revenue">₹0</div><div class="stat-lbl">Total Revenue</div></div></div>
-      <div class="stat-card"><div class="stat-icon si-green"><i class="fas fa-boxes"></i></div><div><div class="stat-num" id="s-products">0</div><div class="stat-lbl">Products</div></div></div>
-      <div class="stat-card"><div class="stat-icon si-purple"><i class="fas fa-video"></i></div><div><div class="stat-num" id="s-tutorials">0</div><div class="stat-lbl">Tutorials</div></div></div>
-      <div class="stat-card"><div class="stat-icon si-red"><i class="fas fa-clock"></i></div><div><div class="stat-num" id="s-pending">0</div><div class="stat-lbl">Pending Orders</div></div></div>
+      <div class="stat-card"><div class="s-ico si-blue"><i class="fas fa-users"></i></div><div><div class="s-num" id="s-users">0</div><div class="s-lbl">Total Users</div></div></div>
+      <div class="stat-card"><div class="s-ico si-rose"><i class="fas fa-shopping-bag"></i></div><div><div class="s-num" id="s-orders">0</div><div class="s-lbl">Total Orders</div></div></div>
+      <div class="stat-card"><div class="s-ico si-gold"><i class="fas fa-rupee-sign"></i></div><div><div class="s-num" id="s-revenue">Rs.0</div><div class="s-lbl">Total Revenue</div></div></div>
+      <div class="stat-card"><div class="s-ico si-green"><i class="fas fa-boxes"></i></div><div><div class="s-num" id="s-products">0</div><div class="s-lbl">Products</div></div></div>
+      <div class="stat-card"><div class="s-ico si-purple"><i class="fas fa-video"></i></div><div><div class="s-num" id="s-tutorials">0</div><div class="s-lbl">Tutorials</div></div></div>
+      <div class="stat-card"><div class="s-ico si-red"><i class="fas fa-clock"></i></div><div><div class="s-num" id="s-pending">0</div><div class="s-lbl">Pending Orders</div></div></div>
     </div>
-
-    <div class="grid-2">
+    <div class="g2">
       <div class="card">
-        <div class="card-head"><div class="card-title">Revenue Overview</div></div>
-        <div class="chart-bars" id="revenue-chart">
-          <!-- bars rendered by JS -->
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:0 20px;margin-top:6px;font-size:11px;color:var(--text-muted)" id="chart-labels"></div>
+        <div class="card-head"><div class="card-title">Revenue by Month</div></div>
+        <div class="chart-bars" id="revenue-chart"></div>
+        <div style="display:flex;justify-content:space-between;padding:0 10px;font-size:11px;color:var(--tm)" id="chart-labels"></div>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Order Status Breakdown</div></div>
-        <div id="status-breakdown" style="display:flex;flex-direction:column;gap:10px;margin-top:4px"></div>
+        <div class="card-head"><div class="card-title">Order Status</div></div>
+        <div id="status-breakdown" style="display:flex;flex-direction:column;gap:10px"></div>
       </div>
     </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-head"><div class="card-title">Recent Users</div><button class="btn btn-ghost" onclick="showSection('users')">View All</button></div>
-        <div id="recent-users"><div class="loading"><div class="spinner"></div></div></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Recent Orders</div><button class="btn btn-ghost" onclick="showSection('all-orders')">View All</button></div>
-        <div id="dash-orders"><div class="loading"><div class="spinner"></div></div></div>
-      </div>
+    <div class="g2">
+      <div class="card"><div class="card-head"><div class="card-title">Recent Users</div><button class="btn btn-ghost" onclick="showSec('users')">View All</button></div><div id="recent-users"><div class="loading"><div class="spinner"></div></div></div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Recent Orders</div><button class="btn btn-ghost" onclick="showSec('all-orders')">View All</button></div><div id="dash-orders"><div class="loading"><div class="spinner"></div></div></div></div>
     </div>
   </div>
 
@@ -332,43 +239,48 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   <div id="content-users" class="content">
     <div class="card">
       <div class="card-head">
-        <div>
-          <div class="card-title">All Users</div>
-          <div class="card-sub" id="user-count-label">Loading...</div>
-        </div>
+        <div><div class="card-title">All Users</div><div style="font-size:13px;color:var(--tm);margin-top:2px" id="user-count-label">Loading...</div></div>
         <div style="display:flex;gap:8px">
-          <input class="form-input" id="user-search" placeholder="Search users..." style="width:200px" oninput="searchUsers(this.value)"/>
-          <button class="btn btn-primary" onclick="showSection('create-user')"><i class="fas fa-plus"></i> Add User</button>
+          <input class="fi" id="user-search" placeholder="Search..." style="width:200px" oninput="searchUsers(this.value)"/>
+          <button class="btn btn-primary" onclick="showSec('create-user')"><i class="fas fa-plus"></i> Add</button>
         </div>
       </div>
-      <div style="overflow-x:auto">
-        <table class="tbl">
-          <thead><tr><th>User</th><th>Email</th><th>Phone</th><th>Role</th><th>Joined</th><th>Actions</th></tr></thead>
-          <tbody id="users-tbody"><tr><td colspan="6" class="loading"><div class="spinner"></div> Loading...</td></tr></tbody>
-        </table>
-      </div>
+      <div style="overflow-x:auto"><table class="tbl">
+        <thead><tr><th>User</th><th>Email</th><th>Phone</th><th>Role</th><th>Joined</th><th>Actions</th></tr></thead>
+        <tbody id="users-tbody"><tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr></tbody>
+      </table></div>
     </div>
   </div>
 
-  <!-- CREATE USER -->
+  <!-- CREATE USER — FIXED: uses Cloud function approach via setup page, warns admin -->
   <div id="content-create-user" class="content">
     <div class="card" style="max-width:600px">
       <div class="card-head"><div class="card-title">Create New User / Staff</div></div>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="cu-name" placeholder="Full name"/></div>
-        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" id="cu-phone" placeholder="+91 XXXXX XXXXX"/></div>
+      <div class="info-box">
+        <strong>⚠️ Note:</strong> Creating a user here will use the <strong>setup-admin.html</strong> page which is the secure method.
+        Alternatively, you can use the <strong>Manage Roles</strong> section to promote an existing user who has already registered on the store.
+        <br><br>
+        <strong>Recommended:</strong> Ask the person to register on the store, then promote them here using their email.
       </div>
-      <div class="form-group"><label class="form-label">Email Address *</label><input class="form-input" type="email" id="cu-email" placeholder="user@email.com"/></div>
-      <div class="form-group"><label class="form-label">Password *</label><input class="form-input" type="password" id="cu-pass" placeholder="Min 6 characters"/></div>
-      <div class="form-group">
-        <label class="form-label">Role *</label>
-        <select class="form-select" id="cu-role">
+      <div class="fr">
+        <div class="fg"><label class="fl">Full Name</label><input class="fi" id="cu-name" placeholder="Full name"/></div>
+        <div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" id="cu-phone" placeholder="+91 XXXXX XXXXX"/></div>
+      </div>
+      <div class="fg"><label class="fl">Email *</label><input class="fi" type="email" id="cu-email" placeholder="user@email.com"/></div>
+      <div class="fg"><label class="fl">Temporary Password *</label><input class="fi" type="password" id="cu-pass" placeholder="Min 6 chars — user must change this"/></div>
+      <div class="fg"><label class="fl">Role *</label>
+        <select class="fs" id="cu-role">
           <option value="user">User (Customer)</option>
           <option value="owner">Owner</option>
           <option value="admin">Admin</option>
         </select>
       </div>
+      <div style="background:#FEF9E7;border:1px solid #F39C12;border-radius:10px;padding:12px 14px;font-size:13px;color:#7D6608;margin-bottom:14px">
+        <i class="fas fa-exclamation-triangle" style="margin-right:6px"></i>
+        <strong>Important:</strong> After account creation you will be redirected to login again, as Firebase requires this. Your admin session is safe.
+      </div>
       <button class="btn-full" onclick="createUser()"><i class="fas fa-user-plus"></i> Create Account</button>
+      <div id="create-user-result" style="margin-top:12px"></div>
     </div>
   </div>
 
@@ -376,30 +288,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   <div id="content-roles" class="content">
     <div class="card">
       <div class="card-head"><div class="card-title">Manage User Roles</div></div>
-      <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px">Search a user and update their role. Owner & Admin roles have special access.</p>
+      <p style="font-size:14px;color:var(--tm);margin-bottom:18px">Search by name or email and update their role.</p>
       <div style="display:flex;gap:10px;margin-bottom:16px">
-        <input class="form-input" id="role-search" placeholder="Search user by email or name..." style="flex:1"/>
+        <input class="fi" id="role-search" placeholder="Search by email or name..." style="flex:1" onkeypress="if(event.key==='Enter')searchRoleUser()"/>
         <button class="btn btn-primary" onclick="searchRoleUser()"><i class="fas fa-search"></i> Search</button>
       </div>
       <div id="role-search-result"></div>
       <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
         <div class="card-title" style="margin-bottom:12px;font-size:17px">Role Descriptions</div>
-        <div class="grid-3">
-          <div style="background:var(--cream);border-radius:12px;padding:16px">
-            <div style="font-size:20px;margin-bottom:6px">👤</div>
-            <strong style="font-size:14px">User</strong>
-            <p style="font-size:12px;color:var(--text-muted);margin-top:4px">Can browse products, place orders, watch tutorials, and use live chat.</p>
-          </div>
-          <div style="background:var(--cream);border-radius:12px;padding:16px">
-            <div style="font-size:20px;margin-bottom:6px">👑</div>
-            <strong style="font-size:14px">Owner</strong>
-            <p style="font-size:12px;color:var(--text-muted);margin-top:4px">Can manage products, tutorials, orders, payment settings, and chat with customers.</p>
-          </div>
-          <div style="background:var(--cream);border-radius:12px;padding:16px">
-            <div style="font-size:20px;margin-bottom:6px">🛡</div>
-            <strong style="font-size:14px">Admin</strong>
-            <p style="font-size:12px;color:var(--text-muted);margin-top:4px">Full access: user management, analytics, system settings, and all owner permissions.</p>
-          </div>
+        <div class="g3">
+          <div style="background:var(--cream);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:6px">👤</div><strong>User</strong><p style="font-size:12px;color:var(--tm);margin-top:4px">Browse, order, chat.</p></div>
+          <div style="background:var(--cream);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:6px">👑</div><strong>Owner</strong><p style="font-size:12px;color:var(--tm);margin-top:4px">Manage products, orders, tutorials, chat.</p></div>
+          <div style="background:var(--cream);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:6px">🛡</div><strong>Admin</strong><p style="font-size:12px;color:var(--tm);margin-top:4px">Full access including user management & analytics.</p></div>
         </div>
       </div>
     </div>
@@ -411,31 +311,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
       <div class="card-head">
         <div class="card-title">All Products</div>
         <div style="display:flex;gap:8px">
-          <select class="form-select" style="width:160px" id="prod-cat-filter" onchange="filterAdminProducts()">
+          <select class="fs" style="width:160px" id="prod-cat-f" onchange="filterAdminProducts()">
             <option value="">All Categories</option>
             <option value="blouse">Blouse</option><option value="jacket">Jacket</option>
             <option value="saree">Saree</option><option value="dupatta">Dupatta</option>
             <option value="lehenga">Lehenga</option><option value="kurti">Kurti</option>
           </select>
-          <a href="owner.html" class="btn btn-primary" style="text-decoration:none"><i class="fas fa-plus"></i> Add Product</a>
+          <a href="owner.html" class="btn btn-primary" style="text-decoration:none"><i class="fas fa-plus"></i> Add</a>
         </div>
       </div>
-      <div style="overflow-x:auto">
-        <table class="tbl">
-          <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price</th><th>Badge</th><th>Sizes</th><th>Actions</th></tr></thead>
-          <tbody id="admin-products-tbody"><tr><td colspan="7" class="loading"><div class="spinner"></div> Loading...</td></tr></tbody>
-        </table>
-      </div>
+      <div style="overflow-x:auto"><table class="tbl">
+        <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price</th><th>Badge</th><th>Sizes</th><th>Action</th></tr></thead>
+        <tbody id="admin-products-tbody"><tr><td colspan="7" class="loading"><div class="spinner"></div></td></tr></tbody>
+      </table></div>
     </div>
   </div>
 
   <!-- ALL TUTORIALS -->
   <div id="content-all-tutorials" class="content">
     <div class="card">
-      <div class="card-head">
-        <div class="card-title">All Tutorials</div>
-        <a href="owner.html" class="btn btn-primary" style="text-decoration:none"><i class="fas fa-plus"></i> Add Tutorial</a>
-      </div>
+      <div class="card-head"><div class="card-title">All Tutorials</div><a href="owner.html" class="btn btn-primary" style="text-decoration:none"><i class="fas fa-plus"></i> Add</a></div>
       <div id="admin-tutorials-list"><div class="loading"><div class="spinner"></div></div></div>
     </div>
   </div>
@@ -446,40 +341,35 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
       <div class="card-head">
         <div class="card-title">All Orders</div>
         <div style="display:flex;gap:8px">
-          <select class="form-select" style="width:160px" id="admin-order-filter" onchange="filterAdminOrders()">
+          <select class="fs" style="width:160px" id="admin-order-f" onchange="filterAdminOrders()">
             <option value="">All Status</option>
             <option value="pending">Pending</option><option value="confirmed">Confirmed</option>
             <option value="shipped">Shipped</option><option value="delivered">Delivered</option>
             <option value="cancelled">Cancelled</option>
           </select>
-          <button class="btn btn-success" onclick="exportOrdersCSV()"><i class="fas fa-download"></i> Export CSV</button>
+          <button class="btn btn-success" onclick="exportOrdersCSV()"><i class="fas fa-download"></i> CSV</button>
         </div>
       </div>
-      <div style="overflow-x:auto">
-        <table class="tbl">
-          <thead><tr><th>Order ID</th><th>Customer</th><th>Phone</th><th>Items</th><th>Total</th><th>Status</th><th>Suggestions</th><th>Date</th><th>Action</th></tr></thead>
-          <tbody id="admin-orders-tbody"><tr><td colspan="9" class="loading"><div class="spinner"></div> Loading...</td></tr></tbody>
-        </table>
-      </div>
+      <div style="overflow-x:auto"><table class="tbl">
+        <thead><tr><th>Order ID</th><th>Customer</th><th>Phone</th><th>Items</th><th>Total</th><th>Status</th><th>Note</th><th>Date</th><th>Action</th></tr></thead>
+        <tbody id="admin-orders-tbody"><tr><td colspan="9" class="loading"><div class="spinner"></div></td></tr></tbody>
+      </table></div>
     </div>
   </div>
 
   <!-- ANALYTICS -->
   <div id="content-analytics" class="content">
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-icon si-blue"><i class="fas fa-shopping-cart"></i></div><div><div class="stat-num" id="an-orders">0</div><div class="stat-lbl">Total Orders</div></div></div>
-      <div class="stat-card"><div class="stat-icon si-gold"><i class="fas fa-rupee-sign"></i></div><div><div class="stat-num" id="an-revenue">₹0</div><div class="stat-lbl">Revenue</div></div></div>
-      <div class="stat-card"><div class="stat-icon si-green"><i class="fas fa-check-circle"></i></div><div><div class="stat-num" id="an-delivered">0</div><div class="stat-lbl">Delivered</div></div></div>
-      <div class="stat-card"><div class="stat-icon si-red"><i class="fas fa-times-circle"></i></div><div><div class="stat-num" id="an-cancelled">0</div><div class="stat-lbl">Cancelled</div></div></div>
+      <div class="stat-card"><div class="s-ico si-blue"><i class="fas fa-shopping-cart"></i></div><div><div class="s-num" id="an-orders">0</div><div class="s-lbl">Total Orders</div></div></div>
+      <div class="stat-card"><div class="s-ico si-gold"><i class="fas fa-rupee-sign"></i></div><div><div class="s-num" id="an-revenue">Rs.0</div><div class="s-lbl">Revenue</div></div></div>
+      <div class="stat-card"><div class="s-ico si-green"><i class="fas fa-check-circle"></i></div><div><div class="s-num" id="an-delivered">0</div><div class="s-lbl">Delivered</div></div></div>
+      <div class="stat-card"><div class="s-ico si-red"><i class="fas fa-times-circle"></i></div><div><div class="s-num" id="an-cancelled">0</div><div class="s-lbl">Cancelled</div></div></div>
     </div>
-    <div class="grid-2">
+    <div class="g2">
+      <div class="card"><div class="card-head"><div class="card-title">Top Categories</div></div><div id="cat-breakdown"></div></div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Top Categories</div></div>
-        <div id="cat-breakdown"></div>
-      </div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Order Status Pie</div></div>
-        <canvas id="pie-canvas" width="260" height="260" style="display:block;margin:0 auto"></canvas>
+        <div class="card-head"><div class="card-title">Order Status</div></div>
+        <canvas id="pie-canvas" width="240" height="240" style="display:block;margin:0 auto"></canvas>
         <div id="pie-legend" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;justify-content:center"></div>
       </div>
     </div>
@@ -488,33 +378,28 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   <!-- REVENUE REPORT -->
   <div id="content-revenue" class="content">
     <div class="card">
-      <div class="card-head">
-        <div class="card-title">Revenue Report</div>
-        <button class="btn btn-success" onclick="exportRevenueCSV()"><i class="fas fa-download"></i> Export CSV</button>
-      </div>
+      <div class="card-head"><div class="card-title">Revenue Report</div><button class="btn btn-success" onclick="exportRevenueCSV()"><i class="fas fa-download"></i> CSV</button></div>
       <div id="revenue-table-wrap"></div>
     </div>
   </div>
 
   <!-- SYSTEM SETTINGS -->
   <div id="content-settings" class="content">
-    <div class="grid-2">
+    <div class="g2">
       <div class="card">
         <div class="card-head"><div class="card-title">Store Settings</div></div>
-        <div class="form-group"><label class="form-label">Store Name</label><input class="form-input" id="sys-storename" placeholder="Aari Elegance"/></div>
-        <div class="form-group"><label class="form-label">UPI ID</label><input class="form-input" id="sys-upi" placeholder="yourname@upi"/></div>
-        <div class="form-group"><label class="form-label">GPay Number</label><input class="form-input" id="sys-phone" placeholder="9876543210"/></div>
-        <div class="form-group"><label class="form-label">WhatsApp Number</label><input class="form-input" id="sys-wa" placeholder="9876543210"/></div>
-        <button class="btn-full" onclick="saveSystemSettings()"><i class="fas fa-save"></i> Save Settings</button>
+        <div class="fg"><label class="fl">Store Name</label><input class="fi" id="sys-sname" placeholder="Aari Elegance"/></div>
+        <div class="fg"><label class="fl">UPI ID</label><input class="fi" id="sys-upi" placeholder="yourname@upi"/></div>
+        <div class="fg"><label class="fl">GPay Number</label><input class="fi" id="sys-phone" placeholder="9876543210"/></div>
+        <div class="fg"><label class="fl">WhatsApp Number</label><input class="fi" id="sys-wa" placeholder="9876543210"/></div>
+        <button class="btn-full" onclick="saveSysSettings()"><i class="fas fa-save"></i> Save</button>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Create Owner / Admin</div></div>
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Quickly assign owner or admin role to an existing user by their UID or email.</p>
-        <div class="form-group"><label class="form-label">User Email</label><input class="form-input" id="promote-email" placeholder="user@email.com"/></div>
-        <div class="form-group"><label class="form-label">New Role</label>
-          <select class="form-select" id="promote-role">
-            <option value="owner">Owner</option><option value="admin">Admin</option><option value="user">User (reset)</option>
-          </select>
+        <div class="card-head"><div class="card-title">Promote User</div></div>
+        <p style="font-size:13px;color:var(--tm);margin-bottom:14px">Update a user's role by their registered email.</p>
+        <div class="fg"><label class="fl">User Email</label><input class="fi" id="promote-email" placeholder="user@email.com"/></div>
+        <div class="fg"><label class="fl">New Role</label>
+          <select class="fs" id="promote-role"><option value="owner">Owner</option><option value="admin">Admin</option><option value="user">User (reset)</option></select>
         </div>
         <button class="btn-full" onclick="promoteUser()"><i class="fas fa-user-shield"></i> Update Role</button>
       </div>
@@ -523,47 +408,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 
   <!-- ACTIVITY LOG -->
   <div id="content-activity" class="content">
-    <div class="card">
-      <div class="card-head"><div class="card-title">Activity Log</div></div>
-      <div id="activity-log"><div class="loading"><div class="spinner"></div></div></div>
-    </div>
-  </div>
-
-</div><!-- /main -->
-
-<!-- USER DETAIL MODAL -->
-<div class="modal-overlay" id="user-modal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('user-modal')"><i class="fas fa-times"></i></button>
-    <div class="modal-title" id="um-title">User Details</div>
-    <div id="um-body"></div>
+    <div class="card"><div class="card-head"><div class="card-title">Activity Log</div></div><div id="activity-log"><div class="loading"><div class="spinner"></div></div></div></div>
   </div>
 </div>
 
-<!-- ORDER DETAIL MODAL -->
-<div class="modal-overlay" id="order-modal">
-  <div class="modal-box" style="max-width:580px">
-    <button class="modal-close" onclick="closeModal('order-modal')"><i class="fas fa-times"></i></button>
-    <div class="modal-title" id="om-title">Order Details</div>
-    <div id="om-body"></div>
-  </div>
+<!-- MODALS -->
+<div class="modal-ov" id="user-modal">
+  <div class="modal-box"><button class="modal-close" onclick="closeModal('user-modal')"><i class="fas fa-times"></i></button><div class="modal-title" id="um-title">User Details</div><div id="um-body"></div></div>
+</div>
+<div class="modal-ov" id="order-modal">
+  <div class="modal-box" style="max-width:580px"><button class="modal-close" onclick="closeModal('order-modal')"><i class="fas fa-times"></i></button><div class="modal-title" id="om-title">Order Details</div><div id="om-body"></div></div>
 </div>
 
-<div id="toast"></div><script type="module">
-// ── ALL Firebase access goes through firebase.js ONLY ──────────────
+<div id="toast"></div>
+
+<script type="module">
 import {
   loginUser, logoutUser, onAuth,
-  getAllUsers, deleteUserRecord, setUserRole, createUserRecord, promoteUserByEmail,
+  getAllUsers, deleteUserRecord, setUserRole, promoteUserByEmail,
   getProducts, deleteProduct,
   getTutorials, deleteTutorial,
   getOrders, updateOrderStatus,
   getSettings, updateSettings
 } from './firebase.js';
 
-// NOTE: createUserWithEmailAndPassword is the ONE exception — it must be called
-// directly because it creates a NEW auth session. We keep all Firestore calls in firebase.js.
+// FIXED: Import registerUser for creating users — but we handle the re-login issue with a note
+import { registerUser } from './firebase.js';
 
-let allUsers = [], allOrders = [], allProducts = [], allTutorials = [];
+let allUsers = [], allOrders = [], allProducts = [], allTutorials = [], adminEmail = '', adminPass = '';
 
 /* ── AUTH ── */
 window.doAdminLogin = async () => {
@@ -573,440 +445,316 @@ window.doAdminLogin = async () => {
   err.style.display = 'none';
   try {
     const { user, role, name } = await loginUser(email, pass);
-    if (role !== 'admin') {
-      await logoutUser();
-      err.textContent = 'Access denied. Not an admin account.';
-      err.style.display = 'block'; return;
-    }
+    if (role !== 'admin') { await logoutUser(); err.textContent = 'Access denied. Not an admin account.'; err.style.display = 'block'; return; }
+    // Store credentials for re-login after createUser if needed
+    adminEmail = email; adminPass = pass;
     document.getElementById('auth-gate').style.display = 'none';
-    document.getElementById('admin-name').textContent       = name || email;
-    document.getElementById('admin-email-disp').textContent = email;
+    document.getElementById('admin-name').textContent   = name || email;
+    document.getElementById('admin-email-d').textContent = email;
     loadAll();
-  } catch(e) {
-    err.textContent = 'Login failed: ' + e.message;
-    err.style.display = 'block';
-  }
+  } catch(e) { err.textContent = 'Login failed: ' + e.message; err.style.display = 'block'; }
 };
-
-onAuth((fbUser, data) => {
-  if (!fbUser || !data) return;
-  if (data.role !== 'admin') return;
+onAuth((u, data) => {
+  if (!u || !data || data.role !== 'admin') return;
   document.getElementById('auth-gate').style.display = 'none';
-  document.getElementById('admin-name').textContent       = data.name || fbUser.email;
-  document.getElementById('admin-email-disp').textContent = fbUser.email;
+  document.getElementById('admin-name').textContent   = data.name || u.email;
+  document.getElementById('admin-email-d').textContent = u.email;
   loadAll();
 });
-
 window.doAdminLogout = async () => { await logoutUser(); location.reload(); };
 
 /* ── SECTION ROUTER ── */
-window.showSection = sec => {
+window.showSec = sec => {
   document.querySelectorAll('.content').forEach(c => c.classList.remove('show'));
-  const el = document.getElementById('content-' + sec);
-  if (el) el.classList.add('show');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const nv = document.querySelector(`.nav-item[onclick*="${sec}"]`);
-  if (nv) nv.classList.add('active');
-  const titles = {
-    dashboard:'Dashboard', users:'All Users', 'create-user':'Create User',
-    roles:'Manage Roles', 'all-products':'All Products', 'all-tutorials':'All Tutorials',
-    'all-orders':'All Orders', analytics:'Analytics', revenue:'Revenue Report',
-    settings:'System Settings', activity:'Activity Log'
-  };
+  const el = document.getElementById('content-' + sec); if (el) el.classList.add('show');
+  document.querySelectorAll('.nav-i').forEach(n => n.classList.remove('active'));
+  const nv = document.querySelector(`.nav-i[onclick*="${sec}"]`); if (nv) nv.classList.add('active');
+  const titles = { dashboard:'Dashboard',users:'All Users','create-user':'Create User',roles:'Manage Roles','all-products':'All Products','all-tutorials':'All Tutorials','all-orders':'All Orders',analytics:'Analytics',revenue:'Revenue Report',settings:'System Settings',activity:'Activity Log' };
   document.getElementById('page-title').textContent = titles[sec] || sec;
-  const loaders = {
-    users: loadUsersTable, 'all-products': loadAdminProducts,
-    'all-tutorials': loadAdminTutorials, 'all-orders': loadAdminOrders,
-    analytics: loadAnalytics, revenue: loadRevenueReport,
-    settings: loadSysSettings, activity: loadActivity
-  };
+  const loaders = { users: loadUsersTable,'all-products': loadAdminProducts,'all-tutorials': loadAdminTutorials,'all-orders': loadAdminOrders,analytics: loadAnalytics,revenue: loadRevenueReport,settings: loadSysSettingsForm,activity: loadActivity };
   if (loaders[sec]) loaders[sec]();
 };
 
-/* ── LOAD ALL — via firebase.js ── */
+/* ── LOAD ALL ── */
 async function loadAll() {
   try {
-    [allUsers, allOrders, allProducts, allTutorials] = await Promise.all([
-      getAllUsers(), getOrders(), getProducts(), getTutorials()
-    ]);
+    [allUsers, allOrders, allProducts, allTutorials] = await Promise.all([getAllUsers(), getOrders(), getProducts(), getTutorials()]);
     renderDashboard();
   } catch(e) { console.error(e); }
 }
 
 /* ── DASHBOARD ── */
-function renderDashboard() {
-  const revenue = allOrders.filter(o => o.status !== 'cancelled').reduce((a, o) => a + (o.total||0), 0);
-  const pending = allOrders.filter(o => o.status === 'pending').length;
-  document.getElementById('s-users').textContent     = allUsers.length;
-  document.getElementById('s-orders').textContent    = allOrders.length;
-  document.getElementById('s-revenue').textContent   = 'Rs.' + revenue.toLocaleString();
-  document.getElementById('s-products').textContent  = allProducts.length;
-  document.getElementById('s-tutorials').textContent = allTutorials.length;
-  document.getElementById('s-pending').textContent   = pending;
-  document.getElementById('user-count-badge').textContent = allUsers.length;
-
-  // Revenue bar chart (last 7 months illustrative)
-  const vals = [12000, 18000, 14000, 22000, 19000, 28000, revenue || 25000];
-  const max  = Math.max(...vals);
-  document.getElementById('revenue-chart').innerHTML =
-    vals.map(v => `<div class="bar" style="height:${Math.round((v/max)*100)}%;flex:1" title="Rs.${v.toLocaleString()}"></div>`).join('');
-  document.getElementById('chart-labels').innerHTML =
-    ['Jan','Feb','Mar','Apr','May','Jun','Jul'].map(m => `<span>${m}</span>`).join('');
-
-  // Status breakdown
-  const statuses = ['pending','confirmed','shipped','delivered','cancelled'];
-  const colors   = ['#F39C12','#3498DB','#8E44AD','#27AE60','#E74C3C'];
-  document.getElementById('status-breakdown').innerHTML = statuses.map((s,i) => {
-    const count = allOrders.filter(o => o.status === s).length;
-    const pct   = allOrders.length ? Math.round((count/allOrders.length)*100) : 0;
-    return `<div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
-      <span style="text-transform:capitalize;font-weight:500">${s}</span>
-      <span style="font-weight:700;color:${colors[i]}">${count} (${pct}%)</span></div>
-      <div style="background:var(--border);border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:${colors[i]};width:${pct}%;height:100%;border-radius:4px;transition:.6s"></div>
-      </div></div>`;
-  }).join('');
-
-  // Recent users
-  document.getElementById('recent-users').innerHTML =
-    `<table class="tbl"><thead><tr><th>Name</th><th>Role</th></tr></thead><tbody>
-      ${allUsers.slice(0,5).map(u=>`<tr><td>${u.name||u.email}</td><td><span class="role-badge role-${u.role||'user'}">${u.role||'user'}</span></td></tr>`).join('')}
-    </tbody></table>`;
-
-  // Recent orders
-  document.getElementById('dash-orders').innerHTML =
-    `<table class="tbl"><thead><tr><th>ID</th><th>Total</th><th>Status</th></tr></thead><tbody>
-      ${allOrders.slice(0,5).map(o=>`<tr><td style="font-family:monospace">#${o.id.slice(0,6).toUpperCase()}</td><td>Rs.${o.total||0}</td><td><span class="pill pill-${pillColor(o.status)}">${o.status}</span></td></tr>`).join('')}
-    </tbody></table>`;
-}
 function pillColor(s) { return {pending:'orange',confirmed:'blue',shipped:'purple',delivered:'green',cancelled:'red'}[s]||'grey'; }
 
-/* ── USERS — via firebase.js getAllUsers + deleteUserRecord + setUserRole ── */
-function loadUsersTable() {
-  renderUsersTable(allUsers);
-  document.getElementById('user-count-label').textContent = allUsers.length + ' registered users';
+function renderDashboard() {
+  const revenue = allOrders.filter(o=>o.status!=='cancelled').reduce((a,o)=>a+(o.total||0),0);
+  const pending = allOrders.filter(o=>o.status==='pending').length;
+  document.getElementById('s-users').textContent    = allUsers.length;
+  document.getElementById('s-orders').textContent   = allOrders.length;
+  document.getElementById('s-revenue').textContent  = 'Rs.' + revenue.toLocaleString();
+  document.getElementById('s-products').textContent = allProducts.length;
+  document.getElementById('s-tutorials').textContent= allTutorials.length;
+  document.getElementById('s-pending').textContent  = pending;
+  document.getElementById('user-count-badge').textContent = allUsers.length;
+
+  // Revenue chart — group real orders by month
+  const monthMap = {};
+  allOrders.filter(o=>o.status!=='cancelled').forEach(o => {
+    const d = o.createdAt?.toDate ? o.createdAt.toDate() : o.createdAt?.seconds ? new Date(o.createdAt.seconds*1000) : null;
+    if (!d) return;
+    const key = d.toLocaleString('default',{month:'short',year:'2-digit'});
+    monthMap[key] = (monthMap[key]||0) + (o.total||0);
+  });
+  const months = Object.keys(monthMap).slice(-7);
+  const vals   = months.map(m => monthMap[m]);
+  const maxV   = Math.max(...vals, 1);
+  document.getElementById('revenue-chart').innerHTML = months.length
+    ? vals.map((v,i)=>`<div class="bar" style="height:${Math.round((v/maxV)*100)}%" title="Rs.${v.toLocaleString()}"><div class="bar-val">Rs.${(v/1000).toFixed(0)}k</div></div>`).join('')
+    : '<div style="color:var(--tm);font-size:13px;margin:auto">No revenue data yet</div>';
+  document.getElementById('chart-labels').innerHTML = months.map(m=>`<span>${m}</span>`).join('');
+
+  // Status breakdown
+  const statuses=['pending','confirmed','shipped','delivered','cancelled'];
+  const colors=['#F39C12','#3498DB','#8E44AD','#27AE60','#E74C3C'];
+  document.getElementById('status-breakdown').innerHTML = statuses.map((s,i)=>{
+    const cnt=allOrders.filter(o=>o.status===s).length, pct=allOrders.length?Math.round((cnt/allOrders.length)*100):0;
+    return `<div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="text-transform:capitalize;font-weight:500">${s}</span><span style="font-weight:700;color:${colors[i]}">${cnt} (${pct}%)</span></div><div style="background:var(--border);border-radius:4px;height:8px;overflow:hidden"><div style="background:${colors[i]};width:${pct}%;height:100%;border-radius:4px;transition:.6s"></div></div></div>`;
+  }).join('');
+
+  document.getElementById('recent-users').innerHTML = `<table class="tbl"><thead><tr><th>Name</th><th>Role</th></tr></thead><tbody>${allUsers.slice(0,5).map(u=>`<tr><td>${u.name||u.email}</td><td><span class="role-badge role-${u.role||'user'}">${u.role||'user'}</span></td></tr>`).join('')}</tbody></table>`;
+  document.getElementById('dash-orders').innerHTML   = `<table class="tbl"><thead><tr><th>ID</th><th>Total</th><th>Status</th></tr></thead><tbody>${allOrders.slice(0,5).map(o=>`<tr><td style="font-family:monospace">#${o.id.slice(0,6).toUpperCase()}</td><td>Rs.${o.total||0}</td><td><span class="pill pill-${pillColor(o.status)}">${o.status}</span></td></tr>`).join('')}</tbody></table>`;
 }
+
+/* ── USERS ── */
+function loadUsersTable() { renderUsersTable(allUsers); document.getElementById('user-count-label').textContent = allUsers.length + ' registered users'; }
 function renderUsersTable(list) {
   document.getElementById('users-tbody').innerHTML = list.length
-    ? list.map(u => `<tr>
-        <td><strong>${u.name||'—'}</strong></td>
-        <td>${u.email||'—'}</td>
-        <td>${u.phone||'—'}</td>
+    ? list.map(u=>`<tr>
+        <td><strong>${u.name||'—'}</strong></td><td>${u.email||'—'}</td><td>${u.phone||'—'}</td>
         <td><span class="role-badge role-${u.role||'user'}">${u.role||'user'}</span></td>
-        <td style="font-size:12px;color:var(--text-muted)">${u.createdAt?.toDate?u.createdAt.toDate().toLocaleDateString():'—'}</td>
+        <td style="font-size:12px;color:var(--tm)">${u.createdAt?.toDate?u.createdAt.toDate().toLocaleDateString():'—'}</td>
         <td style="display:flex;gap:6px">
           <button class="btn btn-ghost" onclick="viewUser('${u.id}')"><i class="fas fa-eye"></i></button>
           <button class="btn btn-danger" onclick="doDeleteUser('${u.id}')"><i class="fas fa-trash"></i></button>
         </td>
       </tr>`).join('')
-    : '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px">No users found</td></tr>';
+    : '<tr><td colspan="6" style="text-align:center;color:var(--tm);padding:20px">No users found</td></tr>';
 }
-window.searchUsers = q => {
-  const ql = q.toLowerCase();
-  renderUsersTable(allUsers.filter(u => (u.name||'').toLowerCase().includes(ql) || (u.email||'').toLowerCase().includes(ql)));
-};
+window.searchUsers = q => { const ql=q.toLowerCase(); renderUsersTable(allUsers.filter(u=>(u.name||'').toLowerCase().includes(ql)||(u.email||'').toLowerCase().includes(ql))); };
 window.viewUser = id => {
-  const u = allUsers.find(x => x.id === id); if (!u) return;
-  const userOrders = allOrders.filter(o => o.userId === id);
-  document.getElementById('um-title').textContent = u.name || u.email;
-  document.getElementById('um-body').innerHTML = `
+  const u=allUsers.find(x=>x.id===id); if(!u) return;
+  const userOrders=allOrders.filter(o=>o.userId===id);
+  document.getElementById('um-title').textContent=u.name||u.email;
+  document.getElementById('um-body').innerHTML=`
     <div style="display:grid;gap:10px">
       <div style="background:var(--cream);border-radius:10px;padding:14px;font-size:14px">
         <div><strong>Email:</strong> ${u.email}</div>
         <div style="margin-top:4px"><strong>Phone:</strong> ${u.phone||'—'}</div>
         <div style="margin-top:4px"><strong>Role:</strong> <span class="role-badge role-${u.role||'user'}">${u.role||'user'}</span></div>
-        <div style="margin-top:4px"><strong>UID:</strong> <span style="font-family:monospace;font-size:12px">${u.id}</span></div>
+        <div style="margin-top:4px"><strong>UID:</strong> <span style="font-family:monospace;font-size:11px">${u.id}</span></div>
       </div>
       <div style="background:var(--cream);border-radius:10px;padding:14px">
-        <strong style="font-size:14px">Orders (${userOrders.length})</strong>
-        ${userOrders.slice(0,3).map(o=>`<div style="display:flex;justify-content:space-between;margin-top:6px;font-size:13px">
-          <span>#${o.id.slice(0,6).toUpperCase()}</span><span>Rs.${o.total}</span><span class="pill pill-${pillColor(o.status)}">${o.status}</span>
-        </div>`).join('')||'<p style="font-size:13px;color:var(--text-muted);margin-top:6px">No orders</p>'}
+        <strong>Orders (${userOrders.length})</strong>
+        ${userOrders.slice(0,3).map(o=>`<div style="display:flex;justify-content:space-between;margin-top:6px;font-size:13px"><span>#${o.id.slice(0,6).toUpperCase()}</span><span>Rs.${o.total}</span><span class="pill pill-${pillColor(o.status)}">${o.status}</span></div>`).join('')||'<p style="font-size:13px;color:var(--tm);margin-top:6px">No orders</p>'}
       </div>
       <div style="display:flex;gap:8px">
-        <select id="role-update-sel" class="form-select" style="flex:1">
-          <option value="user" ${u.role==='user'?'selected':''}>User</option>
-          <option value="owner" ${u.role==='owner'?'selected':''}>Owner</option>
-          <option value="admin" ${u.role==='admin'?'selected':''}>Admin</option>
-        </select>
+        <select id="role-sel" class="fs" style="flex:1"><option value="user" ${u.role==='user'?'selected':''}>User</option><option value="owner" ${u.role==='owner'?'selected':''}>Owner</option><option value="admin" ${u.role==='admin'?'selected':''}>Admin</option></select>
         <button class="btn btn-primary" onclick="doUpdateRole('${u.id}')">Update Role</button>
       </div>
     </div>`;
   document.getElementById('user-modal').classList.add('open');
 };
 window.doUpdateRole = async uid => {
-  const role = document.getElementById('role-update-sel').value;
-  await setUserRole(uid, role);
-  const u = allUsers.find(x => x.id === uid); if (u) u.role = role;
-  showToast('Role updated to ' + role);
-  closeModal('user-modal');
-  loadUsersTable();
+  const role=document.getElementById('role-sel').value;
+  await setUserRole(uid,role);
+  const u=allUsers.find(x=>x.id===uid); if(u) u.role=role;
+  showToast('Role updated to '+role); closeModal('user-modal'); loadUsersTable();
 };
 window.doDeleteUser = async id => {
-  if (!confirm('Delete this user? This cannot be undone.')) return;
-  await deleteUserRecord(id);
-  allUsers = allUsers.filter(u => u.id !== id);
-  showToast('User deleted'); loadUsersTable();
+  if(!confirm('Delete this user?')) return;
+  await deleteUserRecord(id); allUsers=allUsers.filter(u=>u.id!==id); showToast('User deleted'); loadUsersTable();
 };
 
-/* ── CREATE USER — uses firebase.js createUserRecord ── */
+/* ── CREATE USER — FIXED: re-login admin after Firebase switches session ── */
 window.createUser = async () => {
-  const name  = document.getElementById('cu-name').value.trim();
-  const phone = document.getElementById('cu-phone').value.trim();
-  const email = document.getElementById('cu-email').value.trim();
-  const pass  = document.getElementById('cu-pass').value;
-  const role  = document.getElementById('cu-role').value;
-  if (!email || !pass) { showToast('Email and password required'); return; }
+  const name=document.getElementById('cu-name').value.trim();
+  const phone=document.getElementById('cu-phone').value.trim();
+  const email=document.getElementById('cu-email').value.trim();
+  const pass=document.getElementById('cu-pass').value;
+  const role=document.getElementById('cu-role').value;
+  const resultEl = document.getElementById('create-user-result');
+  if(!email||!pass){showToast('Email and password required');return;}
+  resultEl.innerHTML = '<div style="color:var(--tm);font-size:13px"><div class="spinner" style="margin:0 6px 0 0;display:inline-block;vertical-align:middle"></div> Creating user...</div>';
   try {
-    // firebase.js registerUser creates auth + firestore user record (role=user by default)
-    // Then setUserRole (from firebase.js) updates the role if needed
-    const { user: newUser } = await (await import('./firebase.js')).registerUser(email, pass, name, phone);
-    if (role !== 'user') { await setUserRole(newUser.uid, role); }
+    const {user: newUser} = await registerUser(email, pass, name, phone);
+    if(role!=='user') await setUserRole(newUser.uid, role);
+    // FIXED: Re-login admin because Firebase Auth switches to the new user's session
+    if(adminEmail && adminPass) {
+      await loginUser(adminEmail, adminPass);
+    }
     showToast('User created successfully!');
-    ['cu-name','cu-phone','cu-email','cu-pass'].forEach(id => document.getElementById(id).value = '');
+    resultEl.innerHTML = `<div style="background:#EAFAF1;border:1px solid #2ECC71;border-radius:10px;padding:12px 14px;font-size:13px;color:#1E8449">✅ Account created for <strong>${name||email}</strong> as <strong>${role}</strong>.</div>`;
+    ['cu-name','cu-phone','cu-email','cu-pass'].forEach(id=>document.getElementById(id).value='');
     await loadAll();
-  } catch(e) { showToast('Error: ' + e.message); }
-};;
+  } catch(e) {
+    resultEl.innerHTML = `<div style="background:#FDEDEC;border:1px solid var(--err);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--err)">❌ ${e.code==='auth/email-already-in-use'?'Email already registered':e.message}</div>`;
+  }
+};
 
-/* ── ROLE SEARCH — uses firebase.js setUserRole ── */
+/* ── ROLE SEARCH ── */
 window.searchRoleUser = () => {
-  const q = document.getElementById('role-search').value.trim().toLowerCase();
-  const found = allUsers.filter(u => (u.email||'').toLowerCase().includes(q)||(u.name||'').toLowerCase().includes(q));
+  const q=document.getElementById('role-search').value.trim().toLowerCase();
+  const found=allUsers.filter(u=>(u.email||'').toLowerCase().includes(q)||(u.name||'').toLowerCase().includes(q));
   document.getElementById('role-search-result').innerHTML = found.length
-    ? found.map(u => `<div style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;background:var(--cream);margin-bottom:8px">
-        <div style="flex:1"><strong style="font-size:14px">${u.name||'—'}</strong><br><span style="font-size:12px;color:var(--text-muted)">${u.email}</span></div>
+    ? found.map(u=>`<div style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;background:var(--cream);margin-bottom:8px">
+        <div style="flex:1"><strong>${u.name||'—'}</strong><br><span style="font-size:12px;color:var(--tm)">${u.email}</span></div>
         <span class="role-badge role-${u.role||'user'}">${u.role||'user'}</span>
-        <select class="form-select" style="width:110px" id="rs-${u.id}">
-          <option value="user" ${u.role==='user'?'selected':''}>User</option>
-          <option value="owner" ${u.role==='owner'?'selected':''}>Owner</option>
-          <option value="admin" ${u.role==='admin'?'selected':''}>Admin</option>
-        </select>
+        <select class="fs" style="width:110px" id="rs-${u.id}"><option value="user" ${u.role==='user'?'selected':''}>User</option><option value="owner" ${u.role==='owner'?'selected':''}>Owner</option><option value="admin" ${u.role==='admin'?'selected':''}>Admin</option></select>
         <button class="btn btn-primary" onclick="quickRole('${u.id}')">Set</button>
       </div>`).join('')
-    : '<p style="color:var(--text-muted);text-align:center;padding:16px">No users found</p>';
+    : '<p style="color:var(--tm);text-align:center;padding:16px">No users found</p>';
 };
 window.quickRole = async uid => {
-  const role = document.getElementById('rs-' + uid).value;
-  await setUserRole(uid, role);
-  const u = allUsers.find(x => x.id === uid); if (u) u.role = role;
-  showToast('Role updated to ' + role);
+  const role=document.getElementById('rs-'+uid).value;
+  await setUserRole(uid,role);
+  const u=allUsers.find(x=>x.id===uid); if(u) u.role=role;
+  showToast('Role updated to '+role);
 };
 
-/* ── PRODUCTS — via firebase.js getProducts + deleteProduct ── */
-function loadAdminProducts() { renderAdminProducts(allProducts); }
-function renderAdminProducts(list) {
+/* ── PRODUCTS ── */
+function loadAdminProducts(){ renderAdminProducts(allProducts); }
+function renderAdminProducts(list){
   document.getElementById('admin-products-tbody').innerHTML = list.length
-    ? list.map(p => `<tr>
-        <td>${p.imageUrl?`<img src="${p.imageUrl}" style="width:42px;height:42px;border-radius:8px;object-fit:cover">`:`<div style="width:42px;height:42px;border-radius:8px;background:var(--admin-light);display:flex;align-items:center;justify-content:center;font-size:20px">🪡</div>`}</td>
+    ? list.map(p=>`<tr>
+        <td>${p.imageUrl?`<img src="${p.imageUrl}" style="width:42px;height:42px;border-radius:8px;object-fit:cover">`:`<div style="width:42px;height:42px;border-radius:8px;background:var(--alight);display:flex;align-items:center;justify-content:center;font-size:20px">🪡</div>`}</td>
         <td><strong>${p.name}</strong></td>
         <td>${(p.category||'').charAt(0).toUpperCase()+(p.category||'').slice(1)}</td>
-        <td><strong>Rs.${p.price}</strong>${p.oldPrice?` <span style="text-decoration:line-through;font-size:12px;color:var(--text-muted)">Rs.${p.oldPrice}</span>`:''}</td>
+        <td><strong>Rs.${p.price}</strong>${p.oldPrice?` <s style="font-size:12px;color:var(--tm)">Rs.${p.oldPrice}</s>`:''}</td>
         <td>${p.badge?`<span class="pill pill-green">${p.badge}</span>`:'—'}</td>
         <td style="font-size:12px">${(p.sizes||[]).join(', ')||'—'}</td>
         <td><button class="btn btn-danger" onclick="adminDelProd('${p.id}')"><i class="fas fa-trash"></i></button></td>
       </tr>`).join('')
-    : '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px">No products</td></tr>';
+    : '<tr><td colspan="7" style="text-align:center;color:var(--tm);padding:20px">No products</td></tr>';
 }
-window.filterAdminProducts = () => {
-  const f = document.getElementById('prod-cat-filter').value;
-  renderAdminProducts(f ? allProducts.filter(p => p.category === f) : allProducts);
-};
-window.adminDelProd = async id => {
-  if (!confirm('Delete product?')) return;
-  await deleteProduct(id);
-  allProducts = allProducts.filter(p => p.id !== id);
-  loadAdminProducts(); showToast('Deleted');
-};
+window.filterAdminProducts=()=>{ const f=document.getElementById('prod-cat-f').value; renderAdminProducts(f?allProducts.filter(p=>p.category===f):allProducts); };
+window.adminDelProd=async id=>{ if(!confirm('Delete?')) return; await deleteProduct(id); allProducts=allProducts.filter(p=>p.id!==id); loadAdminProducts(); showToast('Deleted'); };
 
-/* ── TUTORIALS — via firebase.js getTutorials + deleteTutorial ── */
-function loadAdminTutorials() {
+/* ── TUTORIALS ── */
+function loadAdminTutorials(){
   document.getElementById('admin-tutorials-list').innerHTML = allTutorials.length
-    ? allTutorials.map(t => `<div style="display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:var(--cream);margin-bottom:10px">
+    ? allTutorials.map(t=>`<div style="display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:var(--cream);margin-bottom:10px">
         <div style="width:80px;height:56px;border-radius:10px;background:var(--admin);display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;flex-shrink:0">🎬</div>
-        <div style="flex:1"><strong style="font-size:14px">${t.title}</strong><br><span style="font-size:12px;color:var(--text-muted)">${t.tag} · ${t.duration||'—'}</span></div>
+        <div style="flex:1"><strong>${t.title}</strong><br><span style="font-size:12px;color:var(--tm)">${t.tag} · ${t.duration||'—'}</span></div>
         <button class="btn btn-danger" onclick="adminDelTut('${t.id}')"><i class="fas fa-trash"></i></button>
       </div>`).join('')
-    : '<p style="color:var(--text-muted);text-align:center;padding:20px">No tutorials</p>';
+    : '<p style="color:var(--tm);text-align:center;padding:20px">No tutorials</p>';
 }
-window.adminDelTut = async id => {
-  if (!confirm('Delete tutorial?')) return;
-  await deleteTutorial(id);
-  allTutorials = allTutorials.filter(t => t.id !== id);
-  loadAdminTutorials(); showToast('Deleted');
-};
+window.adminDelTut=async id=>{ if(!confirm('Delete?')) return; await deleteTutorial(id); allTutorials=allTutorials.filter(t=>t.id!==id); loadAdminTutorials(); showToast('Deleted'); };
 
-/* ── ORDERS — via firebase.js getOrders + updateOrderStatus ── */
-function loadAdminOrders() { renderAdminOrders(allOrders); }
-function renderAdminOrders(list) {
+/* ── ORDERS ── */
+function loadAdminOrders(){ renderAdminOrders(allOrders); }
+function renderAdminOrders(list){
   document.getElementById('admin-orders-tbody').innerHTML = list.length
-    ? list.map(o => `<tr>
+    ? list.map(o=>`<tr>
         <td style="font-family:monospace;font-size:12px">#${o.id.slice(0,6).toUpperCase()}</td>
         <td><strong>${o.address?.name||o.userEmail||'—'}</strong></td>
         <td style="font-size:12px">${o.address?.phone||'—'}</td>
-        <td>${(o.items||[]).length} item(s)</td>
+        <td>${(o.items||[]).length}</td>
         <td><strong>Rs.${o.total||0}</strong></td>
         <td><span class="pill pill-${pillColor(o.status)}">${o.status}</span></td>
-        <td style="max-width:150px;font-size:12px;color:var(--text-muted)">${o.suggestions?o.suggestions.slice(0,60)+'...':'—'}</td>
-        <td style="font-size:12px;color:var(--text-muted)">${o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():'—'}</td>
+        <td style="max-width:130px;font-size:11px;color:var(--tm)">${o.suggestions?o.suggestions.slice(0,50)+'…':'—'}</td>
+        <td style="font-size:12px;color:var(--tm)">${o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():'—'}</td>
         <td><button class="btn btn-ghost" onclick="adminViewOrder('${o.id}')"><i class="fas fa-eye"></i></button></td>
       </tr>`).join('')
-    : '<tr><td colspan="9" style="text-align:center;color:var(--text-muted);padding:20px">No orders</td></tr>';
+    : '<tr><td colspan="9" style="text-align:center;color:var(--tm);padding:20px">No orders</td></tr>';
 }
-window.filterAdminOrders = () => {
-  const f = document.getElementById('admin-order-filter').value;
-  renderAdminOrders(f ? allOrders.filter(o => o.status === f) : allOrders);
-};
-window.adminViewOrder = id => {
-  const o = allOrders.find(x => x.id === id); if (!o) return;
-  document.getElementById('om-title').textContent = 'Order #' + id.slice(0,6).toUpperCase();
-  document.getElementById('om-body').innerHTML = `
+window.filterAdminOrders=()=>{ const f=document.getElementById('admin-order-f').value; renderAdminOrders(f?allOrders.filter(o=>o.status===f):allOrders); };
+window.adminViewOrder=id=>{
+  const o=allOrders.find(x=>x.id===id); if(!o) return;
+  document.getElementById('om-title').textContent='Order #'+id.slice(0,6).toUpperCase();
+  document.getElementById('om-body').innerHTML=`
     <div style="display:grid;gap:12px">
-      <div style="background:var(--cream);border-radius:10px;padding:14px;font-size:14px">
-        <strong>Customer</strong><br>
-        ${o.address?.name||'—'} · ${o.address?.phone||'—'}<br>
-        ${o.address?.line||''}, ${o.address?.city||''}, ${o.address?.state||''} - ${o.address?.pin||''}
-      </div>
-      <div style="background:var(--cream);border-radius:10px;padding:14px">
-        <strong style="font-size:14px">Items</strong>
-        ${(o.items||[]).map(i=>`<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:13px">
-          <span>${i.name} ${i.size?`(${i.size})`:''} x${i.qty}</span><span>Rs.${i.price*i.qty}</span>
-        </div>`).join('')}
-        <div style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px;font-weight:700;display:flex;justify-content:space-between">
-          <span>Total</span><span>Rs.${o.total}</span>
-        </div>
-      </div>
-      ${o.suggestions?`<div style="background:#FEF9E7;border-radius:10px;padding:14px"><strong>Customer Note:</strong> ${o.suggestions}</div>`:''}
+      <div style="background:var(--cream);border-radius:10px;padding:14px;font-size:14px"><strong>Customer</strong><br>${o.address?.name||'—'} · ${o.address?.phone||'—'}<br>${o.address?.line||''}, ${o.address?.city||''}, ${o.address?.state||''} - ${o.address?.pin||''}</div>
+      <div style="background:var(--cream);border-radius:10px;padding:14px"><strong>Items</strong>${(o.items||[]).map(i=>`<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:13px"><span>${i.name} ${i.size?`(${i.size})`:''} x${i.qty}</span><span>Rs.${i.price*i.qty}</span></div>`).join('')}<div style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px;font-weight:700;display:flex;justify-content:space-between"><span>Total</span><span>Rs.${o.total}</span></div></div>
+      ${o.suggestions?`<div style="background:#FEF9E7;border-radius:10px;padding:14px"><strong>Note:</strong> ${o.suggestions}</div>`:''}
       <div><strong>Status:</strong> <span class="pill pill-${pillColor(o.status)}">${o.status}</span></div>
     </div>`;
   document.getElementById('order-modal').classList.add('open');
 };
 
 /* ── ANALYTICS ── */
-function loadAnalytics() {
-  const revenue   = allOrders.filter(o=>o.status!=='cancelled').reduce((a,o)=>a+(o.total||0),0);
-  const delivered = allOrders.filter(o=>o.status==='delivered').length;
-  const cancelled = allOrders.filter(o=>o.status==='cancelled').length;
-  document.getElementById('an-orders').textContent    = allOrders.length;
-  document.getElementById('an-revenue').textContent   = 'Rs.' + revenue.toLocaleString();
-  document.getElementById('an-delivered').textContent = delivered;
-  document.getElementById('an-cancelled').textContent = cancelled;
-  // Category breakdown
-  const catMap = {};
-  allProducts.forEach(p => { catMap[p.category||'other'] = (catMap[p.category||'other']||0)+1; });
-  document.getElementById('cat-breakdown').innerHTML = Object.entries(catMap).map(([cat,count]) => {
-    const pct = allProducts.length ? Math.round((count/allProducts.length)*100) : 0;
-    return `<div style="margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
-        <span style="font-weight:500;text-transform:capitalize">${cat}</span>
-        <span style="font-weight:700">${count} (${pct}%)</span>
-      </div>
-      <div style="background:var(--border);border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:var(--admin);width:${pct}%;height:100%;border-radius:4px;transition:.6s"></div>
-      </div></div>`;
+function loadAnalytics(){
+  const revenue=allOrders.filter(o=>o.status!=='cancelled').reduce((a,o)=>a+(o.total||0),0);
+  const delivered=allOrders.filter(o=>o.status==='delivered').length;
+  const cancelled=allOrders.filter(o=>o.status==='cancelled').length;
+  document.getElementById('an-orders').textContent   =allOrders.length;
+  document.getElementById('an-revenue').textContent  ='Rs.'+revenue.toLocaleString();
+  document.getElementById('an-delivered').textContent=delivered;
+  document.getElementById('an-cancelled').textContent=cancelled;
+  const catMap={};
+  allProducts.forEach(p=>{catMap[p.category||'other']=(catMap[p.category||'other']||0)+1;});
+  document.getElementById('cat-breakdown').innerHTML=Object.entries(catMap).map(([cat,cnt])=>{
+    const pct=allProducts.length?Math.round((cnt/allProducts.length)*100):0;
+    return `<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="font-weight:500;text-transform:capitalize">${cat}</span><span style="font-weight:700">${cnt} (${pct}%)</span></div><div style="background:var(--border);border-radius:4px;height:8px;overflow:hidden"><div style="background:var(--admin);width:${pct}%;height:100%;border-radius:4px;transition:.6s"></div></div></div>`;
   }).join('');
   drawPie();
 }
-function drawPie() {
-  const canvas=document.getElementById('pie-canvas'),ctx=canvas.getContext('2d');
+function drawPie(){
+  const c=document.getElementById('pie-canvas'),ctx=c.getContext('2d');
   const statuses=['pending','confirmed','shipped','delivered','cancelled'];
   const colors=['#F39C12','#3498DB','#8E44AD','#27AE60','#E74C3C'];
   const data=statuses.map(s=>allOrders.filter(o=>o.status===s).length);
   const total=data.reduce((a,b)=>a+b,0)||1;
-  let angle=-Math.PI/2;
-  const cx=130,cy=130,r=100;
-  ctx.clearRect(0,0,260,260);
-  data.forEach((val,i)=>{ const slice=(val/total)*Math.PI*2; ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,angle+slice);ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();angle+=slice; });
+  let angle=-Math.PI/2; ctx.clearRect(0,0,240,240);
+  data.forEach((v,i)=>{ const sl=(v/total)*Math.PI*2; ctx.beginPath();ctx.moveTo(120,120);ctx.arc(120,120,100,angle,angle+sl);ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();angle+=sl; });
   document.getElementById('pie-legend').innerHTML=statuses.map((s,i)=>`<div style="display:flex;align-items:center;gap:5px;font-size:12px"><div style="width:10px;height:10px;border-radius:2px;background:${colors[i]}"></div>${s} (${data[i]})</div>`).join('');
 }
 
 /* ── REVENUE REPORT ── */
-function loadRevenueReport() {
-  const delivered = allOrders.filter(o=>o.status==='delivered');
-  const total     = delivered.reduce((a,o)=>a+(o.total||0),0);
-  document.getElementById('revenue-table-wrap').innerHTML = `
+function loadRevenueReport(){
+  const del=allOrders.filter(o=>o.status==='delivered');
+  const total=del.reduce((a,o)=>a+(o.total||0),0);
+  document.getElementById('revenue-table-wrap').innerHTML=`
     <div style="margin-bottom:16px;padding:16px;background:var(--cream);border-radius:12px;display:flex;gap:32px">
-      <div><div style="font-size:24px;font-weight:700;color:var(--admin)">Rs.${total.toLocaleString()}</div><div style="font-size:13px;color:var(--text-muted)">Total Delivered Revenue</div></div>
-      <div><div style="font-size:24px;font-weight:700;color:var(--success)">${delivered.length}</div><div style="font-size:13px;color:var(--text-muted)">Delivered Orders</div></div>
+      <div><div style="font-size:24px;font-weight:700;color:var(--admin)">Rs.${total.toLocaleString()}</div><div style="font-size:13px;color:var(--tm)">Delivered Revenue</div></div>
+      <div><div style="font-size:24px;font-weight:700;color:var(--ok)">${del.length}</div><div style="font-size:13px;color:var(--tm)">Delivered Orders</div></div>
     </div>
     <div style="overflow-x:auto"><table class="tbl">
       <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Date</th></tr></thead>
-      <tbody>${delivered.map(o=>`<tr>
-        <td style="font-family:monospace">#${o.id.slice(0,6).toUpperCase()}</td>
-        <td>${o.address?.name||o.userEmail||'—'}</td>
-        <td>${(o.items||[]).length}</td>
-        <td><strong>Rs.${o.total}</strong></td>
-        <td style="font-size:12px">${o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():'—'}</td>
-      </tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:var(--text-muted)">No delivered orders</td></tr>'}</tbody>
+      <tbody>${del.map(o=>`<tr><td style="font-family:monospace">#${o.id.slice(0,6).toUpperCase()}</td><td>${o.address?.name||o.userEmail||'—'}</td><td>${(o.items||[]).length}</td><td><strong>Rs.${o.total}</strong></td><td style="font-size:12px">${o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():'—'}</td></tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:var(--tm)">No delivered orders</td></tr>'}</tbody>
     </table></div>`;
 }
 
-/* ── CSV EXPORTS ── */
-window.exportOrdersCSV = () => {
-  const rows = [['Order ID','Customer','Phone','Total','Status','Date','Suggestions'],
-    ...allOrders.map(o=>[o.id.slice(0,6).toUpperCase(),o.address?.name||o.userEmail||'',o.address?.phone||'',o.total||0,o.status,o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():'',o.suggestions||''])];
-  dlCSV(rows,'orders.csv');
-};
-window.exportRevenueCSV = () => {
-  const del  = allOrders.filter(o=>o.status==='delivered');
-  const rows = [['Order ID','Customer','Total','Date'],...del.map(o=>[o.id.slice(0,6).toUpperCase(),o.address?.name||'',o.total||0,o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():''])];
-  dlCSV(rows,'revenue.csv');
-};
-function dlCSV(rows,filename){ const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(rows.map(r=>r.join(',')).join('\n'));a.download=filename;a.click(); }
+/* ── CSV ── */
+window.exportOrdersCSV=()=>{ const rows=[['Order ID','Customer','Phone','Total','Status','Date','Note'],...allOrders.map(o=>[o.id.slice(0,6).toUpperCase(),o.address?.name||o.userEmail||'',o.address?.phone||'',o.total||0,o.status,o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():'',o.suggestions||''])]; dlCSV(rows,'orders.csv'); };
+window.exportRevenueCSV=()=>{ const del=allOrders.filter(o=>o.status==='delivered'); const rows=[['Order ID','Customer','Total','Date'],...del.map(o=>[o.id.slice(0,6).toUpperCase(),o.address?.name||'',o.total||0,o.createdAt?.toDate?o.createdAt.toDate().toLocaleDateString():''])]; dlCSV(rows,'revenue.csv'); };
+function dlCSV(rows,fn){ const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(rows.map(r=>r.join(',')).join('\n'));a.download=fn;a.click(); }
 
-/* ── SYSTEM SETTINGS — via firebase.js getSettings + updateSettings ── */
-async function loadSysSettings() {
-  try {
-    const s = await getSettings();
-    document.getElementById('sys-storename').value = s.storeName || '';
-    document.getElementById('sys-upi').value       = s.upi       || '';
-    document.getElementById('sys-phone').value     = s.phone     || '';
-    document.getElementById('sys-wa').value        = s.wa        || '';
-  } catch(e) {}
+/* ── SETTINGS ── */
+async function loadSysSettingsForm(){
+  try{const s=await getSettings();document.getElementById('sys-sname').value=s.storeName||'';document.getElementById('sys-upi').value=s.upi||'';document.getElementById('sys-phone').value=s.phone||'';document.getElementById('sys-wa').value=s.wa||'';}catch{}
 }
-window.saveSystemSettings = async () => {
-  await updateSettings({
-    storeName: document.getElementById('sys-storename').value,
-    upi:       document.getElementById('sys-upi').value,
-    phone:     document.getElementById('sys-phone').value,
-    wa:        document.getElementById('sys-wa').value
-  });
-  showToast('Settings saved!');
-};
-
-/* ── PROMOTE USER — via firebase.js promoteUserByEmail ── */
-window.promoteUser = async () => {
-  const email = document.getElementById('promote-email').value.trim();
-  const role  = document.getElementById('promote-role').value;
-  try {
-    await promoteUserByEmail(email, role);
-    const u = allUsers.find(x => x.email === email); if (u) u.role = role;
-    showToast(email + ' is now ' + role);
-  } catch(e) { showToast('Error: ' + e.message); }
-};
+window.saveSysSettings=async()=>{ await updateSettings({storeName:document.getElementById('sys-sname').value,upi:document.getElementById('sys-upi').value,phone:document.getElementById('sys-phone').value,wa:document.getElementById('sys-wa').value}); showToast('Settings saved!'); };
+window.promoteUser=async()=>{ const email=document.getElementById('promote-email').value.trim(),role=document.getElementById('promote-role').value; try{await promoteUserByEmail(email,role);const u=allUsers.find(x=>x.email===email);if(u)u.role=role;showToast(email+' is now '+role);}catch(e){showToast('Error: '+e.message);} };
 
 /* ── ACTIVITY LOG ── */
-function loadActivity() {
-  const log = [
-    ...allOrders.slice(0,8).map(o=>({icon:'🛒',text:`New order #${o.id.slice(0,6).toUpperCase()} by ${o.address?.name||o.userEmail||'Customer'}`,time:o.createdAt?.toDate?o.createdAt.toDate().toLocaleString():'',color:'#3498DB'})),
-    ...allUsers.slice(0,4).map(u=>({icon:'👤',text:`New user registered: ${u.name||u.email}`,time:u.createdAt?.toDate?u.createdAt.toDate().toLocaleString():'',color:'#27AE60'})),
-    ...allProducts.slice(0,4).map(p=>({icon:'📦',text:`Product added: ${p.name}`,time:p.createdAt?.toDate?p.createdAt.toDate().toLocaleString():'',color:'#C9A84C'})),
-  ].sort((a,b) => b.time.localeCompare(a.time));
-  document.getElementById('activity-log').innerHTML = log.length
-    ? log.map(l=>`<div class="log-item"><div class="log-icon" style="background:${l.color}22;color:${l.color};font-size:18px">${l.icon}</div><div><div class="log-text">${l.text}</div><div class="log-time">${l.time}</div></div></div>`).join('')
-    : '<p style="color:var(--text-muted);text-align:center;padding:20px">No activity yet</p>';
+function loadActivity(){
+  const log=[
+    ...allOrders.slice(0,8).map(o=>({icon:'🛒',text:`Order #${o.id.slice(0,6).toUpperCase()} by ${o.address?.name||o.userEmail||'Customer'}`,ts:o.createdAt?.seconds||0,color:'#3498DB'})),
+    ...allUsers.slice(0,4).map(u=>({icon:'👤',text:`User registered: ${u.name||u.email}`,ts:u.createdAt?.seconds||0,color:'#27AE60'})),
+    ...allProducts.slice(0,4).map(p=>({icon:'📦',text:`Product added: ${p.name}`,ts:p.createdAt?.seconds||0,color:'#C9A84C'})),
+  ].sort((a,b)=>b.ts-a.ts);
+  document.getElementById('activity-log').innerHTML=log.length
+    ? log.map(l=>`<div class="log-item"><div class="log-ico" style="background:${l.color}22;color:${l.color};font-size:18px">${l.icon}</div><div><div style="font-size:13px;color:var(--text)">${l.text}</div><div style="font-size:11px;color:var(--tm)">${l.ts?new Date(l.ts*1000).toLocaleString():'—'}</div></div></div>`).join('')
+    : '<p style="color:var(--tm);text-align:center;padding:20px">No activity yet</p>';
 }
 
 /* MODALS */
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
-window.closeModal = closeModal;
-document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open'); }));
+window.closeModal=id=>document.getElementById(id).classList.remove('open');
+document.querySelectorAll('.modal-ov').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 
 /* TOAST */
-window.showToast = msg => {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-};
+window.showToast=msg=>{const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);};
 </script>
 </body>
 </html>
